@@ -28,7 +28,7 @@ This checks both runnable projects, the enablement assistant evaluation set, and
 
 ## Showcase App
 
-A static review app lives in [docs/index.html](docs/index.html). It is designed for GitHub Pages and can be deployed by the `Deploy Showcase` workflow after Pages is configured to use GitHub Actions. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+A static review app lives in [docs/index.html](docs/index.html). It is designed for GitHub Pages and can be deployed by the `Deploy Showcase` workflow after Pages is configured to use GitHub Actions in the repository settings. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Senior Engineer Review Path
 

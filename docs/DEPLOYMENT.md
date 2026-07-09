@@ -11,6 +11,8 @@ In GitHub:
 3. Set the build and deployment source to GitHub Actions.
 4. Run the `Deploy Showcase` workflow or push a change under `docs/`.
 
+If the workflow fails at `Configure Pages`, the repository Pages source is not set to GitHub Actions yet, or Pages is not enabled for the repository.
+
 ## Local Preview
 
 Open `docs/index.html` directly in a browser. No server, package install, or secrets are required.
