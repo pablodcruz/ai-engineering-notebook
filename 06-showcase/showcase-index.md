@@ -28,6 +28,8 @@ The static showcase app lives at [../docs/index.html](../docs/index.html). It pr
 
 The Enablement Assistant has a deployed static demo at [../docs/enablement-assistant.html](../docs/enablement-assistant.html). It demonstrates grounded answers, citations, retrieved context, and refusal behavior without secrets or a runtime server.
 
+The Enablement Assistant eval report lives at [../docs/enablement-eval-report.html](../docs/enablement-eval-report.html). It renders exported CLI eval results from [../docs/enablement-eval-data.json](../docs/enablement-eval-data.json).
+
 StreamFlow has a deployed project report at [../docs/streamflow-report.html](../docs/streamflow-report.html).
 
 StreamFlow Phase 2 has a deployed analytics report at [../docs/streamflow-analytics-report.html](../docs/streamflow-analytics-report.html).

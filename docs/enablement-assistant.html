@@ -18,6 +18,7 @@
       </a>
       <nav aria-label="Primary navigation">
         <a href="index.html#projects">Projects</a>
+        <a href="enablement-eval-report.html">Eval Report</a>
         <a href="streamflow-dashboard.html">StreamFlow</a>
         <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/enablement-assistant">Source</a>
       </nav>
@@ -120,6 +121,9 @@
             <li>Use a model gateway with grounded-answer and refusal evals.</li>
             <li>Publish latency, cost, source-hit, and answer-quality telemetry.</li>
           </ul>
+          <div class="panel-action">
+            <a href="enablement-eval-report.html">Open eval report</a>
+          </div>
         </article>
       </section>
     </main>
@@ -227,7 +231,7 @@
                   <span>${chunk.source}:${chunk.lines}</span>
                 </div>
                 <p>${chunk.text}</p>
-                <em>score ${chunk.score.toFixed(2)} · matched ${chunk.matches.join(", ") || "none"}</em>
+                <em>score ${chunk.score.toFixed(2)} - matched ${chunk.matches.join(", ") || "none"}</em>
               </article>
             `).join("")
           : "<p>No matching chunks were retrieved.</p>";

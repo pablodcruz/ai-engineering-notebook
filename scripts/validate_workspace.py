@@ -19,6 +19,12 @@ def main() -> int:
             {},
         ),
         (
+            "enablement eval export freshness",
+            [sys.executable, "scripts/export_enablement_eval.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
             "local-ai-lab-runner tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT / "03-projects" / "local-ai-lab-runner",

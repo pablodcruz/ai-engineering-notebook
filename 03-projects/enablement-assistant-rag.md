@@ -57,6 +57,10 @@ Deployed static demo:
 
 [docs/enablement-assistant.html](../docs/enablement-assistant.html)
 
+Deployed eval report:
+
+[docs/enablement-eval-report.html](../docs/enablement-eval-report.html)
+
 Core behavior:
 
 - Loads markdown from the notebook.
@@ -145,6 +149,17 @@ Future checks:
 - Regression set for ambiguous questions.
 - Retrieval comparison across chunk sizes and hybrid search.
 
+### Eval Export
+
+The deployed eval report is generated from the same JSONL questions used by the CLI:
+
+```powershell
+python scripts/export_enablement_eval.py
+python scripts/export_enablement_eval.py --check
+```
+
+The workspace validator runs the `--check` path so the public eval data cannot drift from the current assistant behavior.
+
 ## Production Readiness Notes
 
 What is prototype-grade:
@@ -162,6 +177,17 @@ What is production-shaped:
 - Repeatable eval command.
 - Refusal behavior for unsupported questions.
 - No secrets or external services required for the baseline.
+
+### Production Hardening Path
+
+The next production version should preserve the same answer, citation, retrieval, and eval contracts while replacing prototype internals:
+
+- Retrieval: add embeddings, hybrid keyword search, metadata filters, and reranking.
+- Corpus governance: add stable document ids, source URLs, freshness metadata, permissions, and tenant boundaries.
+- Generation: route through a model gateway with a strict grounded-answer prompt and refusal policy.
+- Evaluation: gate changes with source-hit, refusal, citation precision, completeness, and regression checks.
+- Observability: log query terms, retrieved chunk ids, scores, latency, cost, model version, and user feedback.
+- Operations: add index refresh jobs, rollbackable index versions, auth, rate limits, and secret-managed configuration.
 
 ## Known Limitations
 

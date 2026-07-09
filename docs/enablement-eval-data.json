@@ -1,0 +1,265 @@
+{
+  "metadata": {
+    "project": "Enablement Assistant RAG",
+    "questions_file": "03-projects/enablement-assistant/evals/questions.jsonl",
+    "top_k": 5,
+    "corpus_root": ".",
+    "retriever": "local lexical TF-IDF",
+    "synthesizer": "extractive grounded answer"
+  },
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "answered": 3,
+    "refused": 1,
+    "source_hits": 4
+  },
+  "results": [
+    {
+      "question": "What are common RAG failure modes?",
+      "expected_sources": [
+        "02-labs/rag-lab.md"
+      ],
+      "should_answer": true,
+      "found": true,
+      "source_hit": true,
+      "found_ok": true,
+      "passed": true,
+      "answer": "Identify retrieval and generation failure modes. [S1] Common failure modes. [S2] Poor chunking loses meaning. [S3] Retrieval returns irrelevant context. [S3]",
+      "citations": [
+        {
+          "label": "S1",
+          "source_path": "02-labs/rag-lab.md",
+          "heading": "RAG Lab > Learning Objectives",
+          "start_line": 13,
+          "end_line": 16
+        },
+        {
+          "label": "S2",
+          "source_path": "02-labs/README.md",
+          "heading": "Labs > Lab Standards",
+          "start_line": 7,
+          "end_line": 17
+        },
+        {
+          "label": "S3",
+          "source_path": "01-concepts/rag.md",
+          "heading": "Retrieval-Augmented Generation > Common Failure Modes",
+          "start_line": 24,
+          "end_line": 29
+        }
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.351278,
+          "source_path": "02-labs/rag-lab.md",
+          "heading": "RAG Lab > Learning Objectives",
+          "start_line": 13,
+          "end_line": 16,
+          "preview": "- Explain the RAG pipeline. - Build a small document-question answering workflow. - Identify retrieval and generation failure modes. - Show retrieved context before producing an answer."
+        },
+        {
+          "rank": 2,
+          "score": 0.297504,
+          "source_path": "02-labs/README.md",
+          "heading": "Labs > Lab Standards",
+          "start_line": 7,
+          "end_line": 17,
+          "preview": "Every lab should include: - Learning objectives. - Skill level. - Prerequisites. - Setup steps. - Exercise steps. - Expected output. - Common failure modes. - Build notes. - Debrief questions."
+        },
+        {
+          "rank": 3,
+          "score": 0.240712,
+          "source_path": "01-concepts/rag.md",
+          "heading": "Retrieval-Augmented Generation > Common Failure Modes",
+          "start_line": 24,
+          "end_line": 29,
+          "preview": "- Poor chunking loses meaning. - Retrieval returns irrelevant context. - The answer ignores the retrieved context. - Source data is stale or low quality. - The app lacks citations or confidence checks. - The question req..."
+        },
+        {
+          "rank": 4,
+          "score": 0.221151,
+          "source_path": "00-meta/senior-review-guide.md",
+          "heading": "Senior Review Guide > Review Rubric",
+          "start_line": 33,
+          "end_line": 42,
+          "preview": "| Area | Strong Signal | Where It Shows Up | | --- | --- | --- | | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG | | Evaluation | Behavior is checked with repeatable ques..."
+        },
+        {
+          "rank": 5,
+          "score": 0.20149,
+          "source_path": "02-labs/api-sdk-integration-lab.md",
+          "heading": "API And SDK Integration Lab > Learning Objectives",
+          "start_line": 13,
+          "end_line": 17,
+          "preview": "- Make a first model API call. - Understand credentials and environment variables. - Modify a sample request. - Handle common errors. - Separate environment failures from model behavior."
+        }
+      ]
+    },
+    {
+      "question": "How should projects be documented?",
+      "expected_sources": [
+        "03-projects/README.md",
+        "03-projects/project-template.md"
+      ],
+      "should_answer": true,
+      "found": true,
+      "source_hit": true,
+      "found_ok": true,
+      "passed": true,
+      "answer": "Each project should include:\n- Problem statement. [S1] Architecture sketch. [S1] Setup instructions. [S1] Demo script. [S1]",
+      "citations": [
+        {
+          "label": "S1",
+          "source_path": "03-projects/README.md",
+          "heading": "Projects > Project Documentation Standard",
+          "start_line": 18,
+          "end_line": 26
+        }
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.389077,
+          "source_path": "03-projects/README.md",
+          "heading": "Projects > Project Documentation Standard",
+          "start_line": 18,
+          "end_line": 26,
+          "preview": "Each project should include: - Problem statement. - Architecture sketch. - Setup instructions. - Demo script. - Known limitations. - Troubleshooting notes. - Demo talking points."
+        },
+        {
+          "rank": 2,
+          "score": 0.248934,
+          "source_path": "03-projects/README.md",
+          "heading": "Projects",
+          "start_line": 3,
+          "end_line": 3,
+          "preview": "Projects are larger than labs. They should demonstrate practical AI engineering and trainer readiness."
+        },
+        {
+          "rank": 3,
+          "score": 0.233204,
+          "source_path": "03-projects/README.md",
+          "heading": "Projects > Recommended Portfolio Projects",
+          "start_line": 7,
+          "end_line": 14,
+          "preview": "| Project | What It Proves | | --- | --- | | Enablement Assistant RAG | RAG, document grounding, evaluation, and enterprise knowledge workflows. | | Local AI Lab Runner | Developer tooling, lab orchestration, troubleshoo..."
+        },
+        {
+          "rank": 4,
+          "score": 0.207347,
+          "source_path": "README.md",
+          "heading": "AI Engineering Notebook > Fast Validation",
+          "start_line": 26,
+          "end_line": 32,
+          "preview": "Run the full local quality gate: ```bash python scripts/validate_workspace.py ``` This checks documentation links, eval export freshness, runnable project tests, the Enablement Assistant evaluation set, and every lab's r..."
+        },
+        {
+          "rank": 5,
+          "score": 0.172439,
+          "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
+          "heading": "StreamFlow Phase 2 > Local Validation",
+          "start_line": 20,
+          "end_line": 27,
+          "preview": "These checks do not require Snowflake, Airflow, or Power BI: ```bash cd 03-projects/streamflow-enterprise-analytics-pipeline python -m unittest discover -s tests ``` The tests verify the expected project structure, requi..."
+        }
+      ]
+    },
+    {
+      "question": "What does the notebook say about vector databases?",
+      "expected_sources": [
+        "05-reference/glossary.md"
+      ],
+      "should_answer": true,
+      "found": true,
+      "source_hit": true,
+      "found_ok": true,
+      "passed": true,
+      "answer": "Vector database: a store optimized for similarity search over embeddings. [S1] Store embeddings in a vector database or search index. [S2] Return:\n- customer problem\n- likely product area\n- urgency: low, medium, or high\n- missing information\n- recommended next response\nIf the ticket does not contain enough information, say what is missing. [S3]",
+      "citations": [
+        {
+          "label": "S1",
+          "source_path": "05-reference/glossary.md",
+          "heading": "Glossary > AI And LLM Terms",
+          "start_line": 17,
+          "end_line": 20
+        },
+        {
+          "label": "S2",
+          "source_path": "01-concepts/rag.md",
+          "heading": "Retrieval-Augmented Generation > Basic Flow",
+          "start_line": 13,
+          "end_line": 20
+        },
+        {
+          "label": "S3",
+          "source_path": "02-labs/prompt-engineering-lab.md",
+          "heading": "Prompt Engineering Lab > Exercise",
+          "start_line": 33,
+          "end_line": 59
+        }
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.171863,
+          "source_path": "05-reference/glossary.md",
+          "heading": "Glossary > AI And LLM Terms",
+          "start_line": 17,
+          "end_line": 20,
+          "preview": "Temperature: a setting that influences output randomness. - Token: a text unit processed by a model. - Tool calling: allowing a model-driven app to request specific external functions. - Vector database: a store optimize..."
+        },
+        {
+          "rank": 2,
+          "score": 0.150676,
+          "source_path": "01-concepts/rag.md",
+          "heading": "Retrieval-Augmented Generation > Basic Flow",
+          "start_line": 13,
+          "end_line": 20,
+          "preview": "1. Ingest documents. 2. Split content into chunks. 3. Create embeddings for chunks. 4. Store embeddings in a vector database or search index. 5. Retrieve relevant chunks for a user question. 6. Pass retrieved context to ..."
+        },
+        {
+          "rank": 3,
+          "score": 0.107099,
+          "source_path": "02-labs/prompt-engineering-lab.md",
+          "heading": "Prompt Engineering Lab > Exercise",
+          "start_line": 33,
+          "end_line": 59,
+          "preview": "Start with a vague prompt: ```text Summarize this customer issue and tell me what to do. ``` Improve it into a structured prompt: ```text You are assisting a support operations team. Summarize the customer issue using on..."
+        },
+        {
+          "rank": 4,
+          "score": 0.103332,
+          "source_path": "05-reference/resource-log.md",
+          "heading": "Resource Log > Resource Quality Checklist",
+          "start_line": 12,
+          "end_line": 16,
+          "preview": "- Is it official documentation, a primary source, or a trusted technical source? - Is it current enough for the topic? - Does it include runnable examples? - Does it explain tradeoffs and limitations? - Can you turn it i..."
+        },
+        {
+          "rank": 5,
+          "score": 0.102411,
+          "source_path": "01-concepts/llm-fundamentals.md",
+          "heading": "LLM Fundamentals > What To Evaluate",
+          "start_line": 50,
+          "end_line": 54,
+          "preview": "- Does the output satisfy the task, not just sound fluent? - Does performance hold across realistic edge cases? - Are unsupported answers detected? - Are latency and cost acceptable for the user workflow? - Can failures ..."
+        }
+      ]
+    },
+    {
+      "question": "What is the capital of France?",
+      "expected_sources": [],
+      "should_answer": false,
+      "found": false,
+      "source_hit": true,
+      "found_ok": true,
+      "passed": true,
+      "answer": "I could not find this in the indexed sources.",
+      "citations": [],
+      "retrieved": []
+    }
+  ]
+}

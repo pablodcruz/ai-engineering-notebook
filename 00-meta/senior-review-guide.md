@@ -19,6 +19,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 
    - [Static showcase app](../docs/index.html)
    - [Enablement Assistant demo](../docs/enablement-assistant.html)
+   - [Enablement Assistant eval report](../docs/enablement-eval-report.html)
    - [StreamFlow analytics dashboard](../docs/streamflow-dashboard.html)
    - [Deployment notes](../docs/DEPLOYMENT.md)
 
@@ -32,7 +33,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | Area | Strong Signal | Where It Shows Up |
 | --- | --- | --- |
 | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG |
-| Evaluation | Behavior is checked with repeatable questions, tests, and source expectations | RAG evals and workspace validator |
+| Evaluation | Behavior is checked with repeatable questions, exported eval evidence, tests, and source expectations | RAG evals, eval report, and workspace validator |
 | Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |
 | Developer experience | Local failures are diagnosed before model behavior is blamed | Local AI Lab Runner |
 | Operability | Failure modes, setup paths, and troubleshooting are documented | Labs and explainers |
