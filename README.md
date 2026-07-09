@@ -1,5 +1,8 @@
 # AI Engineering Notebook
 
+[![Validate Workspace](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/validate.yml/badge.svg)](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/validate.yml)
+[![Deploy Showcase](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/deploy-showcase.yml/badge.svg)](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/deploy-showcase.yml)
+
 A personal lab for building modern AI software, writing down what works, and turning experiments into small demos.
 
 This is not a course repo or a role-prep packet. It is a builder's notebook: concepts, prototypes, debugging notes, patterns, and project writeups that show practical fluency with LLMs, RAG, agents, APIs, SDKs, cloud workflows, and AI product design.
