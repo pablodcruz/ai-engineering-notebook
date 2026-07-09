@@ -1,0 +1,5 @@
+{"question":"What are common RAG failure modes?","expected_sources":["02-labs/rag-lab.md"],"should_answer":true}
+{"question":"How should projects be documented?","expected_sources":["03-projects/README.md","03-projects/project-template.md"],"should_answer":true}
+{"question":"What does the notebook say about vector databases?","expected_sources":["05-reference/glossary.md"],"should_answer":true}
+{"question":"What is the capital of France?","expected_sources":[],"should_answer":false}
+
