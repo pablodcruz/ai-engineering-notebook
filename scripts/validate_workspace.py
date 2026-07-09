@@ -13,6 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> int:
     checks = [
         (
+            "documentation links",
+            [sys.executable, "scripts/check_links.py"],
+            ROOT,
+            {},
+        ),
+        (
             "local-ai-lab-runner tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT / "03-projects" / "local-ai-lab-runner",

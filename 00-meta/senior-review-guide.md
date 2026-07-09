@@ -18,6 +18,8 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 3. Review the deployable showcase:
 
    - [Static showcase app](../docs/index.html)
+   - [Enablement Assistant demo](../docs/enablement-assistant.html)
+   - [StreamFlow analytics dashboard](../docs/streamflow-dashboard.html)
    - [Deployment notes](../docs/DEPLOYMENT.md)
 
 4. Review the operational thinking:
@@ -31,10 +33,11 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | --- | --- | --- |
 | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG |
 | Evaluation | Behavior is checked with repeatable questions, tests, and source expectations | RAG evals and workspace validator |
+| Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |
 | Developer experience | Local failures are diagnosed before model behavior is blamed | Local AI Lab Runner |
 | Operability | Failure modes, setup paths, and troubleshooting are documented | Labs and explainers |
 | Safety | Tool boundaries, credential handling, and refusal behavior are explicit | Agent lab, API lab, RAG project |
-| Maintainability | One-command validation and CI make regressions visible | `scripts/validate_workspace.py` and GitHub Actions |
+| Maintainability | One-command validation, link checks, and CI make regressions visible | `scripts/validate_workspace.py`, `scripts/check_links.py`, and GitHub Actions |
 | Communication | Each artifact explains problem, architecture, limitations, and demo path | Project writeups and showcase |
 
 ## Questions A Senior Engineer Should Ask
@@ -51,4 +54,3 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 - No secrets are stored in the repo.
 - Prototypes favor observable local behavior over hidden managed services.
 - The static showcase is deployable, but GitHub Pages must be enabled from repository settings.
-

@@ -14,6 +14,19 @@ The interesting part of a RAG system is not only getting an answer. It is making
 
 ## Architecture
 
+```mermaid
+flowchart LR
+    Corpus["Trusted markdown corpus"] --> Loader["Document loader"]
+    Loader --> Chunker["Heading-aware chunker"]
+    Chunker --> Retriever["TF-IDF lexical retriever"]
+    Retriever --> Context["Ranked retrieved context"]
+    Context --> Synthesizer["Extractive answer synthesizer"]
+    Synthesizer --> Answer["Answer with citations"]
+    Synthesizer --> Refusal["Not found refusal"]
+    Eval["JSONL eval questions"] --> Retriever
+    Eval --> Synthesizer
+```
+
 ```text
 Markdown corpus
   -> document loader
@@ -39,6 +52,10 @@ Markdown corpus
 Runnable prototype:
 
 [03-projects/enablement-assistant/README.md](enablement-assistant/README.md)
+
+Deployed static demo:
+
+[docs/enablement-assistant.html](../docs/enablement-assistant.html)
 
 Core behavior:
 

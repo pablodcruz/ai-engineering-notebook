@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enablement Assistant Demo</title>
+    <meta
+      name="description"
+      content="Interactive static demo of the Enablement Assistant RAG prototype with grounded answers, citations, retrieved context, and refusal behavior."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="streamflow-dashboard.html">StreamFlow</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/enablement-assistant">Source</a>
+      </nav>
+    </header>
+
+    <main class="assistant-main">
+      <section class="assistant-shell" aria-labelledby="assistant-title">
+        <div class="assistant-intro">
+          <p class="eyebrow">Enablement Assistant RAG</p>
+          <h1 id="assistant-title">Ask the notebook. Inspect the evidence.</h1>
+          <p>
+            A static product demo of the runnable RAG prototype. It keeps the same
+            contract as the CLI: retrieve trusted markdown chunks, answer only from
+            the indexed sources, cite line ranges, and refuse unsupported questions.
+          </p>
+          <div class="assistant-flow" aria-label="RAG architecture">
+            <span>Markdown corpus</span>
+            <span>Chunk metadata</span>
+            <span>Lexical retrieval</span>
+            <span>Grounded answer</span>
+          </div>
+        </div>
+
+        <section class="assistant-console" aria-label="Interactive assistant">
+          <div class="query-card">
+            <label for="question-input">Question</label>
+            <textarea id="question-input" rows="3">What are common RAG failure modes?</textarea>
+            <div class="query-actions">
+              <button class="button primary" id="ask-button" type="button">Ask</button>
+              <button class="button" id="retrieve-button" type="button">Retrieve only</button>
+            </div>
+          </div>
+
+          <div class="preset-grid" aria-label="Example questions">
+            <button type="button" data-question="What are common RAG failure modes?">RAG failure modes</button>
+            <button type="button" data-question="How should projects be documented?">Project documentation</button>
+            <button type="button" data-question="What does the notebook say about vector databases?">Vector databases</button>
+            <button type="button" data-question="What is the capital of France?">Unsupported question</button>
+          </div>
+
+          <article class="answer-panel" aria-live="polite">
+            <div class="answer-heading">
+              <div>
+                <p class="eyebrow">Answer</p>
+                <h2 id="answer-status">Grounded response</h2>
+              </div>
+              <span id="answer-pill" class="health-pill">FOUND</span>
+            </div>
+            <p id="answer-text"></p>
+            <div id="citation-list" class="citation-list"></div>
+          </article>
+        </section>
+      </section>
+
+      <section class="assistant-evidence-grid" aria-label="Retrieved context and evaluation evidence">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Retrieval</p>
+              <h2>Retrieved Context</h2>
+            </div>
+            <span id="retrieval-count">0 chunks</span>
+          </div>
+          <div id="retrieval-list" class="retrieval-list"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Eval Set</p>
+              <h2>Regression Questions</h2>
+            </div>
+          </div>
+          <div class="eval-list">
+            <div>
+              <strong>4/4</strong>
+              <span>current evals pass in workspace validation</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>covered questions expect citations</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>uncovered question expects refusal</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Production Path</p>
+              <h2>What Changes Next</h2>
+            </div>
+          </div>
+          <ul class="compact-list">
+            <li>Swap lexical retrieval for hybrid embeddings and keyword search.</li>
+            <li>Add document freshness, permissions, and stable source URLs.</li>
+            <li>Use a model gateway with grounded-answer and refusal evals.</li>
+            <li>Publish latency, cost, source-hit, and answer-quality telemetry.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const corpus = [
+        {
+          source: "02-labs/rag-lab.md",
+          heading: "Common Failure Modes",
+          lines: "43-50",
+          text: "Wrong source retrieved is usually a chunking or query mismatch. Answer ignores sources when the prompt does not require grounding. Good answer with no traceability means source metadata is missing. Confident wrong answer happens when the corpus lacks the answer. Evaluation feels subjective when there is no fixed test set.",
+        },
+        {
+          source: "02-labs/rag-lab.md",
+          heading: "Exercise",
+          lines: "24-36",
+          text: "A RAG flow should load documents, split them into chunks, preserve file name, heading, and chunk id, retrieve top matches, print retrieved chunks, return an answer with source references, and return not found in sources when the answer is not covered by the corpus.",
+        },
+        {
+          source: "03-projects/README.md",
+          heading: "Project Documentation Standard",
+          lines: "13-24",
+          text: "Each project should include a problem statement, architecture sketch, setup instructions, demo script, known limitations, troubleshooting notes, and demo talking points.",
+        },
+        {
+          source: "03-projects/project-template.md",
+          heading: "Project Template",
+          lines: "1-35",
+          text: "The project template asks for problem, audience, why this matters, architecture, setup, demo script, evaluation, known limitations, troubleshooting, and demo talking points.",
+        },
+        {
+          source: "05-reference/glossary.md",
+          heading: "AI And LLM Terms",
+          lines: "3-19",
+          text: "A vector database is a store optimized for similarity search over embeddings. RAG is retrieval-augmented generation, a pattern that retrieves relevant context before generation. Grounding provides source context so an answer is based on supplied information.",
+        },
+      ];
+
+      const stopwords = new Set(["a", "an", "and", "are", "as", "be", "by", "for", "from", "how", "in", "is", "it", "of", "on", "or", "should", "the", "this", "to", "what", "with"]);
+      const questionInput = document.querySelector("#question-input");
+      const answerStatus = document.querySelector("#answer-status");
+      const answerPill = document.querySelector("#answer-pill");
+      const answerText = document.querySelector("#answer-text");
+      const citationList = document.querySelector("#citation-list");
+      const retrievalList = document.querySelector("#retrieval-list");
+      const retrievalCount = document.querySelector("#retrieval-count");
+
+      function tokenize(text) {
+        return (text.toLowerCase().match(/[a-z0-9][a-z0-9-]*/g) || [])
+          .filter((term) => !stopwords.has(term) && term.length > 1)
+          .map((term) => {
+            if (term.startsWith("document")) return "document";
+            if (term.length > 4 && term.endsWith("ies")) return `${term.slice(0, -3)}y`;
+            if (term.length > 4 && term.endsWith("ing")) return term.slice(0, -3);
+            if (term.length > 4 && term.endsWith("ed")) return term.slice(0, -2);
+            if (term.length > 3 && term.endsWith("s")) return term.slice(0, -1);
+            return term;
+          });
+      }
+
+      function retrieve(question) {
+        const terms = new Set(tokenize(question));
+        return corpus
+          .map((chunk) => {
+            const haystack = tokenize(`${chunk.heading} ${chunk.text}`);
+            const matches = haystack.filter((term) => terms.has(term));
+            const uniqueMatches = [...new Set(matches)];
+            const phraseBoost = [...terms].filter((term) => `${chunk.heading} ${chunk.text}`.toLowerCase().includes(term)).length * 0.01;
+            return {
+              ...chunk,
+              matches: uniqueMatches,
+              score: uniqueMatches.length / Math.max(terms.size, 1) + phraseBoost,
+            };
+          })
+          .filter((chunk) => chunk.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 4);
+      }
+
+      function synthesize(question, retrieved) {
+        const top = retrieved[0];
+        if (!top || top.score < 0.28 || top.matches.length < 2) {
+          return {
+            found: false,
+            answer: "I could not find this in the indexed sources.",
+            citations: [],
+          };
+        }
+
+        const citations = retrieved.filter((chunk) => chunk.score >= 0.28).slice(0, 2);
+        const answer = citations
+          .map((chunk, index) => `${chunk.text.split(". ").slice(0, 2).join(". ")} [S${index + 1}]`)
+          .join(" ");
+
+        return { found: true, answer, citations };
+      }
+
+      function renderRetrieval(retrieved) {
+        retrievalCount.textContent = `${retrieved.length} chunk${retrieved.length === 1 ? "" : "s"}`;
+        retrievalList.innerHTML = retrieved.length
+          ? retrieved.map((chunk, index) => `
+              <article>
+                <div>
+                  <strong>#${index + 1} ${chunk.heading}</strong>
+                  <span>${chunk.source}:${chunk.lines}</span>
+                </div>
+                <p>${chunk.text}</p>
+                <em>score ${chunk.score.toFixed(2)} · matched ${chunk.matches.join(", ") || "none"}</em>
+              </article>
+            `).join("")
+          : "<p>No matching chunks were retrieved.</p>";
+      }
+
+      function renderAnswer(mode = "ask") {
+        const question = questionInput.value.trim();
+        const retrieved = retrieve(question);
+        const result = synthesize(question, retrieved);
+        renderRetrieval(retrieved);
+
+        if (mode === "retrieve") {
+          answerStatus.textContent = "Retrieved context only";
+          answerPill.textContent = "TRACE";
+          answerPill.classList.remove("reject");
+          answerText.textContent = "Retrieval-only mode shows the evidence before synthesis, which is the fastest way to debug most RAG failures.";
+          citationList.innerHTML = "";
+          return;
+        }
+
+        answerStatus.textContent = result.found ? "Grounded response" : "Refusal";
+        answerPill.textContent = result.found ? "FOUND" : "NOT FOUND";
+        answerPill.classList.toggle("reject", !result.found);
+        answerText.textContent = result.answer;
+        citationList.innerHTML = result.citations
+          .map((chunk, index) => `
+            <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/${chunk.source}">
+              <span>S${index + 1}</span>
+              <strong>${chunk.source}</strong>
+              <em>${chunk.heading}, lines ${chunk.lines}</em>
+            </a>
+          `)
+          .join("");
+      }
+
+      document.querySelector("#ask-button").addEventListener("click", () => renderAnswer("ask"));
+      document.querySelector("#retrieve-button").addEventListener("click", () => renderAnswer("retrieve"));
+      document.querySelectorAll("[data-question]").forEach((button) => {
+        button.addEventListener("click", () => {
+          questionInput.value = button.dataset.question;
+          renderAnswer("ask");
+        });
+      });
+
+      renderAnswer("ask");
+    </script>
+  </body>
+</html>

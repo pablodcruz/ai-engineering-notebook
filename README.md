@@ -1,6 +1,7 @@
 # AI Engineering Notebook
 
 [![Validate Workspace](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/validate.yml/badge.svg)](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/validate.yml)
+[![Link Check](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/link-check.yml/badge.svg)](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/link-check.yml)
 [![Deploy Showcase](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/deploy-showcase.yml/badge.svg)](https://github.com/pablodcruz/ai-engineering-notebook/actions/workflows/deploy-showcase.yml)
 
 A personal lab for building modern AI software, writing down what works, and turning experiments into small demos.
@@ -10,13 +11,14 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 ## Start Here
 
 1. View the rendered showcase app: [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/).
-2. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
-3. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
-4. Capture technical understanding in [01-concepts](01-concepts).
-5. Build small runnable exercises in [02-labs](02-labs).
-6. Promote the best ideas into [03-projects](03-projects).
-7. Turn useful explanations and diagrams into [04-explainers](04-explainers).
-8. Collect polished demos and writeups in [06-showcase](06-showcase).
+2. Try the Enablement Assistant demo: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html).
+3. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
+4. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
+5. Capture technical understanding in [01-concepts](01-concepts).
+6. Build small runnable exercises in [02-labs](02-labs).
+7. Promote the best ideas into [03-projects](03-projects).
+8. Turn useful explanations and diagrams into [04-explainers](04-explainers).
+9. Collect polished demos and writeups in [06-showcase](06-showcase).
 
 ## Fast Validation
 
@@ -38,6 +40,10 @@ View the StreamFlow analytics dashboard:
 
 [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html)
 
+Try the Enablement Assistant RAG demo:
+
+[https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html)
+
 Source lives in [docs/index.html](docs/index.html).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&project-name=ai-engineering-notebook-showcase)
@@ -49,7 +55,7 @@ GitHub Pages currently serves the repository with the static app under `/docs/`.
 If you are reviewing this workspace quickly, start with:
 
 1. [Senior Review Guide](00-meta/senior-review-guide.md) for the review rubric and strongest evidence path.
-2. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) for grounded-answer architecture, evaluation, and citations.
+2. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) and [deployed RAG demo](docs/enablement-assistant.html) for grounded-answer architecture, evaluation, and citations.
 3. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
 4. [StreamFlow Phase 1](03-projects/streamflow-phase-1.md) for containerized stream processing, Spark, Airflow, and data quality.
 5. [StreamFlow Phase 2](03-projects/streamflow-phase-2.md) for Snowflake medallion layers, analytics modeling, Power BI semantics, and reconciliation checks.

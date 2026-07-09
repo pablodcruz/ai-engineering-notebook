@@ -26,6 +26,8 @@ cd 03-projects/local-ai-lab-runner && PYTHONPATH=src python -m local_ai_lab_runn
 
 The static showcase app lives at [../docs/index.html](../docs/index.html). It presents the strongest project evidence, lab maturity, and validation path for senior-engineer review.
 
+The Enablement Assistant has a deployed static demo at [../docs/enablement-assistant.html](../docs/enablement-assistant.html). It demonstrates grounded answers, citations, retrieved context, and refusal behavior without secrets or a runtime server.
+
 StreamFlow has a deployed project report at [../docs/streamflow-report.html](../docs/streamflow-report.html).
 
 StreamFlow Phase 2 has a deployed analytics report at [../docs/streamflow-analytics-report.html](../docs/streamflow-analytics-report.html).

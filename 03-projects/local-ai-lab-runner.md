@@ -14,6 +14,19 @@ Good enablement tooling separates environment failure from model behavior. A kno
 
 ## Architecture
 
+```mermaid
+flowchart LR
+    Labs["02-labs markdown files"] --> Discovery["Lab discovery"]
+    Discovery --> Parser["Structure parser"]
+    Parser --> Runtime["Runtime checks"]
+    Parser --> Credentials["Credential checks"]
+    Runtime --> Findings["PASS / WARN / FAIL findings"]
+    Credentials --> Findings
+    Findings --> Checkpoints["Checkpoint plan"]
+    Findings --> Json["JSON output"]
+    Findings --> Cli["CLI report"]
+```
+
 ```text
 Markdown lab files
   -> lab discovery
