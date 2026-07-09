@@ -408,15 +408,46 @@ footer {
   text-transform: uppercase;
 }
 
+.select-control {
+  display: block;
+  position: relative;
+}
+
+.select-control::after {
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  content: "";
+  height: 8px;
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-62%) rotate(45deg);
+  width: 8px;
+}
+
 .dashboard-controls select {
   appearance: none;
   background: #f6f8f4;
-  border: 1px solid var(--line);
+  border: 1px solid #bcc8c0;
   color: var(--ink);
+  cursor: pointer;
+  display: block;
   font: inherit;
   min-height: 42px;
-  padding: 9px 10px;
+  padding: 9px 38px 9px 10px;
   text-transform: none;
+  width: 100%;
+}
+
+.dashboard-controls select:hover {
+  border-color: var(--accent);
+}
+
+.dashboard-controls select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 107, 95, 0.14);
+  outline: none;
 }
 
 .kpi-grid,
