@@ -30,6 +30,8 @@ The static showcase app lives at [../docs/index.html](../docs/index.html). It pr
 - Runnable projects include tests and evals.
 - Labs share a readiness contract and can be checked by the local runner.
 - Project writeups explain architecture, limitations, troubleshooting, and demo paths.
+- [Senior Review Guide](../00-meta/senior-review-guide.md) names the strongest engineering signals.
+- [Production Readiness Checklist](../04-explainers/production-readiness-checklist.md) frames what would need to change before production.
 
 ## Polish Checklist
 

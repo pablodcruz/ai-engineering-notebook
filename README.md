@@ -31,10 +31,11 @@ A static review app lives in [docs/index.html](docs/index.html). It is designed 
 
 If you are reviewing this workspace quickly, start with:
 
-1. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) for grounded-answer architecture, evaluation, and citations.
-2. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
-3. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
-4. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
+1. [Senior Review Guide](00-meta/senior-review-guide.md) for the review rubric and strongest evidence path.
+2. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) for grounded-answer architecture, evaluation, and citations.
+3. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
+4. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
+5. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
 
 ## Workspace Map
 

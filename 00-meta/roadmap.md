@@ -57,3 +57,13 @@ Pick one item from a track and finish it as a small artifact:
 4. Record failure modes.
 5. Add a short explainer.
 6. Link it from the showcase index if it is worth sharing.
+
+## Current Quality Gate
+
+Before considering a batch complete, run:
+
+```bash
+python scripts/validate_workspace.py
+```
+
+Use [senior-review-guide.md](senior-review-guide.md) to decide whether the work demonstrates engineering judgment, not just implementation effort.
