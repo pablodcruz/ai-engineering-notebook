@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "StreamFlow Phase 2 Snowflake analytics and Power BI warehouse prototype"
 requires-python = ">=3.10"
 
+[project.optional-dependencies]
+snowflake = ["snowflake-connector-python>=3.12"]
+
 [tool.streamflow]
 phase = 2
 live_services = ["snowflake", "airflow", "powerbi"]
