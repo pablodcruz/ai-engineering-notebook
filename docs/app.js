@@ -29,6 +29,11 @@ const labs = [
     signal: "Data engineering",
     summary: "Frames Kafka-compatible streaming, Spark processing, Airflow orchestration, and data quality checks.",
   },
+  {
+    title: "StreamFlow Phase 2",
+    signal: "Analytics engineering",
+    summary: "Connects stream output to Snowflake medallion layers, Gold facts, Power BI measures, and reconciliation checks.",
+  },
 ];
 
 const list = document.querySelector("#lab-list");

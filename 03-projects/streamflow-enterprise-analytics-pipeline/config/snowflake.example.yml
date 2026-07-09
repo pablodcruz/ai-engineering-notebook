@@ -1,0 +1,20 @@
+snowflake:
+  account: your_account
+  user_env: SNOWFLAKE_USER
+  password_env: SNOWFLAKE_PASSWORD
+  role: STREAMFLOW_ROLE
+  warehouse: STREAMFLOW_WH
+  database: STREAMFLOW_DB
+
+schemas:
+  bronze: BRONZE
+  silver: SILVER
+  gold: GOLD
+
+pipeline:
+  stage_name: STREAMFLOW_STAGE
+  file_format: STREAMFLOW_JSON_FORMAT
+  parquet_file_format: STREAMFLOW_PARQUET_FORMAT
+  stream_topic: streamflow.events
+  ingest_run_id: local_001
+  source_path: ../streamflow-containerized-stream-processing/data/raw/events

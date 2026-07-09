@@ -52,6 +52,7 @@ Explore realistic app architecture without overbuilding.
 Build pipelines that make event and document data trustworthy enough for analytics, RAG, and evaluation.
 
 - StreamFlow containerized stream processing platform.
+- StreamFlow enterprise analytics pipeline with Snowflake and Power BI.
 - Spark data quality report over event data.
 - Batch dataset profiling for AI readiness.
 - Orchestrated summary job with explicit run metadata.

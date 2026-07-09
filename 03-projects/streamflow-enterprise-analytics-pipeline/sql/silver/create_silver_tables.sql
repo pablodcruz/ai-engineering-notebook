@@ -1,0 +1,31 @@
+CREATE SCHEMA IF NOT EXISTS STREAMFLOW_DB.SILVER;
+
+CREATE TABLE IF NOT EXISTS STREAMFLOW_DB.SILVER.SILVER_EVENTS (
+  event_id STRING NOT NULL,
+  event_type STRING NOT NULL,
+  entity_id STRING,
+  event_ts TIMESTAMP_NTZ NOT NULL,
+  event_date DATE NOT NULL,
+  source STRING NOT NULL,
+  amount NUMBER(18, 2),
+  currency STRING,
+  page STRING,
+  payload VARIANT NOT NULL,
+  stream_topic STRING NOT NULL,
+  ingest_run_id STRING NOT NULL,
+  source_file STRING,
+  loaded_at TIMESTAMP_NTZ NOT NULL,
+  transformed_at TIMESTAMP_NTZ NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  CONSTRAINT pk_silver_events PRIMARY KEY (event_id)
+);
+
+CREATE TABLE IF NOT EXISTS STREAMFLOW_DB.SILVER.SILVER_REJECTED_EVENTS (
+  rejection_id STRING NOT NULL,
+  raw_payload VARIANT,
+  rejection_reason STRING NOT NULL,
+  source_file STRING,
+  stream_topic STRING,
+  ingest_run_id STRING,
+  loaded_at TIMESTAMP_NTZ,
+  rejected_at TIMESTAMP_NTZ NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);

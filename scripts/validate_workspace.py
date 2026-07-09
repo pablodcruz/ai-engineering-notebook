@@ -36,6 +36,12 @@ def main() -> int:
             ROOT / "03-projects" / "streamflow-containerized-stream-processing",
             {},
         ),
+        (
+            "streamflow phase 2 tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT / "03-projects" / "streamflow-enterprise-analytics-pipeline",
+            {},
+        ),
     ]
 
     lab_root = ROOT / "02-labs"

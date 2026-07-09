@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StreamFlow Phase 2 Report</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#validation">Validation</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section deploy">
+        <div>
+          <p class="eyebrow">StreamFlow Phase 2</p>
+          <h1>Enterprise analytics pipeline</h1>
+          <p>
+            A Snowflake medallion architecture, Gold star schema, Airflow
+            orchestration template, and Power BI semantic contract built on top
+            of the StreamFlow Phase 1 event stream.
+          </p>
+        </div>
+        <div class="deploy-steps">
+          <span>01 Preserve raw payloads in Bronze</span>
+          <span>02 Type and deduplicate records in Silver</span>
+          <span>03 Publish facts and dimensions in Gold</span>
+          <span>04 Validate counts and joins before BI</span>
+          <span>05 Document dashboard measures and QA checks</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Warehouse story</p>
+          <h2>From stream output to business metrics</h2>
+          <p>
+            Phase 2 shows the handoff from data engineering to analytics
+            engineering: raw event files become audited warehouse layers,
+            reconciled reporting tables, and dashboard-ready measures.
+          </p>
+        </div>
+        <div class="evidence-grid">
+          <article>
+            <h3>Medallion SQL</h3>
+            <code>sql/bronze, sql/silver, sql/gold</code>
+            <p>Defines raw preservation, clean typed events, and BI-ready fact/dimension tables.</p>
+          </article>
+          <article>
+            <h3>Reconciliation</h3>
+            <code>tests/reconciliation_checks.sql</code>
+            <p>Checks row counts and dimensional join integrity before dashboard refresh.</p>
+          </article>
+          <article>
+            <h3>Semantic Layer</h3>
+            <code>powerbi/measures.md</code>
+            <p>Documents DAX measures and Snowflake queries used to validate dashboard totals.</p>
+          </article>
+        </div>
+        <p>
+          <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/streamflow-phase-2.md">Read the StreamFlow Phase 2 project record</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

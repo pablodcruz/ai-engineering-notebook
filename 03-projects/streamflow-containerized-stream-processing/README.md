@@ -125,6 +125,12 @@ Allowed sources:
 | `data/curated/daily_summary` | Batch summary output |
 | Airflow logs | Bounded orchestration history |
 
+## Next Phase
+
+StreamFlow Phase 2 continues from these outputs into Snowflake warehouse layers, Gold reporting tables, Power BI measures, and reconciliation checks:
+
+[../streamflow-phase-2.md](../streamflow-phase-2.md)
+
 ## Testing
 
 ```bash
