@@ -7,7 +7,13 @@ The showcase is a static app in this `docs/` folder. It can deploy through Verce
 GitHub Pages:
 
 ```text
-https://pablodcruz.github.io/ai-engineering-notebook/
+https://pablodcruz.github.io/ai-engineering-notebook/docs/
+```
+
+StreamFlow analytics dashboard:
+
+```text
+https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html
 ```
 
 ## Vercel Deployment
@@ -34,7 +40,15 @@ vercel
 
 ## GitHub Pages Deployment
 
-GitHub Pages requires one repository setting before the workflow can succeed.
+The current public URL shape includes `/docs/`, which means GitHub Pages is serving the repository root and the static showcase folder is part of the path.
+
+The included workflow can also deploy the `docs/` folder as a Pages artifact. In that mode, files inside `docs/` are served from the site root instead, so the dashboard URL becomes:
+
+```text
+https://pablodcruz.github.io/ai-engineering-notebook/streamflow-dashboard.html
+```
+
+To use the workflow deployment mode, GitHub Pages requires one repository setting before the workflow can succeed.
 
 In GitHub:
 
@@ -57,4 +71,4 @@ Workflow file:
 .github/workflows/deploy-showcase.yml
 ```
 
-The workflow uploads the `docs/` folder as a GitHub Pages artifact and deploys it to the `github-pages` environment. Because `docs/` is uploaded as the artifact root, files inside `docs/` are served from the site root.
+The workflow uploads the `docs/` folder as a GitHub Pages artifact and deploys it to the `github-pages` environment. Because `docs/` is uploaded as the artifact root, files inside `docs/` are served from the site root when GitHub Pages is configured to deploy from GitHub Actions.

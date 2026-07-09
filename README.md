@@ -9,8 +9,8 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 
 ## Start Here
 
-1. View the rendered showcase app: [https://pablodcruz.github.io/ai-engineering-notebook/](https://pablodcruz.github.io/ai-engineering-notebook/).
-2. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/streamflow-dashboard.html).
+1. View the rendered showcase app: [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/).
+2. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
 3. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
 4. Capture technical understanding in [01-concepts](01-concepts).
 5. Build small runnable exercises in [02-labs](02-labs).
@@ -32,17 +32,17 @@ This checks both runnable projects, the enablement assistant evaluation set, and
 
 View the rendered showcase app:
 
-[https://pablodcruz.github.io/ai-engineering-notebook/](https://pablodcruz.github.io/ai-engineering-notebook/)
+[https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/)
 
 View the StreamFlow analytics dashboard:
 
-[https://pablodcruz.github.io/ai-engineering-notebook/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/streamflow-dashboard.html)
+[https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html)
 
 Source lives in [docs/index.html](docs/index.html).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&project-name=ai-engineering-notebook-showcase)
 
-GitHub Pages serves the uploaded `docs/` artifact at the site root. The Vercel button is available as a fallback or alternate deployment path. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+GitHub Pages currently serves the repository with the static app under `/docs/`. The Vercel button is available as a fallback or alternate deployment path. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Senior Engineer Review Path
 
