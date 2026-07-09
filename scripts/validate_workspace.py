@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,20 +50,30 @@ def main() -> int:
         )
 
     failures = 0
+    started = time.monotonic()
     for name, command, cwd, extra_env in checks:
         print(f"\n== {name}")
         env = os.environ.copy()
         env.update(extra_env)
-        result = subprocess.run(command, cwd=cwd, env=env, text=True)
+        check_started = time.monotonic()
+        result = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True)
+        elapsed = time.monotonic() - check_started
+        if result.stdout.strip():
+            print(result.stdout.rstrip())
+        if result.stderr.strip():
+            print(result.stderr.rstrip())
         if result.returncode != 0:
             failures += 1
             print(f"FAILED: {name} exited {result.returncode}")
+        else:
+            print(f"OK: {name} ({elapsed:.2f}s)")
 
     if failures:
         print(f"\n{failures} workspace validation check(s) failed.")
         return 1
 
-    print("\nAll workspace validation checks passed.")
+    total_elapsed = time.monotonic() - started
+    print(f"\nAll workspace validation checks passed in {total_elapsed:.2f}s.")
     return 0
 
 
