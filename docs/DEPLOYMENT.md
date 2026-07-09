@@ -1,8 +1,32 @@
 # Showcase Deployment
 
-The showcase is a static app in this `docs/` folder. It is designed to deploy through GitHub Pages with GitHub Actions.
+The showcase is a static app in this `docs/` folder. It can deploy through Vercel or GitHub Pages.
 
-## Required Repository Setting
+## Vercel Deployment
+
+The repository includes a root [vercel.json](../vercel.json) file with:
+
+- `framework: null` for Vercel's "Other" framework preset.
+- `outputDirectory: "docs"` so the rendered site is served from the static showcase folder.
+- No install or build command because the app is plain HTML, CSS, and JavaScript.
+
+Deploy flow:
+
+1. Click the Vercel deploy button in the root README.
+2. Import `pablodcruz/ai-engineering-notebook`.
+3. Keep the root directory as the repository root.
+4. Deploy.
+5. Replace the README showcase section with the production Vercel URL once the project URL is known.
+
+The Vercel CLI is optional. If using it locally:
+
+```bash
+vercel
+```
+
+## GitHub Pages Deployment
+
+GitHub Pages requires one repository setting before the workflow can succeed.
 
 In GitHub:
 
@@ -17,7 +41,7 @@ If the workflow fails at `Configure Pages`, the repository Pages source is not s
 
 Open `docs/index.html` directly in a browser. No server, package install, or secrets are required.
 
-## Deployment Workflow
+## GitHub Pages Workflow
 
 Workflow file:
 
