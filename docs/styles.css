@@ -383,6 +383,13 @@ footer {
   max-width: 760px;
 }
 
+.data-status {
+  border-left: 3px solid var(--accent-3);
+  font-size: 0.94rem;
+  margin-bottom: 0;
+  padding-left: 12px;
+}
+
 .dashboard-controls {
   background: var(--panel);
   border: 1px solid var(--line);

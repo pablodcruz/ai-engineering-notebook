@@ -1,0 +1,164 @@
+{
+  "checks": [
+    {
+      "check_name": "gold_fact_matches_silver",
+      "failed_rows": 0
+    },
+    {
+      "check_name": "fact_event_type_join_integrity",
+      "failed_rows": 0
+    },
+    {
+      "check_name": "fact_date_join_integrity",
+      "failed_rows": 0
+    }
+  ],
+  "layerCounts": {
+    "bronze": 50,
+    "gold_fact": 46,
+    "silver_rejected": 4,
+    "silver_valid": 46
+  },
+  "metadata": {
+    "database": "STREAMFLOW_DB",
+    "exported_at": "2026-07-09T13:10:02Z",
+    "source": "snowflake",
+    "warehouse": "STREAMFLOW_WH"
+  },
+  "rejectedRows": [
+    {
+      "count": 2,
+      "reason": "invalid_payload"
+    },
+    {
+      "count": 1,
+      "reason": "duplicate_event_id"
+    },
+    {
+      "count": 1,
+      "reason": "missing_event_id"
+    }
+  ],
+  "rows": [
+    {
+      "date": "2026-06-30",
+      "entities": 3,
+      "eventType": "add_to_cart",
+      "events": 3,
+      "revenue": 0.0,
+      "source": "api"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 2,
+      "eventType": "purchase",
+      "events": 2,
+      "revenue": 254.88,
+      "source": "api"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 2,
+      "eventType": "video_play",
+      "events": 2,
+      "revenue": 0.0,
+      "source": "api"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 3,
+      "eventType": "add_to_cart",
+      "events": 3,
+      "revenue": 0.0,
+      "source": "mobile"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 3,
+      "eventType": "page_view",
+      "events": 3,
+      "revenue": 0.0,
+      "source": "mobile"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 5,
+      "eventType": "purchase",
+      "events": 6,
+      "revenue": 709.72,
+      "source": "mobile"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 3,
+      "eventType": "video_play",
+      "events": 3,
+      "revenue": 0.0,
+      "source": "mobile"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 2,
+      "eventType": "add_to_cart",
+      "events": 4,
+      "revenue": 0.0,
+      "source": "simulator"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 2,
+      "eventType": "page_view",
+      "events": 2,
+      "revenue": 0.0,
+      "source": "simulator"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 1,
+      "eventType": "purchase",
+      "events": 1,
+      "revenue": 164.97,
+      "source": "simulator"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 1,
+      "eventType": "video_play",
+      "events": 1,
+      "revenue": 0.0,
+      "source": "simulator"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 4,
+      "eventType": "add_to_cart",
+      "events": 4,
+      "revenue": 0.0,
+      "source": "web"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 5,
+      "eventType": "page_view",
+      "events": 5,
+      "revenue": 0.0,
+      "source": "web"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 4,
+      "eventType": "purchase",
+      "events": 4,
+      "revenue": 385.25,
+      "source": "web"
+    },
+    {
+      "date": "2026-06-30",
+      "entities": 3,
+      "eventType": "video_play",
+      "events": 3,
+      "revenue": 0.0,
+      "source": "web"
+    }
+  ]
+}

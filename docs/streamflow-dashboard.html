@@ -6,7 +6,7 @@
     <title>StreamFlow Analytics Dashboard</title>
     <meta
       name="description"
-      content="Interactive synthetic StreamFlow analytics dashboard showing Gold-layer KPIs, trends, quality checks, and reconciliation status."
+      content="Interactive StreamFlow analytics dashboard showing Snowflake Gold-layer KPIs, trends, quality checks, and reconciliation status."
     >
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -29,9 +29,10 @@
           <p class="eyebrow">StreamFlow Gold Layer</p>
           <h1 id="dashboard-title">Analytics Dashboard</h1>
           <p>
-            Public-safe synthetic data modeled after the Phase 2 Snowflake Gold schema.
+            Public-safe aggregate data exported from the Phase 2 Snowflake Gold schema.
             The measures mirror the documented Power BI DAX and reconciliation checks.
           </p>
+          <p id="data-status" class="data-status">Loading dashboard data...</p>
         </div>
         <div class="dashboard-controls" aria-label="Dashboard filters">
           <label>
@@ -128,7 +129,7 @@
               <p class="eyebrow">Warehouse</p>
               <h2>Layer Reconciliation</h2>
             </div>
-            <span class="health-pill">PASS</span>
+            <span class="health-pill" id="health-pill">PASS</span>
           </div>
           <div class="reconciliation-list">
             <div>
@@ -149,7 +150,7 @@
             </div>
             <div>
               <span>Failed checks</span>
-              <strong>0</strong>
+              <strong id="failed-count">0</strong>
             </div>
           </div>
         </article>
@@ -180,41 +181,83 @@
     </main>
 
     <script>
-      const sources = ["web", "mobile", "api", "simulator"];
-      const eventTypes = ["page_view", "add_to_cart", "purchase", "video_play"];
-      const dates = [
-        "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23",
-        "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30",
-      ];
-      const typeWeights = { page_view: 52, add_to_cart: 18, purchase: 11, video_play: 19 };
-      const sourceWeights = { web: 1.18, mobile: 1.04, api: 0.72, simulator: 0.46 };
-      const revenueByType = { page_view: 0, add_to_cart: 0, purchase: 72.4, video_play: 0 };
-      const rows = [];
+      let sources = [];
+      let eventTypes = [];
+      let dates = [];
+      let rows = [];
+      let rejectedRows = [];
+      let layerCounts = {};
+      let checks = [];
 
-      dates.forEach((date, dateIndex) => {
-        sources.forEach((source, sourceIndex) => {
-          eventTypes.forEach((eventType, eventIndex) => {
-            const dayFactor = 1 + dateIndex * 0.035;
-            const wave = ((dateIndex + sourceIndex + eventIndex) % 4) * 3;
-            const events = Math.round((typeWeights[eventType] + wave) * sourceWeights[source] * dayFactor);
-            rows.push({
-              date,
-              source,
-              eventType,
-              events,
-              entities: Math.max(4, Math.round(events * (eventType === "page_view" ? 0.62 : 0.48))),
-              revenue: Math.round(events * revenueByType[eventType] * (0.9 + sourceIndex * 0.04)),
+      function syntheticDataset() {
+        const fallbackSources = ["web", "mobile", "api", "simulator"];
+        const fallbackEventTypes = ["page_view", "add_to_cart", "purchase", "video_play"];
+        const fallbackDates = [
+          "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23",
+          "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30",
+        ];
+        const typeWeights = { page_view: 52, add_to_cart: 18, purchase: 11, video_play: 19 };
+        const sourceWeights = { web: 1.18, mobile: 1.04, api: 0.72, simulator: 0.46 };
+        const revenueByType = { page_view: 0, add_to_cart: 0, purchase: 72.4, video_play: 0 };
+        const fallbackRows = [];
+        fallbackDates.forEach((date, dateIndex) => {
+          fallbackSources.forEach((source, sourceIndex) => {
+            fallbackEventTypes.forEach((eventType, eventIndex) => {
+              const dayFactor = 1 + dateIndex * 0.035;
+              const wave = ((dateIndex + sourceIndex + eventIndex) % 4) * 3;
+              const events = Math.round((typeWeights[eventType] + wave) * sourceWeights[source] * dayFactor);
+              fallbackRows.push({
+                date,
+                source,
+                eventType,
+                events,
+                entities: Math.max(4, Math.round(events * (eventType === "page_view" ? 0.62 : 0.48))),
+                revenue: Math.round(events * revenueByType[eventType] * (0.9 + sourceIndex * 0.04)),
+              });
             });
           });
         });
-      });
+        const fallbackRejected = [
+          { reason: "invalid_event_ts", count: 17 },
+          { reason: "duplicate_event_id", count: 13 },
+          { reason: "invalid_source", count: 9 },
+          { reason: "missing_payload", count: 6 },
+        ];
+        const totalEvents = fallbackRows.reduce((total, row) => total + row.events, 0);
+        const rejected = fallbackRejected.reduce((total, row) => total + row.count, 0);
+        return {
+          metadata: { source: "synthetic fallback" },
+          rows: fallbackRows,
+          rejectedRows: fallbackRejected,
+          layerCounts: {
+            bronze: totalEvents + rejected,
+            silver_valid: totalEvents,
+            silver_rejected: rejected,
+            gold_fact: totalEvents,
+          },
+          checks: [],
+        };
+      }
 
-      const rejectedRows = [
-        { reason: "invalid_event_ts", count: 17 },
-        { reason: "duplicate_event_id", count: 13 },
-        { reason: "invalid_source", count: 9 },
-        { reason: "missing_payload", count: 6 },
-      ];
+      function normalizeDataset(payload) {
+        rows = (payload.rows || []).map((row) => ({
+          date: String(row.date).slice(0, 10),
+          source: row.source,
+          eventType: row.eventType || row.eventtype || row.event_type,
+          events: Number(row.events || 0),
+          entities: Number(row.entities || 0),
+          revenue: Number(row.revenue || 0),
+        }));
+        rejectedRows = (payload.rejectedRows || payload.rejected_rows || []).map((row) => ({
+          reason: row.reason || row.rejection_reason || "unknown",
+          count: Number(row.count || 0),
+        }));
+        layerCounts = payload.layerCounts || payload.layer_counts || {};
+        checks = payload.checks || [];
+        dates = [...new Set(rows.map((row) => row.date))].sort();
+        sources = [...new Set(rows.map((row) => row.source))].sort();
+        eventTypes = [...new Set(rows.map((row) => row.eventType))].sort();
+      }
 
       const sourceFilter = document.querySelector("#source-filter");
       const eventFilter = document.querySelector("#event-filter");
@@ -345,6 +388,7 @@
         const revenue = data.reduce((total, row) => total + row.revenue, 0);
         const purchases = data.filter((row) => row.eventType === "purchase").reduce((total, row) => total + row.events, 0);
         const rejected = rejectedRows.reduce((total, row) => total + row.count, 0);
+        const failedChecks = checks.reduce((total, row) => total + Number(row.failed_rows || row.failedRows || 0), 0);
 
         document.querySelector("#kpi-total-events").textContent = number(totalEvents);
         document.querySelector("#kpi-entities").textContent = number(totalEntities);
@@ -352,10 +396,12 @@
         document.querySelector("#kpi-revenue").textContent = dollars(revenue);
         document.querySelector("#trend-total").textContent = `${number(totalEvents)} events`;
 
-        document.querySelector("#bronze-count").textContent = number(totalEvents + rejected);
-        document.querySelector("#silver-count").textContent = number(totalEvents);
-        document.querySelector("#rejected-count").textContent = number(rejected);
-        document.querySelector("#gold-count").textContent = number(totalEvents);
+        document.querySelector("#bronze-count").textContent = number(layerCounts.bronze ?? totalEvents + rejected);
+        document.querySelector("#silver-count").textContent = number(layerCounts.silver_valid ?? totalEvents);
+        document.querySelector("#rejected-count").textContent = number(layerCounts.silver_rejected ?? rejected);
+        document.querySelector("#gold-count").textContent = number(layerCounts.gold_fact ?? totalEvents);
+        document.querySelector("#failed-count").textContent = number(failedChecks);
+        document.querySelector("#health-pill").textContent = failedChecks === 0 ? "PASS" : "CHECK";
 
         renderLineChart(data);
         renderBars("#event-type-bars", groupBy(data, "eventType"));
@@ -363,10 +409,34 @@
         renderQualityBars(totalEvents);
       }
 
-      addOptions(sourceFilter, sources);
-      addOptions(eventFilter, eventTypes);
-      [sourceFilter, eventFilter, windowFilter].forEach((select) => select.addEventListener("change", updateDashboard));
-      updateDashboard();
+      async function loadDashboardData() {
+        try {
+          const response = await fetch("streamflow-dashboard-data.json", { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          const payload = await response.json();
+          normalizeDataset(payload);
+          const metadata = payload.metadata || {};
+          document.querySelector("#data-status").textContent =
+            `Loaded Snowflake export from ${metadata.database || "STREAMFLOW_DB"} at ${metadata.exported_at || "unknown time"}.`;
+        } catch (error) {
+          const payload = syntheticDataset();
+          normalizeDataset(payload);
+          document.querySelector("#data-status").textContent =
+            "Using synthetic fallback data because the Snowflake export JSON was not available.";
+        }
+      }
+
+      async function initDashboard() {
+        await loadDashboardData();
+        addOptions(sourceFilter, sources);
+        addOptions(eventFilter, eventTypes);
+        [sourceFilter, eventFilter, windowFilter].forEach((select) => select.addEventListener("change", updateDashboard));
+        updateDashboard();
+      }
+
+      initDashboard();
     </script>
   </body>
 </html>

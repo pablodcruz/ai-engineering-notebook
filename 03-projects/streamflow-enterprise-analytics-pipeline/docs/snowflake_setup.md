@@ -98,6 +98,12 @@ To exercise the Snowflake internal stage path explicitly:
 python scripts\run_snowflake_pipeline.py --env-file .env.snowflake --no-proxy --reset-demo --load-mode stage
 ```
 
+Export the latest Gold-layer metrics into the deployed static dashboard data file:
+
+```powershell
+python scripts\export_dashboard_data.py --env-file .env.snowflake --no-proxy
+```
+
 Expected output:
 
 ```text
