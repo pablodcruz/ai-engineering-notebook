@@ -1,2 +1,0 @@
-[console_scripts]
-enablement-assistant = enablement_assistant.cli:main

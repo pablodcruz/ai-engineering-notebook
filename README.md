@@ -13,6 +13,25 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 5. Turn useful explanations and diagrams into [04-explainers](04-explainers).
 6. Collect polished demos and writeups in [06-showcase](06-showcase).
 
+## Fast Validation
+
+Run the full local quality gate:
+
+```bash
+python scripts/validate_workspace.py
+```
+
+This checks both runnable projects, the enablement assistant evaluation set, and every lab's readiness contract.
+
+## Senior Engineer Review Path
+
+If you are reviewing this workspace quickly, start with:
+
+1. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) for grounded-answer architecture, evaluation, and citations.
+2. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
+3. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
+4. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
+
 ## Workspace Map
 
 | Folder | Purpose |
