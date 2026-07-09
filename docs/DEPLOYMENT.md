@@ -2,6 +2,14 @@
 
 The showcase is a static app in this `docs/` folder. It can deploy through Vercel or GitHub Pages.
 
+## Live URL
+
+GitHub Pages:
+
+```text
+https://pablodcruz.github.io/ai-engineering-notebook/
+```
+
 ## Vercel Deployment
 
 The repository includes a root [vercel.json](../vercel.json) file with:
