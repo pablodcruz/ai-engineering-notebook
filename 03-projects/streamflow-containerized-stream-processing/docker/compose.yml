@@ -1,3 +1,5 @@
+name: streamflow
+
 services:
   redpanda:
     image: redpandadata/redpanda:v24.3.1
