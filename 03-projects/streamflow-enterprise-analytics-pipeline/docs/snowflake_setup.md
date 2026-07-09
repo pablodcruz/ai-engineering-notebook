@@ -51,7 +51,7 @@ Use a password you generate yourself and store locally. The next hardening step 
 
 ## Local Environment Variables
 
-In PowerShell, set these in your current terminal:
+Option A: in PowerShell, set these in your current terminal:
 
 ```powershell
 $env:SNOWFLAKE_ACCOUNT='your_account_identifier'
@@ -64,6 +64,15 @@ $env:SNOWFLAKE_SCHEMA='BRONZE'
 ```
 
 The account identifier does not include `.snowflakecomputing.com`.
+
+Option B: create an ignored local env file:
+
+```powershell
+Copy-Item config\snowflake.env.example .env.snowflake
+notepad .env.snowflake
+```
+
+Fill in the values locally. Do not commit `.env.snowflake`.
 
 ## Smoke Test
 
@@ -78,6 +87,12 @@ Verify the connection:
 
 ```powershell
 python scripts\snowflake_smoke_test.py
+```
+
+Or, if you used `.env.snowflake`:
+
+```powershell
+python scripts\snowflake_smoke_test.py --env-file .env.snowflake
 ```
 
 Expected output:

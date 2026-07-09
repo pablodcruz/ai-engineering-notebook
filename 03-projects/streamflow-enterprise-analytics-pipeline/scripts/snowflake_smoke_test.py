@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import argparse
 import os
+from pathlib import Path
 import sys
 
 
@@ -11,6 +13,22 @@ REQUIRED_ENV = (
     "SNOWFLAKE_WAREHOUSE",
     "SNOWFLAKE_DATABASE",
 )
+
+
+def load_env_file(path: Path) -> None:
+    if not path.exists():
+        raise RuntimeError(f"Environment file not found: {path}")
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "=" not in line:
+            raise RuntimeError(f"Invalid env file line: {raw_line!r}")
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
 
 
 def env(name: str, default: str | None = None) -> str | None:
@@ -47,7 +65,21 @@ def connection_kwargs() -> dict[str, str]:
     return {key: value for key, value in kwargs.items() if value}
 
 
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Validate local Snowflake connectivity for StreamFlow Phase 2.")
+    parser.add_argument("--env-file", type=Path, help="Optional local env file with SNOWFLAKE_* values.")
+    return parser
+
+
 def main() -> int:
+    args = build_parser().parse_args()
+    if args.env_file:
+        try:
+            load_env_file(args.env_file)
+        except Exception as exc:
+            print(f"Could not load env file: {exc}", file=sys.stderr)
+            return 2
+
     try:
         import snowflake.connector
     except ImportError:
