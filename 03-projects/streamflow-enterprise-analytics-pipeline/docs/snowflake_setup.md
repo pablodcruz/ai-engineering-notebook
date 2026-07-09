@@ -82,6 +82,22 @@ If your terminal has a local proxy variable that blocks direct Snowflake access,
 python scripts\snowflake_smoke_test.py --env-file .env.snowflake --no-proxy
 ```
 
+## Run The Demo Pipeline
+
+After the smoke test passes, run a small end-to-end warehouse load:
+
+```powershell
+python scripts\run_snowflake_pipeline.py --env-file .env.snowflake --no-proxy --reset-demo
+```
+
+The default demo path generates synthetic Phase 1 events, inserts them into Bronze, transforms Silver, builds Gold, and prints quality/reconciliation checks. This avoids the local `PUT` upload path, which can be slower and more environment-sensitive.
+
+To exercise the Snowflake internal stage path explicitly:
+
+```powershell
+python scripts\run_snowflake_pipeline.py --env-file .env.snowflake --no-proxy --reset-demo --load-mode stage
+```
+
 Expected output:
 
 ```text
