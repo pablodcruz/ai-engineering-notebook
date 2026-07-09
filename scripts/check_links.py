@@ -97,7 +97,7 @@ def check_link(link: Link, external_domains: set[str], site_base_urls: list[str]
         for base_url in site_base_urls:
             if target.startswith(base_url):
                 mapped_path = target.removeprefix(base_url).split("#", maxsplit=1)[0]
-                return check_local_path(link, mapped_path, target)
+                return check_local_path(link, mapped_path, target, base_dir=ROOT)
         if parsed.netloc not in external_domains:
             return None
         return check_external(link, target)
@@ -105,14 +105,20 @@ def check_link(link: Link, external_domains: set[str], site_base_urls: list[str]
     return check_local_path(link, parsed.path, target)
 
 
-def check_local_path(link: Link, target_path: str, original_target: str) -> str | None:
+def check_local_path(
+    link: Link,
+    target_path: str,
+    original_target: str,
+    *,
+    base_dir: Path | None = None,
+) -> str | None:
     if not target_path:
         return None
 
     if target_path.startswith("/"):
         candidate = ROOT / target_path.lstrip("/")
     else:
-        candidate = link.source.parent / unquote(target_path)
+        candidate = (base_dir or link.source.parent) / unquote(target_path)
 
     candidate = candidate.resolve()
     try:
