@@ -1,0 +1,86 @@
+services:
+  redpanda:
+    image: redpandadata/redpanda:v24.3.1
+    container_name: streamflow-redpanda
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - 1G
+      - --reserve-memory
+      - 0M
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:9092,OUTSIDE://0.0.0.0:19092
+      - --advertise-kafka-addr
+      - PLAINTEXT://redpanda:9092,OUTSIDE://localhost:19092
+    ports:
+      - "19092:19092"
+      - "9644:9644"
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  producer:
+    build:
+      context: ..
+      dockerfile: docker/producer.Dockerfile
+    environment:
+      STREAMFLOW_BROKER: redpanda:9092
+      STREAMFLOW_TOPIC: streamflow.events
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    volumes:
+      - ..:/opt/streamflow
+    working_dir: /opt/streamflow
+    command: ["python", "-m", "streamflow.producer", "--count", "100", "--broker", "redpanda:9092"]
+
+  spark:
+    image: bitnami/spark:3.5.3
+    container_name: streamflow-spark
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    environment:
+      STREAMFLOW_BROKER: redpanda:9092
+      STREAMFLOW_TOPIC: streamflow.events
+      STREAMFLOW_RAW_OUTPUT: data/raw/events
+      STREAMFLOW_REJECTS_OUTPUT: data/rejects/events
+      STREAMFLOW_CHECKPOINT: data/checkpoints/events
+      STREAMFLOW_SUMMARY_OUTPUT: data/curated/daily_summary
+    volumes:
+      - ..:/opt/streamflow
+    working_dir: /opt/streamflow
+    command: ["tail", "-f", "/dev/null"]
+
+  airflow:
+    build:
+      context: ..
+      dockerfile: docker/airflow.Dockerfile
+    container_name: streamflow-airflow
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+      AIRFLOW_STANDALONE_DAG_PROCESSOR: "true"
+      STREAMFLOW_HOME: /opt/streamflow
+      STREAMFLOW_RAW_OUTPUT: data/raw/events
+      STREAMFLOW_SUMMARY_OUTPUT: data/curated/daily_summary
+    ports:
+      - "8080:8080"
+    volumes:
+      - ..:/opt/streamflow
+      - ../airflow/dags:/opt/airflow/dags
+    working_dir: /opt/streamflow
+    command: ["airflow", "standalone"]

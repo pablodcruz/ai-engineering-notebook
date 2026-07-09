@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StreamFlow Phase 1 Report</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#validation">Validation</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section deploy">
+        <div>
+          <p class="eyebrow">StreamFlow Phase 1</p>
+          <h1>Containerized stream processing platform</h1>
+          <p>
+            A Kafka-compatible broker, Spark Structured Streaming ingest job,
+            bounded Spark summary job, Airflow DAG, and data quality contract
+            for event-driven data engineering practice.
+          </p>
+        </div>
+        <div class="deploy-steps">
+          <span>01 Producer publishes synthetic events</span>
+          <span>02 Spark consumes topic incrementally</span>
+          <span>03 Valid and rejected records are persisted</span>
+          <span>04 Airflow coordinates bounded summary work</span>
+          <span>05 Project record links architecture to tradeoffs</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Why it matters</p>
+          <h2>Data quality before AI quality</h2>
+          <p>
+            The project demonstrates how event data becomes trustworthy enough
+            for analytics, RAG corpora, and model evaluation workflows.
+          </p>
+        </div>
+        <div class="evidence-grid">
+          <article>
+            <h3>Streaming</h3>
+            <code>spark/jobs/streaming_ingest.py</code>
+            <p>Reads Kafka-compatible events and writes checkpointed Parquet outputs.</p>
+          </article>
+          <article>
+            <h3>Data Quality</h3>
+            <code>src/streamflow/quality.py</code>
+            <p>Separates valid events from rejected records with explicit reasons.</p>
+          </article>
+          <article>
+            <h3>Orchestration</h3>
+            <code>airflow/dags/streamflow_daily_summary.py</code>
+            <p>Coordinates bounded batch summary work instead of owning the streaming loop.</p>
+          </article>
+        </div>
+        <p>
+          <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/streamflow-phase-1.md">Read the StreamFlow project record</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

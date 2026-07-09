@@ -46,8 +46,9 @@ If you are reviewing this workspace quickly, start with:
 1. [Senior Review Guide](00-meta/senior-review-guide.md) for the review rubric and strongest evidence path.
 2. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md) for grounded-answer architecture, evaluation, and citations.
 3. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
-4. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
-5. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
+4. [StreamFlow Phase 1](03-projects/streamflow-phase-1.md) for containerized stream processing, Spark, Airflow, and data quality.
+5. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
+6. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
 
 ## Workspace Map
 
@@ -78,4 +79,5 @@ Each cycle should produce something concrete:
 - Tool-using agents with narrow permissions and observable steps.
 - API and SDK integration patterns.
 - Cloud-adjacent AI app architecture.
+- Data engineering and streaming platform foundations.
 - Debuggable developer workflows for AI prototypes.

@@ -24,6 +24,11 @@ const labs = [
     signal: "Operational judgment",
     summary: "Practices timed debugging for credentials, environments, retrieval, output format, and loops.",
   },
+  {
+    title: "StreamFlow Phase 1",
+    signal: "Data engineering",
+    summary: "Frames Kafka-compatible streaming, Spark processing, Airflow orchestration, and data quality checks.",
+  },
 ];
 
 const list = document.querySelector("#lab-list");

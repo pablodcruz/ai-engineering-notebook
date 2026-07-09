@@ -47,6 +47,15 @@ Explore realistic app architecture without overbuilding.
 - Storage plus retrieval index sketch.
 - Observability and cost logging checklist.
 
+## Track 6: Data Engineering For AI
+
+Build pipelines that make event and document data trustworthy enough for analytics, RAG, and evaluation.
+
+- StreamFlow containerized stream processing platform.
+- Spark data quality report over event data.
+- Batch dataset profiling for AI readiness.
+- Orchestrated summary job with explicit run metadata.
+
 ## Working Rhythm
 
 Pick one item from a track and finish it as a small artifact:

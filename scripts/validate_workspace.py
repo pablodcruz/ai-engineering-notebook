@@ -30,6 +30,12 @@ def main() -> int:
             ROOT / "03-projects" / "enablement-assistant",
             {"PYTHONPATH": "src"},
         ),
+        (
+            "streamflow phase 1 tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT / "03-projects" / "streamflow-containerized-stream-processing",
+            {},
+        ),
     ]
 
     lab_root = ROOT / "02-labs"

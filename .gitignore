@@ -28,6 +28,12 @@ build/
 out/
 coverage/
 .cache/
+03-projects/streamflow-containerized-stream-processing/data/raw/
+03-projects/streamflow-containerized-stream-processing/data/curated/
+03-projects/streamflow-containerized-stream-processing/data/rejects/
+03-projects/streamflow-containerized-stream-processing/data/checkpoints/
+03-projects/streamflow-containerized-stream-processing/data/sample/
+!03-projects/streamflow-containerized-stream-processing/data/.gitkeep
 
 # OS and editor noise
 .DS_Store
