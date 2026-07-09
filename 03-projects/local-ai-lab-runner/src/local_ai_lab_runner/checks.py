@@ -45,7 +45,7 @@ class CheckProfile:
 
 def profile_for_lab(lab: LabDocument | None) -> CheckProfile:
     required_env: tuple[str, ...] = ()
-    if lab and ("credential" in lab.text.lower() or "api key" in lab.text.lower()):
+    if lab and "OPENAI_API_KEY" in lab.text:
         required_env = ("OPENAI_API_KEY",)
     return CheckProfile(required_env=required_env)
 

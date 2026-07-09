@@ -26,6 +26,7 @@ dist/
 build/
 out/
 coverage/
+.cache/
 
 # OS and editor noise
 .DS_Store

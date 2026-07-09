@@ -6,9 +6,8 @@ Beginner.
 
 ## Learning Objectives
 
-- Understand credentials and API key handling.
+- Understand credentials and `OPENAI_API_KEY` handling.
 
 ## Exercise
 
 1. Set an API key.
-

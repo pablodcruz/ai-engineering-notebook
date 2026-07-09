@@ -49,7 +49,7 @@ ai-lab-runner sample
 - Recommended lab sections are present.
 - Python runtime meets the minimum version.
 - Required packages can be imported.
-- Required credential environment variables exist when applicable.
+- Explicit credential environment variables exist when applicable.
 - A known-good local sample can run without network access.
 
 ## Prototype Boundary

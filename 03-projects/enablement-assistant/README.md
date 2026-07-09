@@ -4,10 +4,21 @@ A runnable RAG-style assistant over this notebook's markdown corpus. It is inten
 
 ## Quick Start
 
+PowerShell:
+
 ```powershell
 cd 03-projects\enablement-assistant
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+pip install -e .
+```
+
+Bash or Git Bash:
+
+```bash
+cd 03-projects/enablement-assistant
+python -m venv .venv
+source .venv/Scripts/activate
 pip install -e .
 ```
 

@@ -11,7 +11,7 @@ Projects are larger than labs. They should demonstrate practical AI engineering 
 | Prompt Evaluation Harness | Prompt engineering, output quality checks, and repeatable improvement. |
 | Agentic Workflow Demo | Tool use, guardrails, observability, and workflow design. |
 
-## Project Standard
+## Project Documentation Standard
 
 Each project should include:
 
