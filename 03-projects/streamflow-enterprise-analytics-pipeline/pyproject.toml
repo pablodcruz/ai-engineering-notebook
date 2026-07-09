@@ -7,6 +7,9 @@ requires-python = ">=3.10"
 [project.optional-dependencies]
 snowflake = ["snowflake-connector-python>=3.12"]
 
+[tool.setuptools]
+py-modules = []
+
 [tool.streamflow]
 phase = 2
 live_services = ["snowflake", "airflow", "powerbi"]

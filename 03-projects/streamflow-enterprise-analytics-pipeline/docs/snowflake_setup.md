@@ -95,6 +95,12 @@ Or, if you used `.env.snowflake`:
 python scripts\snowflake_smoke_test.py --env-file .env.snowflake
 ```
 
+If your terminal has a local proxy variable that blocks direct Snowflake access, use:
+
+```powershell
+python scripts\snowflake_smoke_test.py --env-file .env.snowflake --no-proxy
+```
+
 Expected output:
 
 ```text

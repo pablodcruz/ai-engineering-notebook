@@ -68,11 +68,26 @@ def connection_kwargs() -> dict[str, str]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate local Snowflake connectivity for StreamFlow Phase 2.")
     parser.add_argument("--env-file", type=Path, help="Optional local env file with SNOWFLAKE_* values.")
+    parser.add_argument("--no-proxy", action="store_true", help="Clear proxy environment variables for this process.")
     return parser
+
+
+def clear_proxy_environment() -> None:
+    for name in (
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "ALL_PROXY",
+        "http_proxy",
+        "https_proxy",
+        "all_proxy",
+    ):
+        os.environ.pop(name, None)
 
 
 def main() -> int:
     args = build_parser().parse_args()
+    if args.no_proxy:
+        clear_proxy_environment()
     if args.env_file:
         try:
             load_env_file(args.env_file)
