@@ -18,33 +18,14 @@ Phase 1 files
 
 Use a dedicated role and user for this project instead of using a broad admin account.
 
-Run this in a Snowflake worksheet as an admin-capable role such as `ACCOUNTADMIN` for a trial account:
+Run `sql/admin/bootstrap_streamflow.sql` in a Snowflake worksheet as an admin-capable role such as `ACCOUNTADMIN` for a trial account.
+
+Replace the placeholder password before running:
 
 ```sql
-USE ROLE ACCOUNTADMIN;
-
-CREATE ROLE IF NOT EXISTS STREAMFLOW_ROLE;
-
-CREATE WAREHOUSE IF NOT EXISTS STREAMFLOW_WH
-  WAREHOUSE_SIZE = XSMALL
-  AUTO_SUSPEND = 60
-  AUTO_RESUME = TRUE
-  INITIALLY_SUSPENDED = TRUE;
-
-CREATE DATABASE IF NOT EXISTS STREAMFLOW_DB;
-
-GRANT USAGE ON WAREHOUSE STREAMFLOW_WH TO ROLE STREAMFLOW_ROLE;
-GRANT USAGE ON DATABASE STREAMFLOW_DB TO ROLE STREAMFLOW_ROLE;
-GRANT CREATE SCHEMA ON DATABASE STREAMFLOW_DB TO ROLE STREAMFLOW_ROLE;
-
 CREATE USER IF NOT EXISTS STREAMFLOW_AGENT
-  PASSWORD = '<create-a-strong-temporary-password-locally>'
-  DEFAULT_ROLE = STREAMFLOW_ROLE
-  DEFAULT_WAREHOUSE = STREAMFLOW_WH
-  DEFAULT_NAMESPACE = STREAMFLOW_DB.BRONZE
-  MUST_CHANGE_PASSWORD = FALSE;
-
-GRANT ROLE STREAMFLOW_ROLE TO USER STREAMFLOW_AGENT;
+  PASSWORD = '<replace-locally-before-running>'
+  ...
 ```
 
 Use a password you generate yourself and store locally. The next hardening step is key-pair authentication.

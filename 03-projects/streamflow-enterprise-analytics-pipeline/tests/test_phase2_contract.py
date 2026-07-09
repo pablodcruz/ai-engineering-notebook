@@ -18,6 +18,7 @@ class Phase2ContractTests(unittest.TestCase):
             "README.md",
             "config/snowflake.example.yml",
             "airflow/dags/snowflake_pipeline.py",
+            "sql/admin/bootstrap_streamflow.sql",
             "sql/bronze/create_bronze_tables.sql",
             "sql/bronze/load_bronze_events.sql",
             "sql/bronze/load_bronze_events_from_parquet.sql",
