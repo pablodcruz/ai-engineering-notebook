@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Engineering Notebook</title>
+    <meta
+      name="description"
+      content="A deployable showcase for production-shaped AI engineering prototypes, labs, and validation workflows."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="AI Engineering Notebook home">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#projects">Projects</a>
+        <a href="#labs">Labs</a>
+        <a href="#validation">Validation</a>
+        <a href="#deploy">Deploy</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="overview" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Senior-engineer review surface</p>
+          <h1>Production-shaped AI prototypes, grounded labs, and a visible quality gate.</h1>
+          <p>
+            This workspace demonstrates practical AI engineering through runnable RAG,
+            developer-experience tooling, repeatable labs, troubleshooting practice,
+            and automation that keeps the artifacts honest.
+          </p>
+          <div class="actions" aria-label="Primary actions">
+            <a class="button primary" href="../README.md">Open README</a>
+            <a class="button" href="../03-projects/enablement-assistant-rag.md">Review RAG Project</a>
+          </div>
+        </div>
+
+        <figure class="terminal-shot" aria-label="Workspace validation terminal output">
+          <figcaption>workspace quality gate</figcaption>
+          <pre><code>$ python scripts/validate_workspace.py
+enablement-assistant tests       PASS
+enablement-assistant eval        4/4
+local-ai-lab-runner tests        PASS
+lab readiness checks             PASS
+
+All workspace validation checks passed.</code></pre>
+        </figure>
+      </section>
+
+      <section class="metrics" aria-label="Workspace metrics">
+        <article>
+          <strong>2</strong>
+          <span>Runnable prototypes</span>
+        </article>
+        <article>
+          <strong>5</strong>
+          <span>Standardized labs</span>
+        </article>
+        <article>
+          <strong>1</strong>
+          <span>Workspace validation command</span>
+        </article>
+        <article>
+          <strong>0</strong>
+          <span>Required external services for baseline demos</span>
+        </article>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Runnable projects</p>
+          <h2>Evidence over claims</h2>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="card-topline">
+              <span class="status">Runnable</span>
+              <span>RAG</span>
+            </div>
+            <h3>Enablement Assistant RAG</h3>
+            <p>
+              Answers from trusted markdown sources, returns citations, exposes retrieved
+              context, and refuses unsupported questions.
+            </p>
+            <ul>
+              <li>Source-aware chunking and retrieval</li>
+              <li>Grounded answer contract</li>
+              <li>Evaluation set for retrieval and refusal behavior</li>
+            </ul>
+            <a href="../03-projects/enablement-assistant-rag.md">Read project record</a>
+          </article>
+
+          <article class="project-card">
+            <div class="card-topline">
+              <span class="status">Runnable</span>
+              <span>Developer Experience</span>
+            </div>
+            <h3>Local AI Lab Runner</h3>
+            <p>
+              Checks local readiness, lab structure, runtime state, package imports,
+              credentials, and checkpoint guidance before experiments begin.
+            </p>
+            <ul>
+              <li>PASS/WARN/FAIL findings</li>
+              <li>JSON output for automation</li>
+              <li>Simulated failure modes for demos</li>
+            </ul>
+            <a href="../03-projects/local-ai-lab-runner.md">Read project record</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="labs" class="section split">
+        <div class="section-heading">
+          <p class="eyebrow">Labs</p>
+          <h2>Repeatable learning loops</h2>
+          <p>
+            Each lab follows the same readiness contract: objectives, prerequisites,
+            setup, exercise, expected output, failure modes, build notes, and debrief.
+          </p>
+        </div>
+        <div class="lab-list" id="lab-list"></div>
+      </section>
+
+      <section id="validation" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Quality gate</p>
+          <h2>What senior reviewers can trust quickly</h2>
+        </div>
+        <div class="evidence-grid">
+          <article>
+            <h3>Single command</h3>
+            <code>python scripts/validate_workspace.py</code>
+            <p>Runs project tests, RAG evals, and lab readiness checks.</p>
+          </article>
+          <article>
+            <h3>CI ready</h3>
+            <code>.github/workflows/validate.yml</code>
+            <p>Runs the same validation command on push and pull request.</p>
+          </article>
+          <article>
+            <h3>Operational notes</h3>
+            <code>04-explainers/debugging-playbook.md</code>
+            <p>Shows how environment, credential, retrieval, and agent failures are triaged.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="deploy" class="section deploy">
+        <div>
+          <p class="eyebrow">Deployable surface</p>
+          <h2>Static by design</h2>
+          <p>
+            This app can be served by GitHub Pages with no runtime server, no secrets,
+            and no package install. The workflow uploads the `docs/` directory as the
+            Pages artifact and deploys it from GitHub Actions.
+          </p>
+        </div>
+        <div class="deploy-steps">
+          <span>01 Commit static app</span>
+          <span>02 Enable Pages from Actions</span>
+          <span>03 Run Deploy Showcase workflow</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>AI Engineering Notebook</span>
+      <a href="../06-showcase/showcase-index.md">Showcase Index</a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

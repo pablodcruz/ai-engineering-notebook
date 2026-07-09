@@ -20,6 +20,10 @@ cd 03-projects/enablement-assistant && PYTHONPATH=src python -m enablement_assis
 cd 03-projects/local-ai-lab-runner && PYTHONPATH=src python -m local_ai_lab_runner.cli run ../../02-labs/rag-lab.md
 ```
 
+## Deployable Showcase
+
+The static showcase app lives at [../docs/index.html](../docs/index.html). It presents the strongest project evidence, lab maturity, and validation path for senior-engineer review.
+
 ## Reviewer Signal
 
 - The workspace has a single validation command.

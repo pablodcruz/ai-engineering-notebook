@@ -23,6 +23,10 @@ python scripts/validate_workspace.py
 
 This checks both runnable projects, the enablement assistant evaluation set, and every lab's readiness contract.
 
+## Showcase App
+
+A static review app lives in [docs/index.html](docs/index.html). It is designed for GitHub Pages and can be deployed by the `Deploy Showcase` workflow after Pages is configured to use GitHub Actions.
+
 ## Senior Engineer Review Path
 
 If you are reviewing this workspace quickly, start with:
