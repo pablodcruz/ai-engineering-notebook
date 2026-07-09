@@ -30,13 +30,13 @@ This checks both runnable projects, the enablement assistant evaluation set, and
 
 View the rendered showcase app:
 
-[https://pablodcruz.github.io/ai-engineering-notebook/](https://pablodcruz.github.io/ai-engineering-notebook/)
+[https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/)
 
 Source lives in [docs/index.html](docs/index.html).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&project-name=ai-engineering-notebook-showcase)
 
-GitHub Pages deploys through the `Deploy Showcase` workflow. The Vercel button is available as a fallback or alternate deployment path. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+GitHub Pages currently serves the rendered app from `/docs/`. The Vercel button is available as a fallback or alternate deployment path. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Senior Engineer Review Path
 

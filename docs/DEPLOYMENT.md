@@ -7,7 +7,7 @@ The showcase is a static app in this `docs/` folder. It can deploy through Verce
 GitHub Pages:
 
 ```text
-https://pablodcruz.github.io/ai-engineering-notebook/
+https://pablodcruz.github.io/ai-engineering-notebook/docs/
 ```
 
 ## Vercel Deployment
@@ -57,4 +57,4 @@ Workflow file:
 .github/workflows/deploy-showcase.yml
 ```
 
-The workflow uploads the `docs/` folder as a GitHub Pages artifact and deploys it to the `github-pages` environment.
+The workflow uploads the `docs/` folder as a GitHub Pages artifact and deploys it to the `github-pages` environment. If repository settings are configured to deploy from a branch instead of Actions, the same app is still available at `/docs/`.
