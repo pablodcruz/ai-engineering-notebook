@@ -10,12 +10,13 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 ## Start Here
 
 1. View the rendered showcase app: [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/).
-2. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
-3. Capture technical understanding in [01-concepts](01-concepts).
-4. Build small runnable exercises in [02-labs](02-labs).
-5. Promote the best ideas into [03-projects](03-projects).
-6. Turn useful explanations and diagrams into [04-explainers](04-explainers).
-7. Collect polished demos and writeups in [06-showcase](06-showcase).
+2. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
+3. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
+4. Capture technical understanding in [01-concepts](01-concepts).
+5. Build small runnable exercises in [02-labs](02-labs).
+6. Promote the best ideas into [03-projects](03-projects).
+7. Turn useful explanations and diagrams into [04-explainers](04-explainers).
+8. Collect polished demos and writeups in [06-showcase](06-showcase).
 
 ## Fast Validation
 
@@ -32,6 +33,10 @@ This checks both runnable projects, the enablement assistant evaluation set, and
 View the rendered showcase app:
 
 [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/)
+
+View the StreamFlow analytics dashboard:
+
+[https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html)
 
 Source lives in [docs/index.html](docs/index.html).
 

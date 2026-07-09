@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StreamFlow Analytics Dashboard</title>
+    <meta
+      name="description"
+      content="Interactive synthetic StreamFlow analytics dashboard showing Gold-layer KPIs, trends, quality checks, and reconciliation status."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="streamflow-analytics-report.html">Phase 2 Report</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/streamflow-enterprise-analytics-pipeline">Source</a>
+      </nav>
+    </header>
+
+    <main class="dashboard-main">
+      <section class="dashboard-header" aria-labelledby="dashboard-title">
+        <div>
+          <p class="eyebrow">StreamFlow Gold Layer</p>
+          <h1 id="dashboard-title">Analytics Dashboard</h1>
+          <p>
+            Public-safe synthetic data modeled after the Phase 2 Snowflake Gold schema.
+            The measures mirror the documented Power BI DAX and reconciliation checks.
+          </p>
+        </div>
+        <div class="dashboard-controls" aria-label="Dashboard filters">
+          <label>
+            Source
+            <select id="source-filter">
+              <option value="all">All sources</option>
+            </select>
+          </label>
+          <label>
+            Event type
+            <select id="event-filter">
+              <option value="all">All events</option>
+            </select>
+          </label>
+          <label>
+            Window
+            <select id="window-filter">
+              <option value="14">Last 14 days</option>
+              <option value="7">Last 7 days</option>
+              <option value="3">Last 3 days</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Key performance indicators">
+        <article>
+          <span>Total Events</span>
+          <strong id="kpi-total-events">0</strong>
+          <small>Gold fact rows</small>
+        </article>
+        <article>
+          <span>Distinct Entities</span>
+          <strong id="kpi-entities">0</strong>
+          <small>Modeled users/devices</small>
+        </article>
+        <article>
+          <span>Purchase Rate</span>
+          <strong id="kpi-purchase-rate">0%</strong>
+          <small>Purchases / all events</small>
+        </article>
+        <article>
+          <span>Revenue</span>
+          <strong id="kpi-revenue">$0</strong>
+          <small>Purchase amount</small>
+        </article>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Dashboard visuals">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Trend</p>
+              <h2>Events Over Time</h2>
+            </div>
+            <span id="trend-total">0 events</span>
+          </div>
+          <svg id="trend-chart" class="line-chart" role="img" aria-label="Daily event trend chart"></svg>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Mix</p>
+              <h2>Events By Type</h2>
+            </div>
+          </div>
+          <div id="event-type-bars" class="bar-list"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Channel</p>
+              <h2>Events By Source</h2>
+            </div>
+          </div>
+          <div id="source-bars" class="bar-list"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Quality</p>
+              <h2>Rejected Records</h2>
+            </div>
+          </div>
+          <div id="quality-bars" class="bar-list compact"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Warehouse</p>
+              <h2>Layer Reconciliation</h2>
+            </div>
+            <span class="health-pill">PASS</span>
+          </div>
+          <div class="reconciliation-list">
+            <div>
+              <span>Bronze rows</span>
+              <strong id="bronze-count">0</strong>
+            </div>
+            <div>
+              <span>Silver valid</span>
+              <strong id="silver-count">0</strong>
+            </div>
+            <div>
+              <span>Rejected</span>
+              <strong id="rejected-count">0</strong>
+            </div>
+            <div>
+              <span>Gold fact rows</span>
+              <strong id="gold-count">0</strong>
+            </div>
+            <div>
+              <span>Failed checks</span>
+              <strong>0</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Evidence</p>
+              <h2>Metric Lineage</h2>
+            </div>
+          </div>
+          <div class="lineage-grid">
+            <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/streamflow-enterprise-analytics-pipeline/sql/gold/build_fact_events.sql">
+              <span>Fact build</span>
+              <strong>sql/gold/build_fact_events.sql</strong>
+            </a>
+            <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/streamflow-enterprise-analytics-pipeline/powerbi/measures.md">
+              <span>DAX measures</span>
+              <strong>powerbi/measures.md</strong>
+            </a>
+            <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/streamflow-enterprise-analytics-pipeline/tests/reconciliation_checks.sql">
+              <span>QA checks</span>
+              <strong>tests/reconciliation_checks.sql</strong>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const sources = ["web", "mobile", "api", "simulator"];
+      const eventTypes = ["page_view", "add_to_cart", "purchase", "video_play"];
+      const dates = [
+        "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23",
+        "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30",
+      ];
+      const typeWeights = { page_view: 52, add_to_cart: 18, purchase: 11, video_play: 19 };
+      const sourceWeights = { web: 1.18, mobile: 1.04, api: 0.72, simulator: 0.46 };
+      const revenueByType = { page_view: 0, add_to_cart: 0, purchase: 72.4, video_play: 0 };
+      const rows = [];
+
+      dates.forEach((date, dateIndex) => {
+        sources.forEach((source, sourceIndex) => {
+          eventTypes.forEach((eventType, eventIndex) => {
+            const dayFactor = 1 + dateIndex * 0.035;
+            const wave = ((dateIndex + sourceIndex + eventIndex) % 4) * 3;
+            const events = Math.round((typeWeights[eventType] + wave) * sourceWeights[source] * dayFactor);
+            rows.push({
+              date,
+              source,
+              eventType,
+              events,
+              entities: Math.max(4, Math.round(events * (eventType === "page_view" ? 0.62 : 0.48))),
+              revenue: Math.round(events * revenueByType[eventType] * (0.9 + sourceIndex * 0.04)),
+            });
+          });
+        });
+      });
+
+      const rejectedRows = [
+        { reason: "invalid_event_ts", count: 17 },
+        { reason: "duplicate_event_id", count: 13 },
+        { reason: "invalid_source", count: 9 },
+        { reason: "missing_payload", count: 6 },
+      ];
+
+      const sourceFilter = document.querySelector("#source-filter");
+      const eventFilter = document.querySelector("#event-filter");
+      const windowFilter = document.querySelector("#window-filter");
+
+      function addOptions(select, values) {
+        values.forEach((value) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = value.replaceAll("_", " ");
+          select.appendChild(option);
+        });
+      }
+
+      function number(value) {
+        return new Intl.NumberFormat("en-US").format(Math.round(value));
+      }
+
+      function dollars(value) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        }).format(Math.round(value));
+      }
+
+      function percent(value) {
+        return `${(value * 100).toFixed(1)}%`;
+      }
+
+      function visibleRows() {
+        const days = Number(windowFilter.value);
+        const activeDates = dates.slice(-days);
+        return rows.filter((row) => {
+          const sourceMatch = sourceFilter.value === "all" || row.source === sourceFilter.value;
+          const eventMatch = eventFilter.value === "all" || row.eventType === eventFilter.value;
+          return activeDates.includes(row.date) && sourceMatch && eventMatch;
+        });
+      }
+
+      function groupBy(data, key) {
+        return data.reduce((groups, row) => {
+          groups[row[key]] = (groups[row[key]] || 0) + row.events;
+          return groups;
+        }, {});
+      }
+
+      function renderBars(containerId, grouped) {
+        const container = document.querySelector(containerId);
+        const entries = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+        const max = Math.max(...entries.map((entry) => entry[1]), 1);
+        container.innerHTML = entries
+          .map(([label, value]) => {
+            const width = Math.max(3, Math.round((value / max) * 100));
+            return `
+              <div class="bar-row">
+                <div>
+                  <span>${label.replaceAll("_", " ")}</span>
+                  <strong>${number(value)}</strong>
+                </div>
+                <div class="bar-track" aria-hidden="true"><span style="width: ${width}%"></span></div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function renderLineChart(data) {
+        const chart = document.querySelector("#trend-chart");
+        const byDate = dates
+          .slice(-Number(windowFilter.value))
+          .map((date) => ({
+            date,
+            value: data.filter((row) => row.date === date).reduce((total, row) => total + row.events, 0),
+          }));
+        const width = 860;
+        const height = 280;
+        const pad = 34;
+        const max = Math.max(...byDate.map((point) => point.value), 1);
+        const points = byDate.map((point, index) => {
+          const x = pad + (index * (width - pad * 2)) / Math.max(byDate.length - 1, 1);
+          const y = height - pad - (point.value / max) * (height - pad * 2);
+          return { ...point, x, y };
+        });
+        const path = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
+        const area = `${path} L ${points.at(-1).x} ${height - pad} L ${points[0].x} ${height - pad} Z`;
+        chart.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        chart.innerHTML = `
+          <path class="chart-area" d="${area}"></path>
+          <path class="chart-line" d="${path}"></path>
+          ${points
+            .map(
+              (point) => `
+                <g>
+                  <circle class="chart-dot" cx="${point.x}" cy="${point.y}" r="4"></circle>
+                  <text x="${point.x}" y="${height - 8}" text-anchor="middle">${point.date.slice(5)}</text>
+                </g>
+              `,
+            )
+            .join("")}
+        `;
+      }
+
+      function renderQualityBars(totalEvents) {
+        const scale = Math.max(...rejectedRows.map((row) => row.count), 1);
+        const container = document.querySelector("#quality-bars");
+        container.innerHTML = rejectedRows
+          .map((row) => {
+            const width = Math.max(6, Math.round((row.count / scale) * 100));
+            const rate = totalEvents ? percent(row.count / (totalEvents + row.count)) : "0%";
+            return `
+              <div class="bar-row">
+                <div>
+                  <span>${row.reason.replaceAll("_", " ")}</span>
+                  <strong>${number(row.count)} <em>${rate}</em></strong>
+                </div>
+                <div class="bar-track reject" aria-hidden="true"><span style="width: ${width}%"></span></div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function updateDashboard() {
+        const data = visibleRows();
+        const totalEvents = data.reduce((total, row) => total + row.events, 0);
+        const totalEntities = data.reduce((total, row) => total + row.entities, 0);
+        const revenue = data.reduce((total, row) => total + row.revenue, 0);
+        const purchases = data.filter((row) => row.eventType === "purchase").reduce((total, row) => total + row.events, 0);
+        const rejected = rejectedRows.reduce((total, row) => total + row.count, 0);
+
+        document.querySelector("#kpi-total-events").textContent = number(totalEvents);
+        document.querySelector("#kpi-entities").textContent = number(totalEntities);
+        document.querySelector("#kpi-purchase-rate").textContent = percent(totalEvents ? purchases / totalEvents : 0);
+        document.querySelector("#kpi-revenue").textContent = dollars(revenue);
+        document.querySelector("#trend-total").textContent = `${number(totalEvents)} events`;
+
+        document.querySelector("#bronze-count").textContent = number(totalEvents + rejected);
+        document.querySelector("#silver-count").textContent = number(totalEvents);
+        document.querySelector("#rejected-count").textContent = number(rejected);
+        document.querySelector("#gold-count").textContent = number(totalEvents);
+
+        renderLineChart(data);
+        renderBars("#event-type-bars", groupBy(data, "eventType"));
+        renderBars("#source-bars", groupBy(data, "source"));
+        renderQualityBars(totalEvents);
+      }
+
+      addOptions(sourceFilter, sources);
+      addOptions(eventFilter, eventTypes);
+      [sourceFilter, eventFilter, windowFilter].forEach((select) => select.addEventListener("change", updateDashboard));
+      updateDashboard();
+    </script>
+  </body>
+</html>
