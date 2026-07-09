@@ -28,6 +28,26 @@ RAG retrieves relevant content from a knowledge source and passes that content i
 - The app lacks citations or confidence checks.
 - The question requires data the corpus does not contain.
 
+## Engineering Lens
+
+RAG quality is usually constrained by retrieval before it is constrained by generation. Debug the search results before rewriting the answer prompt.
+
+Design decisions to make explicit:
+
+- What documents are trusted enough to index?
+- How are chunks created and linked back to source locations?
+- Is retrieval keyword, vector, hybrid, or filtered by metadata?
+- What score or evidence threshold triggers "not found" behavior?
+- How are stale documents removed or re-indexed?
+
+## What To Evaluate
+
+- Source hit rate for known-answer questions.
+- Refusal behavior for out-of-corpus questions.
+- Citation precision.
+- Answer completeness from retrieved context.
+- Retrieval robustness across synonyms and ambiguous queries.
+
 ## How To Explain By Audience
 
 Developer: RAG is an application pattern that combines search, embeddings, context construction, generation, and evaluation.

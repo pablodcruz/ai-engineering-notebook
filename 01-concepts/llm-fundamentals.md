@@ -33,6 +33,26 @@ An LLM can help draft, summarize, classify, transform, and reason over language-
 - Model confidence is not the same as correctness.
 - Fine-tuning, RAG, and prompt engineering solve different problems.
 
+## Engineering Lens
+
+Treat the model as one component in a larger system. The application still owns:
+
+- Input shaping and context selection.
+- Permission checks and data boundaries.
+- Output validation and parsing.
+- User feedback and fallback behavior.
+- Logging, monitoring, and cost controls.
+
+Senior-level question: what parts of the workflow need probabilistic language behavior, and what parts should remain deterministic software?
+
+## What To Evaluate
+
+- Does the output satisfy the task, not just sound fluent?
+- Does performance hold across realistic edge cases?
+- Are unsupported answers detected?
+- Are latency and cost acceptable for the user workflow?
+- Can failures be explained from logs or traces?
+
 ## Explain It Back
 
 Explain LLMs in 60 seconds to:

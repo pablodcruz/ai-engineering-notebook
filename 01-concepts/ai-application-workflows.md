@@ -63,6 +63,25 @@ Flow:
 - User experience.
 - Change management.
 
+## Engineering Lens
+
+Choose the simplest workflow that creates enough reliability for the job. A prompted task, a RAG flow, and an agent are not maturity levels; they are different architectures with different risks.
+
+Decision rule:
+
+- Use prompted tasks when the input already contains enough information.
+- Use RAG when the answer must come from trusted external knowledge.
+- Use tools when the workflow needs current state or external actions.
+- Use human review when the output affects customers, compliance, money, or operations.
+
+## What To Evaluate
+
+- Whether the chosen workflow matches the user's risk level.
+- Which step is most likely to fail.
+- What evidence the user sees before trusting output.
+- How the workflow behaves when data is missing.
+- What should be automated and what should remain human-approved.
+
 ## Build Drill
 
 Pick one workflow and turn it into a small runnable demo.

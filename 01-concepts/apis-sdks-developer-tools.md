@@ -36,6 +36,26 @@ Help learners understand how AI capabilities become real applications through AP
 | Slow response | Large input, service latency, or network | Discuss streaming, timeouts, and user experience. |
 | Rate limit | Too many calls or small quota | Explain retries, backoff, and cost awareness. |
 
+## Engineering Lens
+
+A first API call proves connectivity, not application readiness. Production-grade integration also needs secret handling, timeouts, retries, structured errors, observability, and a known-good smoke test.
+
+Design decisions to make explicit:
+
+- Where credentials are loaded from.
+- How requests are retried without duplicating unsafe work.
+- What raw response fields are logged.
+- How provider-specific errors are mapped to user-facing guidance.
+- Which model, endpoint, and version are pinned for repeatability.
+
+## What To Evaluate
+
+- Authentication and configuration failure clarity.
+- Timeout and retry behavior.
+- Response parsing resilience.
+- Rate-limit and quota behavior.
+- Reproducibility across shells, virtual environments, and machines.
+
 ## Debug Drill
 
 Walk through how you would debug a failing first API call from symptoms to fix.

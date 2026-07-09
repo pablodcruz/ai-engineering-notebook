@@ -37,6 +37,26 @@ Prompt engineering alone may not solve:
 - Deterministic business logic.
 - High-volume evaluation and monitoring.
 
+## Engineering Lens
+
+A prompt is part of the product contract. Treat it like code that needs versioning, tests, and rollback discipline.
+
+Design decisions to make explicit:
+
+- Which input fields are allowed into the prompt?
+- Which instructions are stable system behavior versus task-specific context?
+- Which output fields are required?
+- What validation happens after the model responds?
+- What user-facing fallback appears when validation fails?
+
+## What To Evaluate
+
+- Output completeness against a rubric.
+- Format validity for structured outputs.
+- Hallucination behavior when source information is missing.
+- Sensitivity to prompt wording changes.
+- Regression behavior across a fixed test set.
+
 ## Lab Idea
 
 Create a messy support ticket and ask learners to:
