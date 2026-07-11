@@ -1,4 +1,4 @@
-# Project: Live Support Triage Studio
+# Project: Support Triage Review Console
 
 ## Problem
 
@@ -19,6 +19,8 @@ Support-operations leaders, AI engineers, solution architects, forward deployed 
 - [Prompt regression evidence](../docs/prompt-regression-report.html) for the prompt behind the workflow
 
 The same page works in two explicit modes. Recorded examples remain publicly available without inference cost. A configured Vercel deployment can run only three allowlisted synthetic cases through an access-code-protected live API. Technical reviewers can deploy their own copy without sharing a provider key with this site.
+
+The Review Console extends both modes with an explicit human decision. A reviewer can accept the model recommendation or correct its product area, urgency, and proposed response while recording an override reason. Review actions do not make another model call. Synthetic review records stay in browser-local storage until reset and can be exported as a versioned JSON evaluation artifact without the access code or ticket text.
 
 ## Verified Deployment
 
@@ -99,10 +101,12 @@ The manual **Live Triage Smoke Check** GitHub Actions workflow runs the same hea
 1. Start with the password-reset sample and identify the workflow decision.
 2. Run live triage and inspect the five output fields.
 3. Show the contract-pass badge, prompt version, model id, latency, token counts, and request id.
-4. Explain why the browser never receives the API key or prompt file.
-5. Open the prompt regression report and connect this one request to 15 fixed evaluation cases.
-6. Disconnect or use the GitHub Pages mirror, then load the explicitly recorded example.
-7. Ask the audience which classifications, escalation rules, and retention policies must change for their environment.
+4. Accept one recommendation, correct another, and show the agreement and override metrics.
+5. Export the sanitized synthetic review set and connect human corrections to future evaluation cases.
+6. Explain why the browser never receives the API key or prompt file and why review actions make no additional model call.
+7. Open the prompt regression report and connect this reviewed request to 15 fixed evaluation cases.
+8. Disconnect or use the GitHub Pages mirror, then load the explicitly recorded example.
+9. Ask the audience which classifications, escalation rules, review owners, and retention policies must change for their environment.
 
 ## Operational Controls
 
@@ -118,6 +122,8 @@ The manual **Live Triage Smoke Check** GitHub Actions workflow runs the same hea
 - Generic provider errors that do not expose internal exceptions.
 - Thirty-second browser timeout and no silent fallback.
 - Health endpoint that reports configuration presence without revealing secret values.
+- Browser-local human review with explicit accept/correct outcomes and required override reasons.
+- Sanitized, versioned export of synthetic model-versus-human decisions.
 
 ## Evaluation Story
 
@@ -128,7 +134,8 @@ The live workflow answers “Can a customer use it now?” The regression runner
 - The per-client limiter is not global across serverless instances; the aggregate daily ceiling is global.
 - A shared access code is not user identity or enterprise authorization.
 - The health endpoint checks configuration presence, not a billable provider call.
-- No ticket history, reviewer queue, human override, or customer-system integration is implemented.
+- No shared ticket history, authenticated reviewer identity, durable audit trail, or customer-system integration is implemented.
+- The review queue is synthetic and browser-local; it is not a shared operational work queue or audit system.
 - Public live mode intentionally cannot accept arbitrary customer tickets.
 - The deterministic schema validator cannot judge every subjective support-quality dimension.
 - “Not stored by app” does not define the model provider's data controls; the deployment owner must configure and disclose those separately.

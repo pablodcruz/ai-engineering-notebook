@@ -40,7 +40,7 @@ python -m prompt_regression.cli case T001 recorded\baseline-v1.json recorded\str
 python -m prompt_regression.cli case T015 recorded\baseline-v1.json recorded\structured-v2.json
 ```
 
-Then open the [Live Support Triage Studio](../docs/support-triage.html). Run T001 live when the Vercel service is configured, inspect its contract and telemetry, and compare that single request with the 15-case regression evidence. If the service is unavailable, use **Load recorded example** and call out the mode change explicitly.
+Then open the [Support Triage Review Console](../docs/support-triage.html). Run T001 live when the Vercel service is configured, inspect its contract and telemetry, and compare that single request with the 15-case regression evidence. Accept one recommendation, correct another with a reason, and show how human decisions can seed the next evaluation set without making another model call. If the service is unavailable, use **Load recorded example** and call out the mode change explicitly.
 
 ## Questions To Ask The Audience
 

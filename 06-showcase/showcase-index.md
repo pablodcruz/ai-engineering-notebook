@@ -13,7 +13,7 @@ Use this file to track artifacts that are polished enough to share.
 | Local AI Lab Runner | Runnable | Developer experience, readiness checks, and reproducible experiments | ../03-projects/local-ai-lab-runner.md |
 | Agentic Workflow Demo | Runnable | Typed tools, approval boundaries, structured traces, refusal behavior, and behavioral evals | ../03-projects/agentic-workflow-demo.md |
 | Prompt Regression Runner | Runnable | Prompt comparison, structured regression checks, recorded/live separation, and trainer facilitation | ../03-projects/prompt-regression-runner.md |
-| Live Support Triage Studio | Deploy-ready | Open recorded evidence, controlled synthetic live calls, a global spend ceiling, application validation, telemetry, and safe self-deployment | ../03-projects/live-support-triage-studio.md |
+| Support Triage Review Console | Live | Controlled synthetic model calls, human accept/correct decisions, review metrics, sanitized feedback export, layered cost controls, and safe self-deployment | ../03-projects/live-support-triage-studio.md |
 | StreamFlow Phase 1 | Scaffolded | Streaming data platform design, Spark jobs, Airflow orchestration, and data quality | ../03-projects/streamflow-phase-1.md |
 | StreamFlow Phase 2 | Scaffolded | Snowflake medallion modeling, BI semantic layer, Airflow orchestration, and reconciliation checks | ../03-projects/streamflow-phase-2.md |
 
@@ -39,7 +39,7 @@ The Agentic Workflow trace viewer lives at [../docs/agentic-workflow.html](../do
 
 The Prompt Regression report lives at [../docs/prompt-regression-report.html](../docs/prompt-regression-report.html). It compares two candidates across fixed support tickets and links aggregate scores to case-level failures.
 
-The Support Triage Studio lives at [../docs/support-triage.html](../docs/support-triage.html). It turns the same evaluated task into a customer-facing workflow, labels live and recorded execution separately, and exposes its cost controls. The [deploy-your-own guide](../docs/deploy-support-triage.html) keeps reviewer credentials and billing inside their own deployment.
+The Support Triage Review Console lives at [../docs/support-triage.html](../docs/support-triage.html). It turns the same evaluated task into a customer-facing workflow, labels live and recorded execution separately, captures human accept/correct decisions, exports synthetic feedback, and exposes its cost controls. The [deploy-your-own guide](../docs/deploy-support-triage.html) keeps reviewer credentials and billing inside their own deployment.
 
 StreamFlow has a deployed project report at [../docs/streamflow-report.html](../docs/streamflow-report.html).
 

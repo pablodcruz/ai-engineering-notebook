@@ -10,7 +10,7 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 
 ## Start Here
 
-1. Open the deployed Support Triage Studio: [https://ai-engineering-notebook.vercel.app/support-triage](https://ai-engineering-notebook.vercel.app/support-triage). Use recorded mode for the public, zero-cost walkthrough; the access-code path makes a real model call.
+1. Open the deployed Support Triage Review Console: [https://ai-engineering-notebook.vercel.app/support-triage](https://ai-engineering-notebook.vercel.app/support-triage). Use recorded mode for the public, zero-cost walkthrough; the access-code path makes a real model call, and review actions capture human feedback without another call.
 2. Inspect the Agentic Workflow trace viewer: [https://pablodcruz.github.io/ai-engineering-notebook/docs/agentic-workflow.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/agentic-workflow.html).
 3. Use the [GitHub Pages Support Triage mirror](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html) when you want the explicitly labeled recorded experience with no live backend.
 4. Compare prompt candidates in the Prompt Regression report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html).
@@ -62,7 +62,7 @@ Source lives in [docs/index.html](docs/index.html).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&project-name=ai-engineering-notebook-showcase)
 
-Vercel is the canonical runtime for the Support Triage Studio because it serves the Python API functions. GitHub Pages serves the static portfolio and explicitly recorded demos under `/docs/`. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Vercel is the canonical runtime for the Support Triage Review Console because it serves the Python API functions. GitHub Pages serves the static portfolio and explicitly recorded demos under `/docs/`. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Senior Engineer Review Path
 
@@ -71,7 +71,7 @@ If you are reviewing this workspace quickly, start with:
 1. [Senior Review Guide](00-meta/senior-review-guide.md) for the review rubric and strongest evidence path.
 2. [Agentic Workflow Demo](03-projects/agentic-workflow-demo.md) and [trace viewer](docs/agentic-workflow.html) for tool contracts, approval boundaries, refusal behavior, and observable execution.
 3. [Prompt Regression Runner](03-projects/prompt-regression-runner.md), [comparison report](docs/prompt-regression-report.html), and [facilitator guide](04-explainers/prompt-evaluation-facilitator-guide.md) for prompt versioning, structured regression checks, and trainer delivery.
-4. [Live Support Triage Studio](03-projects/live-support-triage-studio.md), [self-deployment guide](docs/deploy-support-triage.html), and [operating-economics explainer](04-explainers/ai-app-operating-economics.md) for a customer-facing workflow that connects generation, validation, cost controls, operations, and prompt evaluation evidence.
+4. [Support Triage Review Console](03-projects/live-support-triage-studio.md), [self-deployment guide](docs/deploy-support-triage.html), and [operating-economics explainer](04-explainers/ai-app-operating-economics.md) for a customer-facing workflow that connects generation, validation, human correction, cost controls, operations, and prompt evaluation evidence.
 4. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md), [deployed RAG demo](docs/enablement-assistant.html), and [eval report](docs/enablement-eval-report.html) for grounded-answer architecture, evaluation, and citations.
 5. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
 6. [StreamFlow Phase 1](03-projects/streamflow-phase-1.md) for containerized stream processing, Spark, Airflow, and data quality.

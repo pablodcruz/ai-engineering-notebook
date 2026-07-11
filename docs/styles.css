@@ -1442,6 +1442,114 @@ button:disabled {
   padding-top: 16px;
 }
 
+.review-intro {
+  max-width: 780px;
+}
+
+.compact-empty {
+  min-height: 150px;
+}
+
+.review-grid,
+.review-operations {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.review-grid label {
+  color: var(--muted);
+  display: grid;
+  font-size: 0.78rem;
+  font-weight: 760;
+  gap: 7px;
+  text-transform: uppercase;
+}
+
+.review-grid label span {
+  font-weight: 500;
+  text-transform: none;
+}
+
+.review-grid select,
+.review-grid textarea {
+  background: #fbfcfa;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  font: inherit;
+  padding: 11px;
+  width: 100%;
+}
+
+.review-grid select:focus,
+.review-grid textarea:focus {
+  border-color: var(--accent);
+  outline: 2px solid rgba(0, 107, 95, 0.15);
+}
+
+.review-wide {
+  grid-column: span 2;
+}
+
+.review-operations {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 22px;
+}
+
+.review-operations h3 {
+  margin-bottom: 12px;
+}
+
+.review-queue {
+  display: grid;
+  gap: 8px;
+}
+
+.review-queue button {
+  align-items: center;
+  background: #f6f8f4;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 11px 12px;
+  text-align: left;
+}
+
+.review-queue button:hover,
+.preset-grid button.selected {
+  border-color: var(--accent);
+}
+
+.review-queue strong {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.queue-accepted {
+  color: var(--accent);
+}
+
+.queue-overridden,
+.health-pill.review-corrected {
+  background: #fff2d8;
+  color: #76530a;
+}
+
+.queue-pending {
+  color: var(--muted);
+}
+
+button.button.danger {
+  border-color: #d8aaa3;
+  color: var(--accent-2);
+}
+
 .triage-input-panel textarea[readonly] {
   background: #f1f4f0;
   cursor: default;
@@ -1515,6 +1623,15 @@ button:disabled {
 
   .triage-layout {
     grid-template-columns: 1fr;
+  }
+
+  .review-grid,
+  .review-operations {
+    grid-template-columns: 1fr;
+  }
+
+  .review-wide {
+    grid-column: span 1;
   }
 
   .triage-layout .wide {

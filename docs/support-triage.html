@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Live Support Triage Studio</title>
+    <title>Support Triage Review Console</title>
     <meta
       name="description"
-      content="A live, validated support-ticket triage workflow with visible operational metadata and an explicit recorded fallback."
+      content="A live support-triage workflow with human review, browser-local feedback metrics, safe export, and an explicit recorded fallback."
     >
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -28,11 +28,12 @@
       <section class="triage-hero" aria-labelledby="triage-title">
         <div>
           <p class="eyebrow">Forward deployed workflow</p>
-          <h1 id="triage-title">Turn an unstructured ticket into a validated next step.</h1>
+          <h1 id="triage-title">Turn a model suggestion into a human-approved support decision.</h1>
           <p>
             This studio calls a server-side model with a versioned prompt, rejects output
             that breaks the application contract, and shows the operational evidence a
-            customer team needs to discuss deployment readiness.
+            customer team needs to discuss deployment readiness. A reviewer can then accept
+            or correct the suggestion and export the synthetic learning signal.
           </p>
         </div>
         <aside class="mode-card" aria-label="Current execution mode">
@@ -91,10 +92,82 @@
           <div id="triage-result" class="triage-result" hidden></div>
         </article>
 
+        <article class="visual-panel wide review-panel" id="review-console">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">3 · Human review</p>
+              <h2>Approve, correct, and capture the learning signal</h2>
+            </div>
+            <span id="review-state" class="health-pill neutral">AWAITING RESULT</span>
+          </div>
+          <p class="muted-copy review-intro">
+            Review never makes another model call. Decisions are stored only in this browser and
+            can be reset or exported as sanitized synthetic evaluation data.
+          </p>
+          <div id="review-empty" class="empty-result compact-empty">
+            <strong>Load a recommendation to begin review.</strong>
+            <p>The model suggestion remains separate from the human-approved outcome.</p>
+          </div>
+          <form id="review-form" hidden>
+            <div class="review-grid">
+              <label>Product area
+                <select id="review-product-area" required>
+                  <option value="authentication">Authentication</option>
+                  <option value="billing">Billing</option>
+                  <option value="integrations">Integrations</option>
+                  <option value="performance">Performance</option>
+                  <option value="account">Account</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </label>
+              <label>Urgency
+                <select id="review-urgency" required>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label class="review-wide">Recommended response
+                <textarea id="review-response" maxlength="1200" rows="4" required></textarea>
+              </label>
+              <label class="review-wide">Reviewer reason <span>(required when edited)</span>
+                <select id="review-reason">
+                  <option value="">Select a reason</option>
+                  <option value="taxonomy_correction">Taxonomy correction</option>
+                  <option value="urgency_correction">Urgency correction</option>
+                  <option value="response_improvement">Response improvement</option>
+                  <option value="policy_or_safety">Policy or safety correction</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+            </div>
+            <div class="triage-actions">
+              <button class="button primary" id="accept-review" type="button">Accept recommendation</button>
+              <button class="button" id="save-override" type="button">Save edited decision</button>
+            </div>
+            <p id="review-message" class="request-message" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="review-operations">
+            <div>
+              <h3>Synthetic queue</h3>
+              <div id="review-queue" class="review-queue"></div>
+            </div>
+            <div>
+              <h3>Review metrics</h3>
+              <div id="review-metrics" class="telemetry-grid"></div>
+            </div>
+          </div>
+          <div class="triage-actions">
+            <button class="button" id="export-reviews" type="button">Export sanitized JSON</button>
+            <button class="button danger" id="reset-reviews" type="button">Reset browser reviews</button>
+          </div>
+        </article>
+
         <article class="visual-panel wide">
           <div class="visual-heading">
             <div>
-              <p class="eyebrow">3 · Operational evidence</p>
+              <p class="eyebrow">4 · Operational evidence</p>
               <h2>What the application can prove</h2>
             </div>
           </div>
@@ -109,7 +182,7 @@
         <article class="visual-panel wide">
           <div class="visual-heading">
             <div>
-              <p class="eyebrow">4 · Cost boundary</p>
+              <p class="eyebrow">5 · Cost boundary</p>
               <h2>Free exploration without unbounded inference</h2>
             </div>
           </div>
@@ -158,7 +231,19 @@
       const emptyEl = document.querySelector("#empty-result");
       const resultEl = document.querySelector("#triage-result");
       const telemetryEl = document.querySelector("#telemetry-grid");
+      const reviewEmptyEl = document.querySelector("#review-empty");
+      const reviewForm = document.querySelector("#review-form");
+      const reviewStateEl = document.querySelector("#review-state");
+      const reviewMessageEl = document.querySelector("#review-message");
+      const reviewProductAreaEl = document.querySelector("#review-product-area");
+      const reviewUrgencyEl = document.querySelector("#review-urgency");
+      const reviewResponseEl = document.querySelector("#review-response");
+      const reviewReasonEl = document.querySelector("#review-reason");
+      const reviewQueueEl = document.querySelector("#review-queue");
+      const reviewMetricsEl = document.querySelector("#review-metrics");
+      const reviewStorageKey = "support-triage-review-console-v1";
       let selectedSampleId = samples[0].id;
+      let currentPayload = null;
 
       function escapeHtml(value) {
         return String(value ?? "—")
@@ -169,8 +254,156 @@
       }
 
       function selectSample(sample) {
+        const changedSample = selectedSampleId !== sample.id;
         selectedSampleId = sample.id;
         ticketEl.value = sample.ticket;
+        document.querySelectorAll("[data-sample]").forEach((button) => {
+          button.classList.toggle("selected", button.dataset.sample === sample.id);
+        });
+        if (changedSample && currentPayload) {
+          currentPayload = null;
+          reviewForm.hidden = true;
+          reviewEmptyEl.hidden = false;
+          reviewStateEl.textContent = "AWAITING RESULT";
+          reviewStateEl.className = "health-pill neutral";
+        }
+      }
+
+      function loadReviews() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(reviewStorageKey) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveReviews(reviews) {
+        localStorage.setItem(reviewStorageKey, JSON.stringify(reviews));
+      }
+
+      function recommendationChanged() {
+        if (!currentPayload) return false;
+        const model = currentPayload.result;
+        return reviewProductAreaEl.value !== model.product_area
+          || reviewUrgencyEl.value !== model.urgency
+          || reviewResponseEl.value.trim() !== model.recommended_response;
+      }
+
+      function prepareReview(payload) {
+        currentPayload = payload;
+        reviewProductAreaEl.value = payload.result.product_area;
+        reviewUrgencyEl.value = payload.result.urgency;
+        reviewResponseEl.value = payload.result.recommended_response;
+        reviewReasonEl.value = "";
+        reviewEmptyEl.hidden = true;
+        reviewForm.hidden = false;
+        reviewStateEl.textContent = "REVIEW REQUIRED";
+        reviewStateEl.className = "health-pill neutral";
+        reviewMessageEl.textContent = "Compare the recommendation with the human decision before saving.";
+      }
+
+      function renderReviewOperations() {
+        const reviews = loadReviews();
+        const latestBySample = new Map(reviews.map((review) => [review.sample_id, review]));
+        reviewQueueEl.innerHTML = samples.map((sample) => {
+          const review = latestBySample.get(sample.id);
+          const state = review ? (review.outcome === "accepted" ? "Accepted" : "Corrected") : "Pending";
+          return `<button type="button" data-queue-sample="${escapeHtml(sample.id)}">
+            <span>${escapeHtml(sample.id)} · ${escapeHtml(sample.title)}</span>
+            <strong class="queue-${review ? review.outcome : "pending"}">${state}</strong>
+          </button>`;
+        }).join("");
+        document.querySelectorAll("[data-queue-sample]").forEach((button) => {
+          button.addEventListener("click", () => selectSample(samples.find((sample) => sample.id === button.dataset.queueSample)));
+        });
+
+        const accepted = reviews.filter((review) => review.outcome === "accepted").length;
+        const corrected = reviews.filter((review) => review.outcome === "overridden").length;
+        const agreement = reviews.length ? Math.round((accepted / reviews.length) * 100) : 0;
+        reviewMetricsEl.innerHTML = `
+          <article><span>Reviews</span><strong>${reviews.length}</strong></article>
+          <article><span>Accepted</span><strong>${accepted}</strong></article>
+          <article><span>Corrected</span><strong>${corrected}</strong></article>
+          <article><span>Agreement</span><strong>${agreement}%</strong></article>
+        `;
+      }
+
+      function recordReview(outcome) {
+        if (!currentPayload) return;
+        if (!reviewResponseEl.value.trim()) {
+          reviewMessageEl.textContent = "The final recommended response cannot be empty.";
+          return;
+        }
+        const changed = recommendationChanged();
+        if (outcome === "accepted" && changed) {
+          reviewMessageEl.textContent = "The decision has edits. Save it as an edited decision or restore the original recommendation.";
+          return;
+        }
+        if (outcome === "overridden" && !changed) {
+          reviewMessageEl.textContent = "Change at least one decision field before saving an edited decision.";
+          return;
+        }
+        if (outcome === "overridden" && !reviewReasonEl.value) {
+          reviewMessageEl.textContent = "Choose a reviewer reason for the correction.";
+          return;
+        }
+
+        const reviews = loadReviews();
+        const record = {
+          schema_version: "review-v1",
+          review_id: `review_${Date.now()}_${selectedSampleId}`,
+          sample_id: selectedSampleId,
+          execution_mode: currentPayload.mode,
+          source_request_id: currentPayload.request_id,
+          prompt_version: currentPayload.telemetry?.prompt_version || "structured-v2",
+          outcome,
+          override_reason: outcome === "overridden" ? reviewReasonEl.value : null,
+          model_decision: {
+            product_area: currentPayload.result.product_area,
+            urgency: currentPayload.result.urgency,
+            recommended_response: currentPayload.result.recommended_response
+          },
+          final_decision: {
+            product_area: reviewProductAreaEl.value,
+            urgency: reviewUrgencyEl.value,
+            recommended_response: reviewResponseEl.value.trim()
+          },
+          reviewed_at: new Date().toISOString()
+        };
+        reviews.push(record);
+        saveReviews(reviews);
+        reviewStateEl.textContent = outcome === "accepted" ? "ACCEPTED" : "CORRECTED";
+        reviewStateEl.className = `health-pill ${outcome === "accepted" ? "" : "review-corrected"}`;
+        reviewMessageEl.textContent = outcome === "accepted"
+          ? "Human reviewer accepted the recommendation."
+          : "Human correction saved with its reason.";
+        renderReviewOperations();
+      }
+
+      function exportReviews() {
+        const reviews = loadReviews();
+        const exportPayload = {
+          schema_version: "support-triage-review-export-v1",
+          synthetic_data_only: true,
+          exported_at: new Date().toISOString(),
+          review_count: reviews.length,
+          reviews
+        };
+        const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "support-triage-synthetic-reviews.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function resetReviews() {
+        if (!window.confirm("Reset all browser-local synthetic reviews?")) return;
+        localStorage.removeItem(reviewStorageKey);
+        renderReviewOperations();
+        reviewMessageEl.textContent = "Browser-local review history reset.";
       }
 
       function renderResult(payload) {
@@ -203,6 +436,7 @@
         `;
         validationPill.textContent = payload.validation?.passed ? "CONTRACT PASSED" : "CONTRACT FAILED";
         validationPill.className = `health-pill ${payload.validation?.passed ? "" : "reject"}`;
+        prepareReview(payload);
       }
 
       function setMode(mode, title, copy) {
@@ -286,7 +520,12 @@
       });
       runButton.addEventListener("click", runLive);
       recordedButton.addEventListener("click", loadRecorded);
+      document.querySelector("#accept-review").addEventListener("click", () => recordReview("accepted"));
+      document.querySelector("#save-override").addEventListener("click", () => recordReview("overridden"));
+      document.querySelector("#export-reviews").addEventListener("click", exportReviews);
+      document.querySelector("#reset-reviews").addEventListener("click", resetReviews);
       selectSample(samples[0]);
+      renderReviewOperations();
     </script>
   </body>
 </html>

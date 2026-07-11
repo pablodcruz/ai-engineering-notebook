@@ -13,31 +13,32 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Agentic Workflow Demo | Typed tools, approval-gated simulated mutation, structured traces, behavioral evals, and a static trace viewer. |
 | RAG Evaluation Hardening | Balanced 18-case suite with citation-line checks, answer traits, partial-coverage refusal, adversarial cases, and CI-portable corpus exclusions. |
 | Prompt Regression Runner | Fifteen fixed support cases, two prompt candidates, eight deterministic checks, optional live recording, a comparison report, and a facilitator guide. |
-| Live Support Triage Studio | Deploy-ready browser workflow, controlled synthetic live calls, shared daily spend ceiling, kill switch, server-side structured generation, validation, telemetry, and safe self-deployment. |
+| Support Triage Review Console | Deployed synthetic live/recorded workflow, schema validation, layered cost controls, human accept/correct decisions, browser-local metrics, sanitized feedback export, and safe self-deployment. |
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 
-## Active: StreamFlow Integration Smoke Test
+## Active: Support Triage Review Console Verification
 
-Add one bounded end-to-end path that proves the containerized streaming components exchange real data under automation.
+Verify the human review extension as a teachable, deployed model-to-reviewer feedback loop.
 
 ### Minimum Scope
 
-- Start the smallest required container set.
-- Produce a deterministic event batch.
-- Consume or process the events through one real component boundary.
-- Assert record count, schema, and one failure-path behavior.
+- Load both recorded and live model recommendations.
+- Accept one decision and correct another with a required reason.
+- Verify browser-local queue state, metrics, reset, and sanitized export.
+- Confirm review actions create no additional provider calls.
 
 ### Definition Of Done
 
-- The smoke test is bounded and terminates without manual intervention.
-- CI or an explicitly documented opt-in workflow can run it reproducibly.
-- Failures identify the component boundary that broke.
-- Existing dependency-free validation remains fast.
-- Setup, cleanup, troubleshooting, and expected output are documented.
+- Review storage excludes ticket text, access codes, and credentials.
+- Model suggestions remain visibly separate from final human decisions.
+- Automated tests preserve the review and export safety contract.
+- The deployed walkthrough and project documentation explain how corrections become evaluation evidence.
+- The full workspace quality gate passes.
 
 ## Next
 
 1. Add lightweight linting, formatting, type checking, and coverage reporting.
+2. Add a bounded StreamFlow integration smoke test.
 
 ## Later
 
