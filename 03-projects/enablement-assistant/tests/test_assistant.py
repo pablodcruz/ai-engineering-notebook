@@ -36,6 +36,15 @@ class AssistantTests(unittest.TestCase):
         self.assertEqual(results[0].chunk.source_path, "rag.md")
         self.assertIn("Traceability", results[0].chunk.heading)
 
+    def test_specific_topic_heading_beats_generic_objective(self) -> None:
+        chunks = build_chunks(load_markdown_documents(FIXTURE_CORPUS))
+        retriever = TfIdfRetriever.from_chunks(chunks)
+
+        results = retriever.search("What are common RAG failure modes?", top_k=3)
+
+        self.assertTrue(results)
+        self.assertIn("Failure", results[0].chunk.heading)
+
     def test_answer_includes_citation_when_grounded(self) -> None:
         chunks = build_chunks(load_markdown_documents(FIXTURE_CORPUS))
         retriever = TfIdfRetriever.from_chunks(chunks)

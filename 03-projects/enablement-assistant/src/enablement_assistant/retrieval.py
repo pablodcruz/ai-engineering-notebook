@@ -81,6 +81,7 @@ class TfIdfRetriever:
         for chunk, vector in zip(self.chunks, self.vectors):
             score = _dot(query_vector, vector)
             score += _phrase_boost(query_terms, chunk)
+            score += _heading_boost(query_terms, chunk)
             if score > 0:
                 scored.append((score, chunk))
 
@@ -128,6 +129,13 @@ def _phrase_boost(query_terms: list[str], chunk: DocumentChunk) -> float:
     haystack = f"{chunk.heading} {chunk.text}".lower()
     matched = sum(1 for term in set(query_terms) if term in haystack)
     return min(matched * 0.01, 0.05)
+
+
+def _heading_boost(query_terms: list[str], chunk: DocumentChunk) -> float:
+    """Prefer a section whose heading directly names the user's topic."""
+    heading_terms = set(tokenize(chunk.heading))
+    matched = len(set(query_terms) & heading_terms)
+    return min(matched * 0.03, 0.12)
 
 
 def _normalize_token(term: str) -> str:

@@ -1,0 +1,23 @@
+{
+  "candidate": "baseline-v1",
+  "prompt_file": "prompts/baseline-v1.md",
+  "source": "recorded-training-fixture",
+  "model": null,
+  "outputs": [
+    {"case_id":"T001","output":"The customer cannot reset their password. Tell them to check spam and try again."},
+    {"case_id":"T002","output":{"customer_problem":"Company card charged twice for June","product_area":"billing","urgency":"medium","recommended_response":"Ask billing to look into the duplicate charge."}},
+    {"case_id":"T003","output":{"customer_problem":"Production webhook returns 500","product_area":"performance","urgency":"high","missing_information":["request logs"],"recommended_response":"Investigate the webhook failures with the engineering team."}},
+    {"case_id":"T004","output":"Dashboard is slow sometimes; monitor it and contact support if it gets worse."},
+    {"case_id":"T005","output":{"customer_problem":"Customer wants an account owner change","product_area":"account","urgency":"low","missing_information":[],"recommended_response":"Change the owner."}},
+    {"case_id":"T006","output":{"customer_problem":"Rotated production key returns invalid_api_key","product_area":"authentication","urgency":"high","missing_information":["environment and key prefix"],"recommended_response":"Confirm the active environment uses the newly rotated key before retrying."}},
+    {"case_id":"T007","output":"Invoice has the wrong tax amount. Send it to finance."},
+    {"case_id":"T008","output":{"customer_problem":"Customer needs SSO setup requirements","product_area":"authentication","urgency":"high","missing_information":[],"recommended_response":"Send the SSO documentation."}},
+    {"case_id":"T009","output":{"customer_problem":"Full-year CSV export times out while monthly exports work","product_area":"performance","urgency":"high","missing_information":["dataset size and exact time range"],"recommended_response":"Collect export size and timing, then reproduce with the same range."}},
+    {"case_id":"T010","output":"Reconnect Slack and see if notifications resume."},
+    {"case_id":"T011","output":{"customer_problem":"Signup email contains a typo","product_area":"account","urgency":"medium","missing_information":[],"recommended_response":"Update the email."}},
+    {"case_id":"T012","output":{"customer_problem":"Renewal card declined and access restricted","product_area":"billing","urgency":"high","missing_information":["decline code and payment attempt id"],"recommended_response":"Collect the decline code and payment attempt id before escalating billing."}},
+    {"case_id":"T013","output":{"customer_problem":"Customer wants a Python Flask webhook example","product_area":"integrations","urgency":"low","missing_information":[],"recommended_response":"Send docs."}},
+    {"case_id":"T014","output":"Mobile login is broken for some users. Escalate to engineering."},
+    {"case_id":"T015","output":{"customer_problem":"It does not work","product_area":"unknown","urgency":"low","missing_information":["affected product","reproduction steps","exact error"],"recommended_response":"Ask which product is affected, what steps reproduce the issue, and the exact error shown."}}
+  ]
+}

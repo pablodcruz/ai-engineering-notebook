@@ -31,6 +31,18 @@ def main() -> int:
             {},
         ),
         (
+            "prompt regression export freshness",
+            [sys.executable, "scripts/export_prompt_regression.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
+            "live support triage gateway tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT,
+            {},
+        ),
+        (
             "local-ai-lab-runner tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT / "03-projects" / "local-ai-lab-runner",
@@ -58,6 +70,25 @@ def main() -> int:
             "agentic-workflow-demo eval",
             [sys.executable, "-m", "agentic_workflow.cli", "eval"],
             ROOT / "03-projects" / "agentic-workflow-demo",
+            {"PYTHONPATH": "src"},
+        ),
+        (
+            "prompt-regression-runner tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT / "03-projects" / "prompt-regression-runner",
+            {},
+        ),
+        (
+            "prompt-regression-runner comparison",
+            [
+                sys.executable,
+                "-m",
+                "prompt_regression.cli",
+                "compare",
+                "recorded/baseline-v1.json",
+                "recorded/structured-v2.json",
+            ],
+            ROOT / "03-projects" / "prompt-regression-runner",
             {"PYTHONPATH": "src"},
         ),
         (

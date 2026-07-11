@@ -11,7 +11,8 @@ Projects are larger than labs. They should demonstrate practical AI engineering 
 | Shipped | [StreamFlow Phase 1](streamflow-phase-1.md) | Kafka-compatible streaming, Spark processing, Airflow orchestration, and data quality. |
 | Shipped | [StreamFlow Phase 2](streamflow-phase-2.md) | Snowflake medallion architecture, star schema modeling, Power BI measures, and reconciliation checks. |
 | Shipped | [Agentic Workflow Demo](agentic-workflow-demo.md) | Tool use, guardrails, observability, approval boundaries, and workflow design. |
-| Active | Prompt Evaluation Harness | Prompt engineering, structured-output checks, and repeatable improvement. |
+| Shipped | [Prompt Regression Runner](prompt-regression-runner.md) | Prompt versioning, structured-output checks, regression evidence, and trainer delivery. |
+| Deploy-ready | [Live Support Triage Studio](live-support-triage-studio.md) | A live server-side model workflow, schema validation, operational telemetry, privacy boundaries, and an explicit recorded fallback. |
 
 See the [roadmap](../00-meta/roadmap.md) for the active milestone's scope and definition of done.
 

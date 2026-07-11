@@ -12,6 +12,8 @@ Use this file to track artifacts that are polished enough to share.
 | Enablement Assistant RAG | Runnable | RAG app architecture, source traceability, and evals | ../03-projects/enablement-assistant-rag.md |
 | Local AI Lab Runner | Runnable | Developer experience, readiness checks, and reproducible experiments | ../03-projects/local-ai-lab-runner.md |
 | Agentic Workflow Demo | Runnable | Typed tools, approval boundaries, structured traces, refusal behavior, and behavioral evals | ../03-projects/agentic-workflow-demo.md |
+| Prompt Regression Runner | Runnable | Prompt comparison, structured regression checks, recorded/live separation, and trainer facilitation | ../03-projects/prompt-regression-runner.md |
+| Live Support Triage Studio | Deploy-ready | Open recorded evidence, controlled synthetic live calls, a global spend ceiling, application validation, telemetry, and safe self-deployment | ../03-projects/live-support-triage-studio.md |
 | StreamFlow Phase 1 | Scaffolded | Streaming data platform design, Spark jobs, Airflow orchestration, and data quality | ../03-projects/streamflow-phase-1.md |
 | StreamFlow Phase 2 | Scaffolded | Snowflake medallion modeling, BI semantic layer, Airflow orchestration, and reconciliation checks | ../03-projects/streamflow-phase-2.md |
 
@@ -22,6 +24,7 @@ python scripts/validate_workspace.py
 cd 03-projects/enablement-assistant && PYTHONPATH=src python -m enablement_assistant.cli eval
 cd 03-projects/local-ai-lab-runner && PYTHONPATH=src python -m local_ai_lab_runner.cli run ../../02-labs/rag-lab.md
 cd 03-projects/agentic-workflow-demo && PYTHONPATH=src python -m agentic_workflow.cli eval
+cd 03-projects/prompt-regression-runner && PYTHONPATH=src python -m prompt_regression.cli compare recorded/baseline-v1.json recorded/structured-v2.json
 ```
 
 ## Deployable Showcase
@@ -33,6 +36,10 @@ The Enablement Assistant has a deployed static demo at [../docs/enablement-assis
 The Enablement Assistant eval report lives at [../docs/enablement-eval-report.html](../docs/enablement-eval-report.html). It renders exported CLI eval results from [../docs/enablement-eval-data.json](../docs/enablement-eval-data.json).
 
 The Agentic Workflow trace viewer lives at [../docs/agentic-workflow.html](../docs/agentic-workflow.html). It renders deterministic traces for read-only execution, approval checkpoints, approved simulations, and prohibited-action refusal.
+
+The Prompt Regression report lives at [../docs/prompt-regression-report.html](../docs/prompt-regression-report.html). It compares two candidates across fixed support tickets and links aggregate scores to case-level failures.
+
+The Support Triage Studio lives at [../docs/support-triage.html](../docs/support-triage.html). It turns the same evaluated task into a customer-facing workflow, labels live and recorded execution separately, and exposes its cost controls. The [deploy-your-own guide](../docs/deploy-support-triage.html) keeps reviewer credentials and billing inside their own deployment.
 
 StreamFlow has a deployed project report at [../docs/streamflow-report.html](../docs/streamflow-report.html).
 

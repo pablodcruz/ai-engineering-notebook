@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Live Support Triage Studio</title>
+    <meta
+      name="description"
+      content="A live, validated support-ticket triage workflow with visible operational metadata and an explicit recorded fallback."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="prompt-regression-report.html">Evaluation</a>
+        <a href="deploy-support-triage.html">Deploy your own</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/live-support-triage-studio.md">Project record</a>
+      </nav>
+    </header>
+
+    <main class="triage-main">
+      <section class="triage-hero" aria-labelledby="triage-title">
+        <div>
+          <p class="eyebrow">Forward deployed workflow</p>
+          <h1 id="triage-title">Turn an unstructured ticket into a validated next step.</h1>
+          <p>
+            This studio calls a server-side model with a versioned prompt, rejects output
+            that breaks the application contract, and shows the operational evidence a
+            customer team needs to discuss deployment readiness.
+          </p>
+        </div>
+        <aside class="mode-card" aria-label="Current execution mode">
+          <span id="mode-pill" class="health-pill neutral">READY</span>
+          <strong id="mode-title">Choose a sample or paste a sanitized ticket</strong>
+          <p id="mode-copy">Recorded examples are always open. Live calls require a demo code and run only against the three published synthetic tickets.</p>
+        </aside>
+      </section>
+
+      <section class="triage-layout" aria-label="Support triage workspace">
+        <article class="visual-panel triage-input-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">1 · Customer input</p>
+              <h2>Support ticket</h2>
+            </div>
+            <span>3 synthetic samples</span>
+          </div>
+
+          <div class="preset-grid" id="ticket-presets" aria-label="Sample tickets"></div>
+          <label for="ticket">Published synthetic ticket</label>
+          <textarea id="ticket" maxlength="1000" rows="9" readonly></textarea>
+
+          <div class="access-code-row">
+            <div>
+              <label for="access-code">Demo access code <span>(required for live)</span></label>
+              <input id="access-code" type="password" autocomplete="off" placeholder="Required for live mode">
+            </div>
+            <p>No API key belongs here. Provider credentials stay on the server.</p>
+          </div>
+
+          <div class="triage-actions">
+            <button class="button primary" id="run-live" type="button">Run live triage</button>
+            <button class="button" id="load-recorded" type="button">Load recorded example</button>
+            <a class="button" href="deploy-support-triage.html">Deploy your own</a>
+          </div>
+          <p id="request-message" class="request-message" role="status" aria-live="polite"></p>
+          <p class="privacy-note">
+            Public live mode does not accept arbitrary ticket text. Only the displayed synthetic
+            sample id is sent; the server loads its reviewed text. The application does not persist tickets.
+          </p>
+        </article>
+
+        <article class="visual-panel triage-output-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">2 · Validated output</p>
+              <h2>Workflow recommendation</h2>
+            </div>
+            <span id="validation-pill" class="health-pill neutral">NOT RUN</span>
+          </div>
+          <div id="empty-result" class="empty-result">
+            <strong>The result contract will appear here.</strong>
+            <p>Inspect the classification, missing context, next action, and validation state—not only the prose.</p>
+          </div>
+          <div id="triage-result" class="triage-result" hidden></div>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">3 · Operational evidence</p>
+              <h2>What the application can prove</h2>
+            </div>
+          </div>
+          <div id="telemetry-grid" class="telemetry-grid">
+            <article><span>Execution</span><strong>Not run</strong></article>
+            <article><span>Prompt</span><strong>structured-v2</strong></article>
+            <article><span>Schema</span><strong>5 required fields</strong></article>
+            <article><span>Storage</span><strong>Not stored by app</strong></article>
+          </div>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">4 · Cost boundary</p>
+              <h2>Free exploration without unbounded inference</h2>
+            </div>
+          </div>
+          <div class="telemetry-grid">
+            <article><span>Recorded mode</span><strong>Open and zero inference cost</strong></article>
+            <article><span>Live scope</span><strong>T001–T003 only</strong></article>
+            <article><span>Live access</span><strong>Demo code required</strong></article>
+            <article><span>Global ceiling</span><strong>Shared UTC daily limit</strong></article>
+          </div>
+          <p class="muted-copy economics-copy">
+            The deployment also has a server-side kill switch, a 300-token output ceiling,
+            per-client throttling, and fail-closed shared-counter behavior. Technical reviewers
+            can deploy the same contract against their own provider account.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const samples = [
+        {
+          id: "T001",
+          title: "Login blocked",
+          ticket: "I have tried resetting my password three times and no email arrives. I am locked out before a customer demo in an hour."
+        },
+        {
+          id: "T002",
+          title: "Duplicate charge",
+          ticket: "Our company card was charged twice for the June subscription. I can see two pending charges but only one invoice."
+        },
+        {
+          id: "T003",
+          title: "Webhook failures",
+          ticket: "Every production webhook has returned HTTP 500 since this morning. Sandbox deliveries still work."
+        }
+      ];
+
+      const ticketEl = document.querySelector("#ticket");
+      const runButton = document.querySelector("#run-live");
+      const recordedButton = document.querySelector("#load-recorded");
+      const messageEl = document.querySelector("#request-message");
+      const modePill = document.querySelector("#mode-pill");
+      const modeTitle = document.querySelector("#mode-title");
+      const modeCopy = document.querySelector("#mode-copy");
+      const validationPill = document.querySelector("#validation-pill");
+      const emptyEl = document.querySelector("#empty-result");
+      const resultEl = document.querySelector("#triage-result");
+      const telemetryEl = document.querySelector("#telemetry-grid");
+      let selectedSampleId = samples[0].id;
+
+      function escapeHtml(value) {
+        return String(value ?? "—")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function selectSample(sample) {
+        selectedSampleId = sample.id;
+        ticketEl.value = sample.ticket;
+      }
+
+      function renderResult(payload) {
+        const result = payload.result;
+        const missing = result.missing_information.length
+          ? result.missing_information.map((item) => `<li>${escapeHtml(item)}</li>`).join("")
+          : "<li>None identified</li>";
+        emptyEl.hidden = true;
+        resultEl.hidden = false;
+        resultEl.innerHTML = `
+          <div class="result-classification">
+            <article><span>Product area</span><strong>${escapeHtml(result.product_area)}</strong></article>
+            <article><span>Urgency</span><strong>${escapeHtml(result.urgency)}</strong></article>
+          </div>
+          <section><h3>Customer problem</h3><p>${escapeHtml(result.customer_problem)}</p></section>
+          <section><h3>Missing information</h3><ul>${missing}</ul></section>
+          <section class="recommended-action"><h3>Recommended response</h3><p>${escapeHtml(result.recommended_response)}</p></section>
+        `;
+
+        const telemetry = payload.telemetry || {};
+        telemetryEl.innerHTML = `
+          <article><span>Execution</span><strong>${escapeHtml(payload.mode)}</strong></article>
+          <article><span>Prompt</span><strong>${escapeHtml(telemetry.prompt_version)}</strong></article>
+          <article><span>Model</span><strong>${escapeHtml(telemetry.model || "recorded fixture")}</strong></article>
+          <article><span>Latency</span><strong>${telemetry.latency_ms == null ? "Not applicable" : `${escapeHtml(telemetry.latency_ms)} ms`}</strong></article>
+          <article><span>Tokens in / out</span><strong>${telemetry.input_tokens == null ? "Not recorded" : `${escapeHtml(telemetry.input_tokens)} / ${escapeHtml(telemetry.output_tokens)}`}</strong></article>
+          <article><span>Request</span><strong>${escapeHtml(payload.request_id)}</strong></article>
+          <article><span>Contract</span><strong>${payload.validation?.passed ? "Passed" : "Failed"}</strong></article>
+          <article><span>Daily budget</span><strong>${telemetry.daily_requests_used == null ? "Not applicable" : `${escapeHtml(telemetry.daily_requests_used)} / ${escapeHtml(telemetry.daily_limit)}`}</strong></article>
+        `;
+        validationPill.textContent = payload.validation?.passed ? "CONTRACT PASSED" : "CONTRACT FAILED";
+        validationPill.className = `health-pill ${payload.validation?.passed ? "" : "reject"}`;
+      }
+
+      function setMode(mode, title, copy) {
+        modePill.textContent = mode.toUpperCase();
+        modePill.className = `health-pill ${mode === "live" ? "" : mode === "recorded" ? "neutral" : "reject"}`;
+        modeTitle.textContent = title;
+        modeCopy.textContent = copy;
+      }
+
+      async function runLive() {
+        const accessCode = document.querySelector("#access-code").value;
+        if (!accessCode) {
+          messageEl.textContent = "Enter the demo access code to use controlled live mode.";
+          return;
+        }
+        runButton.disabled = true;
+        runButton.textContent = "Running…";
+        messageEl.textContent = "Calling the server-side workflow…";
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000);
+        try {
+          const headers = { "Content-Type": "application/json" };
+          headers["X-Demo-Access-Code"] = accessCode;
+          const response = await fetch("/api/triage", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ sample_id: selectedSampleId }),
+            signal: controller.signal
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(payload.error?.message || `Live service returned HTTP ${response.status}.`);
+          renderResult(payload);
+          setMode("live", "Generated under the controlled demo budget", "The server loaded the selected synthetic case, claimed a shared daily allowance, and validated the output contract.");
+          messageEl.textContent = "Live triage completed and validated.";
+        } catch (error) {
+          const reason = error.name === "AbortError" ? "The live request timed out." : error.message;
+          setMode("unavailable", "Live service unavailable", "No fallback was substituted. Load the recorded example to continue a clearly labeled walkthrough.");
+          messageEl.textContent = reason;
+        } finally {
+          clearTimeout(timeout);
+          runButton.disabled = false;
+          runButton.textContent = "Run live triage";
+        }
+      }
+
+      async function loadRecorded() {
+        recordedButton.disabled = true;
+        messageEl.textContent = `Loading the reviewed ${selectedSampleId} fixture…`;
+        try {
+          const response = await fetch("prompt-regression-data.json", { cache: "no-store" });
+          if (!response.ok) throw new Error(`Recorded evidence returned HTTP ${response.status}.`);
+          const data = await response.json();
+          const candidate = data.comparison.candidates.find((item) => item.candidate === "structured-v2");
+          const fixture = candidate.results.find((item) => item.case_id === selectedSampleId);
+          if (!fixture) throw new Error("The selected recorded fixture is unavailable.");
+          renderResult({
+            mode: "recorded",
+            request_id: `recorded_${selectedSampleId}`,
+            result: fixture.output,
+            validation: { passed: fixture.passed, errors: fixture.diagnostics },
+            telemetry: { prompt_version: "structured-v2", model: null, latency_ms: null, stored_by_app: false }
+          });
+          setMode("recorded", "Reviewed, reproducible example", "This selected result is a committed fixture—not a live model response—and it is labeled separately for honest demonstration.");
+          messageEl.textContent = "Recorded example loaded.";
+        } catch (error) {
+          messageEl.textContent = error.message;
+        } finally {
+          recordedButton.disabled = false;
+        }
+      }
+
+      document.querySelector("#ticket-presets").innerHTML = samples.map((sample) => `
+        <button type="button" data-sample="${escapeHtml(sample.id)}">${escapeHtml(sample.id)} · ${escapeHtml(sample.title)}</button>
+      `).join("");
+      document.querySelectorAll("[data-sample]").forEach((button) => {
+        button.addEventListener("click", () => selectSample(samples.find((sample) => sample.id === button.dataset.sample)));
+      });
+      runButton.addEventListener("click", runLive);
+      recordedButton.addEventListener("click", loadRecorded);
+      selectSample(samples[0]);
+    </script>
+  </body>
+</html>

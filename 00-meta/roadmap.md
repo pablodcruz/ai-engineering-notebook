@@ -12,31 +12,32 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | StreamFlow Phase 2 | Snowflake Bronze/Silver/Gold SQL, reconciliation checks, Airflow orchestration, Power BI contracts, and a static dashboard. |
 | Agentic Workflow Demo | Typed tools, approval-gated simulated mutation, structured traces, behavioral evals, and a static trace viewer. |
 | RAG Evaluation Hardening | Balanced 18-case suite with citation-line checks, answer traits, partial-coverage refusal, adversarial cases, and CI-portable corpus exclusions. |
+| Prompt Regression Runner | Fifteen fixed support cases, two prompt candidates, eight deterministic checks, optional live recording, a comparison report, and a facilitator guide. |
+| Live Support Triage Studio | Deploy-ready browser workflow, controlled synthetic live calls, shared daily spend ceiling, kill switch, server-side structured generation, validation, telemetry, and safe self-deployment. |
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 
-## Active: Prompt Evaluation Harness
+## Active: StreamFlow Integration Smoke Test
 
-Build a deterministic harness for comparing structured-output prompts and preserving quality regressions.
+Add one bounded end-to-end path that proves the containerized streaming components exchange real data under automation.
 
 ### Minimum Scope
 
-- Version prompt candidates and structured test inputs.
-- Validate output schema before scoring content quality.
-- Compare candidates on correctness, completeness, and format validity.
-- Export reviewable case-level evidence to the showcase.
+- Start the smallest required container set.
+- Produce a deterministic event batch.
+- Consume or process the events through one real component boundary.
+- Assert record count, schema, and one failure-path behavior.
 
 ### Definition Of Done
 
-- The baseline runs locally without credentials or network access.
-- At least two prompt candidates run against a fixed regression set.
-- Schema and answer-trait failures include actionable diagnostics.
-- The workspace validator gates the harness and exported evidence.
-- The project includes a demo script, limitations, and showcase entry.
+- The smoke test is bounded and terminates without manual intervention.
+- CI or an explicitly documented opt-in workflow can run it reproducibly.
+- Failures identify the component boundary that broke.
+- Existing dependency-free validation remains fast.
+- Setup, cleanup, troubleshooting, and expected output are documented.
 
 ## Next
 
-1. Add one bounded StreamFlow integration smoke test to CI.
-2. Add lightweight linting, formatting, type checking, and coverage reporting.
+1. Add lightweight linting, formatting, type checking, and coverage reporting.
 
 ## Later
 

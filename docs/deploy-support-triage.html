@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deploy Your Own Support Triage Studio</title>
+    <meta
+      name="description"
+      content="Deploy the Support Triage Studio against your own server-side provider account and shared daily spend guard."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="support-triage.html">Triage studio</a>
+        <a href="prompt-regression-report.html">Evaluation</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook">Source</a>
+      </nav>
+    </header>
+
+    <main class="eval-main">
+      <section class="eval-hero">
+        <div>
+          <p class="eyebrow">Bring your own deployment</p>
+          <h1>Use your provider account without giving this site your key.</h1>
+          <p>
+            Clone the same tested application into your Vercel account, store credentials
+            as server-side environment variables, and keep billing and operational control
+            inside your deployment.
+          </p>
+          <div class="actions">
+            <a
+              class="button primary"
+              href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&amp;project-name=support-triage-studio&amp;repository-name=support-triage-studio&amp;env=OPENAI_API_KEY,OPENAI_MODEL,TRIAGE_DEMO_ACCESS_CODE,TRIAGE_DAILY_LIMIT,TRIAGE_LIVE_ENABLED"
+            >Start Vercel deployment</a>
+            <a class="button" href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/live-support-triage-studio.md">Read deployment record</a>
+          </div>
+        </div>
+        <div class="eval-summary">
+          <article><strong>0</strong><span>keys shared with this site</span></article>
+          <article><strong>3</strong><span>allowlisted live samples</span></article>
+          <article><strong>300</strong><span>maximum output tokens</span></article>
+          <article><strong>1</strong><span>shared daily ceiling</span></article>
+        </div>
+      </section>
+
+      <section class="eval-grid">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Setup</p>
+              <h2>Deployment checklist</h2>
+            </div>
+          </div>
+          <ol class="deployment-steps">
+            <li><strong>Clone into Vercel.</strong> Keep the repository root as the project root; the checked-in configuration serves <code>docs</code> and deploys the Python functions.</li>
+            <li><strong>Create a dedicated OpenAI project key.</strong> Put it only in Vercel as <code>OPENAI_API_KEY</code>.</li>
+            <li><strong>Install Upstash Redis from the Vercel Marketplace.</strong> Link it to the project so the REST URL and token are injected.</li>
+            <li><strong>Set the remaining variables.</strong> Start with live mode disabled, verify health, and then enable it deliberately.</li>
+            <li><strong>Redeploy and verify.</strong> Check <code>/api/health</code>, run one allowlisted sample, and inspect the daily-budget telemetry.</li>
+          </ol>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Server-side configuration</p>
+              <h2>Required environment variables</h2>
+            </div>
+          </div>
+          <div class="config-table-wrap">
+            <table class="config-table">
+              <thead><tr><th>Name</th><th>Example</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td><code>OPENAI_API_KEY</code></td><td>Secret project key</td><td>Provider credential; never exposed to the browser.</td></tr>
+                <tr><td><code>OPENAI_MODEL</code></td><td><code>gpt-5.4-mini-2026-03-17</code></td><td>Pinned model behavior and pricing envelope.</td></tr>
+                <tr><td><code>TRIAGE_DEMO_ACCESS_CODE</code></td><td>Strong private code</td><td>Required gate for every live request.</td></tr>
+                <tr><td><code>TRIAGE_DAILY_LIMIT</code></td><td><code>100</code></td><td>Maximum globally claimed live requests per UTC day.</td></tr>
+                <tr><td><code>TRIAGE_RATE_LIMIT</code></td><td><code>8</code></td><td>Per-instance, per-client requests per minute.</td></tr>
+                <tr><td><code>TRIAGE_ALLOWED_ORIGIN</code></td><td>Canonical Vercel URL</td><td>Allowed browser origin; set after the first deployment.</td></tr>
+                <tr><td><code>TRIAGE_LIVE_ENABLED</code></td><td><code>false</code> then <code>true</code></td><td>Emergency live-call kill switch.</td></tr>
+                <tr><td><code>UPSTASH_REDIS_REST_URL</code></td><td>Marketplace injected</td><td>Shared counter endpoint.</td></tr>
+                <tr><td><code>UPSTASH_REDIS_REST_TOKEN</code></td><td>Marketplace injected</td><td>Shared counter credential.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="visual-panel">
+          <p class="eyebrow">Security boundary</p>
+          <h2>Do not paste a key here</h2>
+          <p class="muted-copy">
+            “Deploy your own” means the credential goes directly into your hosting account.
+            This public site never asks for, receives, proxies, or stores a visitor's provider key.
+          </p>
+        </article>
+
+        <article class="visual-panel">
+          <p class="eyebrow">Extension point</p>
+          <h2>Add providers behind one contract</h2>
+          <p class="muted-copy">
+            The Python service depends on a narrow provider interface. A later adapter can
+            target another structured-output service while preserving the schema validator,
+            sample policy, telemetry, spend guard, and regression cases.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

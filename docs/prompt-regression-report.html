@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt Regression Runner Report</title>
+    <meta
+      name="description"
+      content="Trainer-friendly comparison of vague and structured prompt candidates across fixed support-ticket regression cases."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#projects">Projects</a>
+        <a href="enablement-eval-report.html">RAG Evals</a>
+        <a href="agentic-workflow.html">Agent Traces</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/prompt-regression-runner">Source</a>
+      </nav>
+    </header>
+
+    <main class="eval-main">
+      <section class="eval-hero" aria-labelledby="prompt-report-title">
+        <div>
+          <p class="eyebrow">Prompt Regression Runner</p>
+          <h1 id="prompt-report-title">Same tickets. Different instructions. Visible evidence.</h1>
+          <p>
+            This report compares a vague baseline with a structured candidate across
+            15 fixed support tickets. Each response is checked for syntax, schema,
+            task correctness, missing information, grounding, and actionability.
+          </p>
+        </div>
+        <div class="eval-summary" id="candidate-summary" aria-label="Candidate summary">
+          <article><strong>—</strong><span>loading comparison</span></article>
+        </div>
+      </section>
+
+      <section class="eval-grid" aria-label="Prompt comparison evidence">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Comparison</p>
+              <h2>Candidate Scorecards</h2>
+            </div>
+            <span id="quality-gate">Loading...</span>
+          </div>
+          <div id="candidate-cards" class="candidate-comparison"></div>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Case Explorer</p>
+              <h2>Inspect Why A Candidate Passed Or Failed</h2>
+            </div>
+          </div>
+          <div class="preset-grid" id="case-buttons"></div>
+          <div id="case-comparison" class="case-comparison"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Teaching Point</p>
+              <h2>What The Score Means</h2>
+            </div>
+          </div>
+          <ul class="compact-list">
+            <li>Every candidate receives the same tickets.</li>
+            <li>Valid JSON does not prove task correctness.</li>
+            <li>Aggregate scores point to cases worth inspecting.</li>
+            <li>Critical regressions can outweigh an improved average.</li>
+          </ul>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Reproducibility</p>
+              <h2>Recorded And Live Are Separate</h2>
+            </div>
+          </div>
+          <p class="muted-copy">
+            CI scores reviewed recordings without credentials. An optional live adapter
+            creates new recordings with an explicit model id for separate review.
+          </p>
+          <div class="evidence-stack">
+            <code>prompt-regression compare ...</code>
+            <code>prompt-regression record-live ...</code>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const summaryEl = document.querySelector("#candidate-summary");
+      const cardsEl = document.querySelector("#candidate-cards");
+      const gateEl = document.querySelector("#quality-gate");
+      const buttonsEl = document.querySelector("#case-buttons");
+      const comparisonEl = document.querySelector("#case-comparison");
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function percent(value) {
+        return `${(Number(value) * 100).toFixed(1)}%`;
+      }
+
+      function renderCase(caseId, reports) {
+        comparisonEl.innerHTML = reports.map((report) => {
+          const result = report.results.find((item) => item.case_id === caseId);
+          const checks = Object.entries(result.checks).map(([name, passed]) => `
+            <li class="${passed ? "pass" : "fail"}">
+              <strong>${passed ? "PASS" : "FAIL"}</strong>
+              <span>${escapeHtml(name.replaceAll("_", " "))}</span>
+            </li>
+          `).join("");
+          return `
+            <article class="case-candidate">
+              <div class="eval-result-topline">
+                <span class="health-pill ${result.passed ? "" : "reject"}">${escapeHtml(report.candidate)}</span>
+                <span>${percent(result.score)}</span>
+              </div>
+              <h3>${escapeHtml(result.case_id)} · ${escapeHtml(result.title)}</h3>
+              <ul class="case-checks">${checks}</ul>
+              <details>
+                <summary>Inspect recorded output</summary>
+                <pre>${escapeHtml(JSON.stringify(result.output, null, 2))}</pre>
+              </details>
+              ${result.diagnostics.length ? `<p class="case-diagnostics">${result.diagnostics.map(escapeHtml).join(" · ")}</p>` : ""}
+            </article>
+          `;
+        }).join("");
+      }
+
+      fetch("prompt-regression-data.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((payload) => {
+          const reports = payload.comparison.candidates;
+          const winner = reports.find((report) => report.candidate === payload.comparison.winner);
+          const baseline = reports.find((report) => report.candidate === "baseline-v1");
+          summaryEl.innerHTML = `
+            <article><strong>${payload.metadata.case_count}</strong><span>fixed tickets</span></article>
+            <article><strong>${payload.metadata.check_count_per_case}</strong><span>checks per case</span></article>
+            <article><strong>${percent(winner.score)}</strong><span>winning check score</span></article>
+            <article><strong>+${percent(payload.quality_gate.actual_improvement)}</strong><span>improvement over baseline</span></article>
+          `;
+          gateEl.textContent = payload.quality_gate.passed ? "QUALITY GATE PASSED" : "QUALITY GATE FAILED";
+          cardsEl.innerHTML = reports.map((report) => `
+            <article>
+              <span class="health-pill ${report.candidate === payload.comparison.winner ? "" : "reject"}">
+                ${report.candidate === payload.comparison.winner ? "WINNER" : "BASELINE"}
+              </span>
+              <h3>${escapeHtml(report.candidate)}</h3>
+              <strong class="candidate-score">${percent(report.score)}</strong>
+              <p>${report.cases_passed}/${report.case_count} complete cases passed</p>
+              <code>${escapeHtml(report.prompt_file)}</code>
+            </article>
+          `).join("");
+          const reference = winner.results;
+          buttonsEl.innerHTML = reference.map((result) => `
+            <button type="button" data-case="${escapeHtml(result.case_id)}">${escapeHtml(result.case_id)} · ${escapeHtml(result.title)}</button>
+          `).join("");
+          buttonsEl.querySelectorAll("button").forEach((button) => {
+            button.addEventListener("click", () => renderCase(button.dataset.case, reports));
+          });
+          renderCase(reference[0].case_id, reports);
+        })
+        .catch((error) => {
+          gateEl.textContent = "Could not load comparison";
+          cardsEl.innerHTML = `<p>${escapeHtml(error.message)}</p>`;
+        });
+    </script>
+  </body>
+</html>

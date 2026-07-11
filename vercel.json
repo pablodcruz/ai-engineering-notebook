@@ -4,6 +4,25 @@
   "buildCommand": null,
   "installCommand": null,
   "outputDirectory": "docs",
+  "functions": {
+    "api/triage.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{.git/**,.venv/**,private/**,03-projects/**/tests/**,docs/**}"
+    },
+    "api/health.py": {
+      "maxDuration": 10,
+      "excludeFiles": "{.git/**,.venv/**,private/**,03-projects/**/tests/**,docs/**}"
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }

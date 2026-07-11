@@ -13,6 +13,8 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 2. Review the runnable projects:
 
    - [Agentic Workflow Demo](../03-projects/agentic-workflow-demo.md)
+   - [Prompt Regression Runner](../03-projects/prompt-regression-runner.md)
+   - [Live Support Triage Studio](../03-projects/live-support-triage-studio.md)
    - [Enablement Assistant RAG](../03-projects/enablement-assistant-rag.md)
    - [Local AI Lab Runner](../03-projects/local-ai-lab-runner.md)
 
@@ -20,6 +22,8 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 
    - [Static showcase app](../docs/index.html)
    - [Agentic Workflow trace viewer](../docs/agentic-workflow.html)
+   - [Prompt Regression comparison report](../docs/prompt-regression-report.html)
+   - [Live Support Triage Studio](../docs/support-triage.html)
    - [Enablement Assistant demo](../docs/enablement-assistant.html)
    - [Enablement Assistant eval report](../docs/enablement-eval-report.html)
    - [StreamFlow analytics dashboard](../docs/streamflow-dashboard.html)
@@ -29,6 +33,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 
    - [Debugging Playbook](../04-explainers/debugging-playbook.md)
    - [Production Readiness Checklist](../04-explainers/production-readiness-checklist.md)
+   - [AI Application Operating Economics](../04-explainers/ai-app-operating-economics.md)
 
 ## Review Rubric
 
@@ -38,6 +43,9 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | Observability | Decisions, tool calls, results, approvals, sources, and final states are traceable | Agent trace viewer |
 | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG |
 | Evaluation | Balanced cases check retrieval, evidence-bearing citations, answer traits, partial coverage, adversarial requests, and refusal | RAG evals, eval report, and workspace validator |
+| Prompt regression | Fixed inputs compare prompt candidates on schema, task correctness, grounding, and actionability | Prompt Regression Runner and comparison report |
+| Cost control | Recorded/live separation, sample allowlisting, a global ceiling, a kill switch, and self-deployment make inference economics explicit | Support Triage Studio and operating-economics explainer |
+| Enablement | Technical behavior is translated into layered explanations, a timed session, failure demos, and customer workshop prompts | Prompt evaluation facilitator guide |
 | Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |
 | Developer experience | Local failures are diagnosed before model behavior is blamed | Local AI Lab Runner |
 | Operability | Failure modes, setup paths, and troubleshooting are documented | Labs and explainers |

@@ -1,0 +1,873 @@
+{
+  "metadata": {
+    "project": "Prompt Regression Runner",
+    "task": "structured support-ticket triage",
+    "case_count": 15,
+    "check_count_per_case": 8,
+    "source": "committed recorded outputs"
+  },
+  "quality_gate": {
+    "passed": true,
+    "winner": "structured-v2",
+    "minimum_structured_score": 0.95,
+    "minimum_improvement": 0.25,
+    "actual_improvement": 0.45
+  },
+  "comparison": {
+    "winner": "structured-v2",
+    "candidates": [
+      {
+        "candidate": "structured-v2",
+        "prompt_file": "prompts/structured-v2.md",
+        "source": "recorded-training-fixture",
+        "model": null,
+        "case_count": 15,
+        "cases_passed": 15,
+        "checks_passed": 120,
+        "total_checks": 120,
+        "score": 1.0,
+        "results": [
+          {
+            "case_id": "T001",
+            "title": "Password reset email missing",
+            "category": "missing_information",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Password reset email has not arrived after three attempts, blocking access before a demo",
+              "product_area": "authentication",
+              "urgency": "high",
+              "missing_information": [
+                "account email and reset-attempt timestamps"
+              ],
+              "recommended_response": "Confirm the account email and timestamps, then inspect reset-email delivery without claiming the provider is at fault."
+            }
+          },
+          {
+            "case_id": "T002",
+            "title": "Duplicate card charge",
+            "category": "financial_impact",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Company card appears charged twice for one June subscription invoice",
+              "product_area": "billing",
+              "urgency": "high",
+              "missing_information": [
+                "transaction ids and timestamps for both pending charges"
+              ],
+              "recommended_response": "Collect both transaction ids and compare them with the single invoice before escalating a duplicate-charge review."
+            }
+          },
+          {
+            "case_id": "T003",
+            "title": "Production webhook failures",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Production webhook deliveries return HTTP 500 while sandbox deliveries succeed",
+              "product_area": "integrations",
+              "urgency": "high",
+              "missing_information": [
+                "production endpoint URL, delivery ids, and response logs"
+              ],
+              "recommended_response": "Collect the endpoint and failed delivery ids, then compare production and sandbox request handling."
+            }
+          },
+          {
+            "case_id": "T004",
+            "title": "Dashboard is intermittently slow",
+            "category": "degraded_service",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Analytics dashboard intermittently takes about 25 seconds to load in the afternoon",
+              "product_area": "performance",
+              "urgency": "medium",
+              "missing_information": [
+                "affected timestamps, browser, region, and dashboard filters"
+              ],
+              "recommended_response": "Capture timestamps and client context, then correlate the slow loads with service and query telemetry."
+            }
+          },
+          {
+            "case_id": "T005",
+            "title": "Account owner change",
+            "category": "account_change",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Customer requests an account owner change after the previous administrator left",
+              "product_area": "account",
+              "urgency": "medium",
+              "missing_information": [
+                "requester identity and ownership verification"
+              ],
+              "recommended_response": "Complete the required identity and ownership verification before initiating any account-owner change."
+            }
+          },
+          {
+            "case_id": "T006",
+            "title": "Rotated API key rejected",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Production requests return invalid_api_key immediately after the credential was rotated",
+              "product_area": "authentication",
+              "urgency": "high",
+              "missing_information": [
+                "runtime environment, key prefix, and rotation timestamp"
+              ],
+              "recommended_response": "Verify the active production environment references the new key and compare the failure time with the rotation."
+            }
+          },
+          {
+            "case_id": "T007",
+            "title": "Incorrect VAT on invoice",
+            "category": "financial_impact",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Latest invoice applies VAT despite an approved exemption certificate",
+              "product_area": "billing",
+              "urgency": "medium",
+              "missing_information": [
+                "invoice number and exemption-certificate reference"
+              ],
+              "recommended_response": "Collect the invoice and exemption references, then request a billing review of the tax calculation."
+            }
+          },
+          {
+            "case_id": "T008",
+            "title": "SSO setup guidance",
+            "category": "how_to",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Customer wants setup requirements for a future SSO implementation",
+              "product_area": "authentication",
+              "urgency": "low",
+              "missing_information": [
+                "identity provider and company domain"
+              ],
+              "recommended_response": "Confirm the identity provider and domain, then provide the matching SSO prerequisites and setup guide."
+            }
+          },
+          {
+            "case_id": "T009",
+            "title": "Large export timeout",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Full-year CSV export times out after ten minutes while monthly exports succeed",
+              "product_area": "performance",
+              "urgency": "high",
+              "missing_information": [
+                "dataset size, event count, exact time range, and export id"
+              ],
+              "recommended_response": "Collect the dataset size and export id, then reproduce the full-year range and compare it with a successful monthly export."
+            }
+          },
+          {
+            "case_id": "T010",
+            "title": "Slack integration disconnected",
+            "category": "degraded_service",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Slack notifications stopped and the integration now reports disconnected",
+              "product_area": "integrations",
+              "urgency": "medium",
+              "missing_information": [
+                "Slack workspace id, disconnect timestamp, and displayed error"
+              ],
+              "recommended_response": "Collect the workspace and error details, then inspect the connection state before asking the customer to reconnect."
+            }
+          },
+          {
+            "case_id": "T011",
+            "title": "Wrong email on account",
+            "category": "account_change",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "A signup email typo prevents delivery of the verification message",
+              "product_area": "account",
+              "urgency": "medium",
+              "missing_information": [
+                "current incorrect email, correct email, and identity verification"
+              ],
+              "recommended_response": "Verify the requester and both email values before following the approved email-correction process."
+            }
+          },
+          {
+            "case_id": "T012",
+            "title": "Card declined during renewal",
+            "category": "financial_impact",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Renewal payment was declined and account access is restricted",
+              "product_area": "billing",
+              "urgency": "high",
+              "missing_information": [
+                "decline code, payment attempt id, and timestamp"
+              ],
+              "recommended_response": "Collect the decline details and review the payment attempt without assuming why the bank declined it."
+            }
+          },
+          {
+            "case_id": "T013",
+            "title": "Webhook SDK example request",
+            "category": "how_to",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Customer requests a webhook signature-verification example for Python Flask",
+              "product_area": "integrations",
+              "urgency": "low",
+              "missing_information": [],
+              "recommended_response": "Provide the Python Flask verification example and highlight secret handling, timestamp validation, and replay protection."
+            }
+          },
+          {
+            "case_id": "T014",
+            "title": "Intermittent mobile login",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Several users see an intermittent blank screen after mobile login while desktop login works",
+              "product_area": "authentication",
+              "urgency": "high",
+              "missing_information": [
+                "device models, operating-system versions, app versions, and affected timestamps"
+              ],
+              "recommended_response": "Collect device and timestamp details, then correlate them with mobile authentication and client-error telemetry."
+            }
+          },
+          {
+            "case_id": "T015",
+            "title": "Vague issue report",
+            "category": "ambiguity",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Customer reports that something does not work without identifying the affected workflow",
+              "product_area": "unknown",
+              "urgency": "low",
+              "missing_information": [
+                "affected product, reproduction steps, expected behavior, and exact error"
+              ],
+              "recommended_response": "Ask for the affected product, reproduction steps, expected result, and exact error before assigning a product area."
+            }
+          }
+        ]
+      },
+      {
+        "candidate": "baseline-v1",
+        "prompt_file": "prompts/baseline-v1.md",
+        "source": "recorded-training-fixture",
+        "model": null,
+        "case_count": 15,
+        "cases_passed": 4,
+        "checks_passed": 66,
+        "total_checks": 120,
+        "score": 0.55,
+        "results": [
+          {
+            "case_id": "T001",
+            "title": "Password reset email missing",
+            "category": "missing_information",
+            "passed": false,
+            "score": 0.0,
+            "checks": {
+              "json_valid": false,
+              "schema_valid": false,
+              "product_area_correct": false,
+              "urgency_correct": false,
+              "problem_terms_present": false,
+              "missing_information_covered": false,
+              "grounded": false,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "invalid JSON: Expecting value",
+              "schema check skipped because JSON is invalid",
+              "failed product_area_correct",
+              "failed urgency_correct",
+              "failed problem_terms_present",
+              "failed missing_information_covered",
+              "failed grounded",
+              "failed recommended_response_actionable"
+            ],
+            "output": "The customer cannot reset their password. Tell them to check spam and try again."
+          },
+          {
+            "case_id": "T002",
+            "title": "Duplicate card charge",
+            "category": "financial_impact",
+            "passed": false,
+            "score": 0.625,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": false,
+              "product_area_correct": true,
+              "urgency_correct": false,
+              "problem_terms_present": true,
+              "missing_information_covered": false,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [
+              "missing fields: missing_information",
+              "missing_information must be a list of strings",
+              "failed urgency_correct",
+              "failed missing_information_covered"
+            ],
+            "output": {
+              "customer_problem": "Company card charged twice for June",
+              "product_area": "billing",
+              "urgency": "medium",
+              "recommended_response": "Ask billing to look into the duplicate charge."
+            }
+          },
+          {
+            "case_id": "T003",
+            "title": "Production webhook failures",
+            "category": "technical_failure",
+            "passed": false,
+            "score": 0.75,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": false,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": false,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [
+              "failed product_area_correct",
+              "failed missing_information_covered"
+            ],
+            "output": {
+              "customer_problem": "Production webhook returns 500",
+              "product_area": "performance",
+              "urgency": "high",
+              "missing_information": [
+                "request logs"
+              ],
+              "recommended_response": "Investigate the webhook failures with the engineering team."
+            }
+          },
+          {
+            "case_id": "T004",
+            "title": "Dashboard is intermittently slow",
+            "category": "degraded_service",
+            "passed": false,
+            "score": 0.0,
+            "checks": {
+              "json_valid": false,
+              "schema_valid": false,
+              "product_area_correct": false,
+              "urgency_correct": false,
+              "problem_terms_present": false,
+              "missing_information_covered": false,
+              "grounded": false,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "invalid JSON: Expecting value",
+              "schema check skipped because JSON is invalid",
+              "failed product_area_correct",
+              "failed urgency_correct",
+              "failed problem_terms_present",
+              "failed missing_information_covered",
+              "failed grounded",
+              "failed recommended_response_actionable"
+            ],
+            "output": "Dashboard is slow sometimes; monitor it and contact support if it gets worse."
+          },
+          {
+            "case_id": "T005",
+            "title": "Account owner change",
+            "category": "account_change",
+            "passed": false,
+            "score": 0.625,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": false,
+              "problem_terms_present": true,
+              "missing_information_covered": false,
+              "grounded": true,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "failed urgency_correct",
+              "failed missing_information_covered",
+              "failed recommended_response_actionable"
+            ],
+            "output": {
+              "customer_problem": "Customer wants an account owner change",
+              "product_area": "account",
+              "urgency": "low",
+              "missing_information": [],
+              "recommended_response": "Change the owner."
+            }
+          },
+          {
+            "case_id": "T006",
+            "title": "Rotated API key rejected",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Rotated production key returns invalid_api_key",
+              "product_area": "authentication",
+              "urgency": "high",
+              "missing_information": [
+                "environment and key prefix"
+              ],
+              "recommended_response": "Confirm the active environment uses the newly rotated key before retrying."
+            }
+          },
+          {
+            "case_id": "T007",
+            "title": "Incorrect VAT on invoice",
+            "category": "financial_impact",
+            "passed": false,
+            "score": 0.0,
+            "checks": {
+              "json_valid": false,
+              "schema_valid": false,
+              "product_area_correct": false,
+              "urgency_correct": false,
+              "problem_terms_present": false,
+              "missing_information_covered": false,
+              "grounded": false,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "invalid JSON: Expecting value",
+              "schema check skipped because JSON is invalid",
+              "failed product_area_correct",
+              "failed urgency_correct",
+              "failed problem_terms_present",
+              "failed missing_information_covered",
+              "failed grounded",
+              "failed recommended_response_actionable"
+            ],
+            "output": "Invoice has the wrong tax amount. Send it to finance."
+          },
+          {
+            "case_id": "T008",
+            "title": "SSO setup guidance",
+            "category": "how_to",
+            "passed": false,
+            "score": 0.625,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": false,
+              "problem_terms_present": true,
+              "missing_information_covered": false,
+              "grounded": true,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "failed urgency_correct",
+              "failed missing_information_covered",
+              "failed recommended_response_actionable"
+            ],
+            "output": {
+              "customer_problem": "Customer needs SSO setup requirements",
+              "product_area": "authentication",
+              "urgency": "high",
+              "missing_information": [],
+              "recommended_response": "Send the SSO documentation."
+            }
+          },
+          {
+            "case_id": "T009",
+            "title": "Large export timeout",
+            "category": "technical_failure",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Full-year CSV export times out while monthly exports work",
+              "product_area": "performance",
+              "urgency": "high",
+              "missing_information": [
+                "dataset size and exact time range"
+              ],
+              "recommended_response": "Collect export size and timing, then reproduce with the same range."
+            }
+          },
+          {
+            "case_id": "T010",
+            "title": "Slack integration disconnected",
+            "category": "degraded_service",
+            "passed": false,
+            "score": 0.0,
+            "checks": {
+              "json_valid": false,
+              "schema_valid": false,
+              "product_area_correct": false,
+              "urgency_correct": false,
+              "problem_terms_present": false,
+              "missing_information_covered": false,
+              "grounded": false,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "invalid JSON: Expecting value",
+              "schema check skipped because JSON is invalid",
+              "failed product_area_correct",
+              "failed urgency_correct",
+              "failed problem_terms_present",
+              "failed missing_information_covered",
+              "failed grounded",
+              "failed recommended_response_actionable"
+            ],
+            "output": "Reconnect Slack and see if notifications resume."
+          },
+          {
+            "case_id": "T011",
+            "title": "Wrong email on account",
+            "category": "account_change",
+            "passed": false,
+            "score": 0.75,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": false,
+              "grounded": true,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "failed missing_information_covered",
+              "failed recommended_response_actionable"
+            ],
+            "output": {
+              "customer_problem": "Signup email contains a typo",
+              "product_area": "account",
+              "urgency": "medium",
+              "missing_information": [],
+              "recommended_response": "Update the email."
+            }
+          },
+          {
+            "case_id": "T012",
+            "title": "Card declined during renewal",
+            "category": "financial_impact",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "Renewal card declined and access restricted",
+              "product_area": "billing",
+              "urgency": "high",
+              "missing_information": [
+                "decline code and payment attempt id"
+              ],
+              "recommended_response": "Collect the decline code and payment attempt id before escalating billing."
+            }
+          },
+          {
+            "case_id": "T013",
+            "title": "Webhook SDK example request",
+            "category": "how_to",
+            "passed": false,
+            "score": 0.875,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "failed recommended_response_actionable"
+            ],
+            "output": {
+              "customer_problem": "Customer wants a Python Flask webhook example",
+              "product_area": "integrations",
+              "urgency": "low",
+              "missing_information": [],
+              "recommended_response": "Send docs."
+            }
+          },
+          {
+            "case_id": "T014",
+            "title": "Intermittent mobile login",
+            "category": "technical_failure",
+            "passed": false,
+            "score": 0.0,
+            "checks": {
+              "json_valid": false,
+              "schema_valid": false,
+              "product_area_correct": false,
+              "urgency_correct": false,
+              "problem_terms_present": false,
+              "missing_information_covered": false,
+              "grounded": false,
+              "recommended_response_actionable": false
+            },
+            "diagnostics": [
+              "invalid JSON: Expecting value",
+              "schema check skipped because JSON is invalid",
+              "failed product_area_correct",
+              "failed urgency_correct",
+              "failed problem_terms_present",
+              "failed missing_information_covered",
+              "failed grounded",
+              "failed recommended_response_actionable"
+            ],
+            "output": "Mobile login is broken for some users. Escalate to engineering."
+          },
+          {
+            "case_id": "T015",
+            "title": "Vague issue report",
+            "category": "ambiguity",
+            "passed": true,
+            "score": 1.0,
+            "checks": {
+              "json_valid": true,
+              "schema_valid": true,
+              "product_area_correct": true,
+              "urgency_correct": true,
+              "problem_terms_present": true,
+              "missing_information_covered": true,
+              "grounded": true,
+              "recommended_response_actionable": true
+            },
+            "diagnostics": [],
+            "output": {
+              "customer_problem": "It does not work",
+              "product_area": "unknown",
+              "urgency": "low",
+              "missing_information": [
+                "affected product",
+                "reproduction steps",
+                "exact error"
+              ],
+              "recommended_response": "Ask which product is affected, what steps reproduce the issue, and the exact error shown."
+            }
+          }
+        ]
+      }
+    ],
+    "teaching_note": "A higher aggregate score is a starting point, not the whole decision. Inspect case-level failures before promoting a prompt."
+  }
+}
