@@ -210,7 +210,7 @@
         },
         {
           "rank": 4,
-          "score": 0.204625,
+          "score": 0.20464,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Common Failure Modes",
           "start_line": 67,
@@ -386,7 +386,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.213896,
+          "score": 0.213848,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Basic Flow",
           "start_line": 13,
@@ -518,7 +518,7 @@
         },
         {
           "rank": 3,
-          "score": 0.249009,
+          "score": 0.24894,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Common Failure Modes",
           "start_line": 61,
@@ -641,7 +641,7 @@
         },
         {
           "rank": 5,
-          "score": 0.210304,
+          "score": 0.210317,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Common Failure Modes",
           "start_line": 67,
@@ -917,7 +917,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.497109,
+          "score": 0.497176,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Known Limitations",
           "start_line": 173,
@@ -926,7 +926,7 @@
         },
         {
           "rank": 2,
-          "score": 0.48004,
+          "score": 0.480595,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Problem",
           "start_line": 5,
@@ -1023,7 +1023,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.25871,
+          "score": 0.258634,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Common Failure Modes",
           "start_line": 61,
@@ -1144,7 +1144,7 @@
         },
         {
           "rank": 3,
-          "score": 0.278692,
+          "score": 0.278684,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/data_dictionary.md",
           "heading": "StreamFlow Phase 2 Data Dictionary > Silver > `SILVER_EVENTS`",
           "start_line": 20,
@@ -1373,7 +1373,7 @@
         },
         {
           "rank": 4,
-          "score": 0.171811,
+          "score": 0.172099,
           "source_path": "01-concepts/llm-fundamentals.md",
           "heading": "LLM Fundamentals > Engineering Lens",
           "start_line": 38,
@@ -1382,7 +1382,7 @@
         },
         {
           "rank": 5,
-          "score": 0.170638,
+          "score": 0.170675,
           "source_path": "04-explainers/ai-app-operating-economics.md",
           "heading": "AI Application Operating Economics > Request Economics",
           "start_line": 20,

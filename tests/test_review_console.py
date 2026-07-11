@@ -22,9 +22,11 @@ class ReviewConsoleContractTests(unittest.TestCase):
         ):
             self.assertIn(f'id="{control_id}"', HTML)
 
-    def test_demo_access_request_is_manual_email_only(self) -> None:
+    def test_demo_access_request_uses_browser_compose_and_is_manual(self) -> None:
         self.assertIn('id="request-demo-access"', HTML)
-        self.assertIn("mailto:pablo.de.la.cruz.pro@gmail.com", HTML)
+        self.assertIn("https://mail.google.com/mail/?view=cm", HTML)
+        self.assertIn("to=pablo.de.la.cruz.pro%40gmail.com", HTML)
+        self.assertIn('target="_blank"', HTML)
         self.assertIn("no code is issued automatically", HTML)
 
     def test_saved_record_excludes_ticket_and_credentials(self) -> None:

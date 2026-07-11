@@ -22,7 +22,7 @@ The same page works in two explicit modes. Recorded examples remain publicly ava
 
 The Review Console extends both modes with an explicit human decision. A reviewer can accept the model recommendation or correct its product area, urgency, and proposed response while recording an override reason. Review actions do not make another model call. Synthetic review records stay in browser-local storage until reset and can be exported as a versioned JSON evaluation artifact without the access code or ticket text.
 
-Visitors can request controlled live access through a prefilled email. Requests are manually reviewed and do not create an account, write to application storage, or automatically issue the shared code. Recorded mode remains immediately available without approval or inference cost.
+Visitors can request controlled live access through a prefilled browser-based Gmail message, with a visible email-address fallback for other providers. Requests are manually reviewed and do not create an account, write to application storage, or automatically issue the shared code. Recorded mode remains immediately available without approval or inference cost.
 
 ## Verified Deployment
 
