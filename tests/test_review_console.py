@@ -22,6 +22,11 @@ class ReviewConsoleContractTests(unittest.TestCase):
         ):
             self.assertIn(f'id="{control_id}"', HTML)
 
+    def test_demo_access_request_is_manual_email_only(self) -> None:
+        self.assertIn('id="request-demo-access"', HTML)
+        self.assertIn("mailto:pablo.de.la.cruz.pro@gmail.com", HTML)
+        self.assertIn("no code is issued automatically", HTML)
+
     def test_saved_record_excludes_ticket_and_credentials(self) -> None:
         match = re.search(
             r"const record = \{(?P<body>.*?)\n\s*\};\n\s*reviews\.push",

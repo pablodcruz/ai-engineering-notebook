@@ -1326,6 +1326,17 @@ footer {
   margin: 0 0 10px;
 }
 
+.access-request {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.access-request .button {
+  min-height: 40px;
+  padding: 8px 12px;
+}
+
 .triage-actions {
   display: flex;
   flex-wrap: wrap;

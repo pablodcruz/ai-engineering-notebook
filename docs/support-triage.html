@@ -62,7 +62,14 @@
               <label for="access-code">Demo access code <span>(required for live)</span></label>
               <input id="access-code" type="password" autocomplete="off" placeholder="Required for live mode">
             </div>
-            <p>No API key belongs here. Provider credentials stay on the server.</p>
+            <div class="access-request">
+              <p>No API key belongs here. Provider credentials stay on the server.</p>
+              <a
+                class="button"
+                id="request-demo-access"
+                href="mailto:pablo.de.la.cruz.pro@gmail.com?subject=Support%20Triage%20Demo%20Access%20Request&amp;body=Hi%20Pablo%2C%0A%0AI%27d%20like%20to%20request%20access%20to%20the%20Support%20Triage%20Review%20Console.%0A%0AName%3A%0ACompany%20or%20organization%3A%0ARole%3A%0AWhat%20I%27d%20like%20to%20evaluate%3A%0A%0AI%20understand%20the%20demo%20uses%20synthetic%20tickets%20and%20access%20is%20manually%20reviewed."
+              >Request demo access</a>
+            </div>
           </div>
 
           <div class="triage-actions">
@@ -74,6 +81,7 @@
           <p class="privacy-note">
             Public live mode does not accept arbitrary ticket text. Only the displayed synthetic
             sample id is sent; the server loads its reviewed text. The application does not persist tickets.
+            Access requests open your email client and are manually reviewed; no code is issued automatically.
           </p>
         </article>
 

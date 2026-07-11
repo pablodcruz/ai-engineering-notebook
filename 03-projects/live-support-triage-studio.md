@@ -22,6 +22,8 @@ The same page works in two explicit modes. Recorded examples remain publicly ava
 
 The Review Console extends both modes with an explicit human decision. A reviewer can accept the model recommendation or correct its product area, urgency, and proposed response while recording an override reason. Review actions do not make another model call. Synthetic review records stay in browser-local storage until reset and can be exported as a versioned JSON evaluation artifact without the access code or ticket text.
 
+Visitors can request controlled live access through a prefilled email. Requests are manually reviewed and do not create an account, write to application storage, or automatically issue the shared code. Recorded mode remains immediately available without approval or inference cost.
+
 ## Verified Deployment
 
 The canonical Vercel deployment has completed an end-to-end live run against a funded provider project. The verified path includes browser access control, server-side sample loading, the atomic Redis daily claim, OpenAI generation, exact-schema validation, and response telemetry.
@@ -115,6 +117,7 @@ The manual **Live Triage Smoke Check** GitHub Actions workflow runs the same hea
 - Only `T001`, `T002`, and `T003` are accepted in public live mode; the server loads their text.
 - Internal ticket input limited to 1,000 characters and provider output limited to 300 tokens.
 - Required constant-time access-code check.
+- Manual access-request email with no automatic credential issuance.
 - Best-effort request throttling by forwarded client address.
 - Atomic, shared UTC-day request ceiling before the provider call.
 - Environment-controlled emergency kill switch.
