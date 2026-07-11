@@ -30,13 +30,13 @@
           <p class="eyebrow">Senior-engineer review surface</p>
           <h1>Production-shaped AI prototypes, grounded labs, and a visible quality gate.</h1>
           <p>
-            This workspace demonstrates practical AI engineering through runnable RAG,
-            developer-experience tooling, repeatable labs, troubleshooting practice,
+            This workspace demonstrates practical AI engineering through constrained agents,
+            runnable RAG, developer-experience tooling, data pipelines, repeatable labs,
             and automation that keeps the artifacts honest.
           </p>
           <div class="actions" aria-label="Primary actions">
             <a class="button primary" href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/README.md">Open README</a>
-            <a class="button" href="enablement-assistant.html">Open RAG Demo</a>
+            <a class="button" href="agentic-workflow.html">Inspect Agent Traces</a>
           </div>
         </div>
 
@@ -45,6 +45,8 @@
           <pre><code>$ python scripts/validate_workspace.py
 enablement-assistant tests       PASS
 enablement-assistant eval        4/4
+agentic-workflow tests           PASS
+agentic-workflow eval            7/7
 local-ai-lab-runner tests        PASS
 lab readiness checks             PASS
 
@@ -54,7 +56,7 @@ All workspace validation checks passed.</code></pre>
 
       <section class="metrics" aria-label="Workspace metrics">
         <article>
-          <strong>4</strong>
+          <strong>5</strong>
           <span>Production-shaped projects</span>
         </article>
         <article>
@@ -77,6 +79,27 @@ All workspace validation checks passed.</code></pre>
           <h2>Evidence over claims</h2>
         </div>
         <div class="project-grid">
+          <article class="project-card">
+            <div class="card-topline">
+              <span class="status">Runnable</span>
+              <span>Agents</span>
+            </div>
+            <h3>Agentic Workflow Demo</h3>
+            <p>
+              Uses narrow backlog tools, pauses before simulated mutations, refuses
+              prohibited actions, and exposes every decision in a structured trace.
+            </p>
+            <ul>
+              <li>Application-owned tool permissions</li>
+              <li>Human approval checkpoint with defense in depth</li>
+              <li>Behavioral evals for tools, sources, and refusals</li>
+            </ul>
+            <div class="card-actions">
+              <a href="agentic-workflow.html">Open trace viewer</a>
+              <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/agentic-workflow-demo.md">Read project record</a>
+            </div>
+          </article>
+
           <article class="project-card">
             <div class="card-topline">
               <span class="status">Runnable</span>

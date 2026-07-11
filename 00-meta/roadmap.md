@@ -1,79 +1,90 @@
 # Roadmap
 
-This roadmap keeps the notebook oriented around building. The point is to create real artifacts while developing strong AI engineering judgment.
+This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone active, finish it to the workspace quality gate, and move it to Shipped before starting another flagship project.
 
-## Track 1: Prompted Workflows
+## Shipped
 
-Build small apps that turn messy input into useful output.
+| Artifact | Evidence |
+| --- | --- |
+| Enablement Assistant RAG | Runnable lexical retrieval, grounded answers, citations, refusal behavior, tests, evals, a static demo, and an exported eval report. |
+| Local AI Lab Runner | Runnable readiness CLI, structured findings, failure simulation, tests, and lab contract validation. |
+| StreamFlow Phase 1 | Synthetic event producer, data quality logic, Redpanda/Spark/Airflow architecture, local tests, and documented smoke tests. |
+| StreamFlow Phase 2 | Snowflake Bronze/Silver/Gold SQL, reconciliation checks, Airflow orchestration, Power BI contracts, and a static dashboard. |
+| Agentic Workflow Demo | Typed tools, approval-gated simulated mutation, structured traces, behavioral evals, and a static trace viewer. |
+| Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
+
+## Active: RAG Evaluation Hardening
+
+Strengthen the Enablement Assistant regression contract so it measures more than basic source hits and answer/refusal status.
+
+### Minimum Scope
+
+- Add paraphrased, ambiguous, competing-source, partial-coverage, and adversarial questions.
+- Assert citation precision at the source and line-range level.
+- Add expected answer traits and false-positive refusal cases.
+- Record retrieval and answer failures as reviewable evidence.
+
+### Definition Of Done
+
+- The expanded suite includes at least 15 balanced cases.
+- Citation and answer-trait checks fail with actionable diagnostics.
+- The exported eval report renders the expanded evidence.
+- The workspace validator gates changes against the new contract.
+- Known retrieval failures and tuning decisions are documented.
+
+## Next
+
+1. Build a prompt evaluation harness for structured-output comparison and regression testing.
+2. Add one bounded StreamFlow integration smoke test to CI.
+3. Add lightweight linting, formatting, type checking, and coverage reporting.
+
+## Later
+
+### Prompted Workflows
 
 - Structured support-ticket summarizer.
-- JSON extractor with validation.
+- JSON extractor with schema validation.
 - Prompt comparison notebook.
-- Prompt evaluation harness.
 
-## Track 2: Retrieval
+### Retrieval And Knowledge Systems
 
-Build grounded systems that answer from trusted documents.
-
-- Markdown corpus question-answering.
 - Chunking comparison experiment.
 - Retrieval failure gallery.
-- Source-cited answer generator.
+- Hybrid retrieval and reranking experiment.
+- Corpus freshness and permissions design.
 
-## Track 3: Agents And Tools
+### Cloud-Aware AI Apps
 
-Build constrained tool-using workflows.
-
-- Backlog assistant with read-only tools.
-- Research helper with source capture.
-- Agent trace viewer.
-- Human approval checkpoint demo.
-
-## Track 4: Developer Experience
-
-Make AI projects easier to run, debug, and explain.
-
-- Environment readiness checker.
-- First API call examples in Python and JavaScript.
-- Error message playbook.
-- Lab runner for local experiments.
-
-## Track 5: Cloud-Aware AI Apps
-
-Explore realistic app architecture without overbuilding.
-
-- Secret management notes.
 - Backend model gateway.
-- Storage plus retrieval index sketch.
-- Observability and cost logging checklist.
+- Secret management implementation notes.
+- Storage and retrieval-index lifecycle prototype.
+- Observability, latency, and cost logging.
 
-## Track 6: Data Engineering For AI
+### Data Engineering For AI
 
-Build pipelines that make event and document data trustworthy enough for analytics, RAG, and evaluation.
-
-- StreamFlow containerized stream processing platform.
-- StreamFlow enterprise analytics pipeline with Snowflake and Power BI.
 - Spark data quality report over event data.
 - Batch dataset profiling for AI readiness.
-- Orchestrated summary job with explicit run metadata.
+- dbt-based warehouse transformations and tests.
+- Incremental ingestion with Snowpipe, Streams, or Tasks.
 
 ## Working Rhythm
 
-Pick one item from a track and finish it as a small artifact:
+Each milestone should follow the same loop:
 
 1. Write the question or hypothesis.
 2. Build the minimum working version.
-3. Record setup steps.
-4. Record failure modes.
-5. Add a short explainer.
-6. Link it from the showcase index if it is worth sharing.
+3. Record setup steps and expected output.
+4. Break it deliberately and document the failure modes.
+5. Add tests or evals that preserve the lesson.
+6. Publish a short explainer and demo path.
+7. Link it from the showcase if it is worth sharing.
 
-## Current Quality Gate
+## Quality Gate
 
-Before considering a batch complete, run:
+Before moving an artifact to Shipped, run:
 
 ```bash
 python scripts/validate_workspace.py
 ```
 
-Use [senior-review-guide.md](senior-review-guide.md) to decide whether the work demonstrates engineering judgment, not just implementation effort.
+Use [senior-review-guide.md](senior-review-guide.md) to judge whether the work demonstrates engineering judgment, not just implementation effort.

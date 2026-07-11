@@ -53,7 +53,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.351278,
+          "score": 0.347218,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Learning Objectives",
           "start_line": 13,
@@ -62,7 +62,7 @@
         },
         {
           "rank": 2,
-          "score": 0.297504,
+          "score": 0.300513,
           "source_path": "02-labs/README.md",
           "heading": "Labs > Lab Standards",
           "start_line": 7,
@@ -71,7 +71,7 @@
         },
         {
           "rank": 3,
-          "score": 0.240712,
+          "score": 0.244062,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Common Failure Modes",
           "start_line": 24,
@@ -80,16 +80,16 @@
         },
         {
           "rank": 4,
-          "score": 0.221151,
+          "score": 0.224192,
           "source_path": "00-meta/senior-review-guide.md",
           "heading": "Senior Review Guide > Review Rubric",
-          "start_line": 33,
-          "end_line": 42,
-          "preview": "| Area | Strong Signal | Where It Shows Up | | --- | --- | --- | | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG | | Evaluation | Behavior is checked with repeatable ques..."
+          "start_line": 35,
+          "end_line": 45,
+          "preview": "| Area | Strong Signal | Where It Shows Up | | --- | --- | --- | | Agent safety | Tool permissions, approval gates, loop limits, and refusals are application-enforced | Agentic Workflow Demo | | Observability | Decisions..."
         },
         {
           "rank": 5,
-          "score": 0.20149,
+          "score": 0.20227,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Learning Objectives",
           "start_line": 13,
@@ -115,23 +115,23 @@
           "label": "S1",
           "source_path": "03-projects/README.md",
           "heading": "Projects > Project Documentation Standard",
-          "start_line": 18,
-          "end_line": 26
+          "start_line": 20,
+          "end_line": 28
         }
       ],
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.389077,
+          "score": 0.370303,
           "source_path": "03-projects/README.md",
           "heading": "Projects > Project Documentation Standard",
-          "start_line": 18,
-          "end_line": 26,
+          "start_line": 20,
+          "end_line": 28,
           "preview": "Each project should include: - Problem statement. - Architecture sketch. - Setup instructions. - Demo script. - Known limitations. - Troubleshooting notes. - Demo talking points."
         },
         {
           "rank": 2,
-          "score": 0.248934,
+          "score": 0.225547,
           "source_path": "03-projects/README.md",
           "heading": "Projects",
           "start_line": 3,
@@ -140,30 +140,30 @@
         },
         {
           "rank": 3,
-          "score": 0.233204,
-          "source_path": "03-projects/README.md",
-          "heading": "Projects > Recommended Portfolio Projects",
-          "start_line": 7,
-          "end_line": 14,
-          "preview": "| Project | What It Proves | | --- | --- | | Enablement Assistant RAG | RAG, document grounding, evaluation, and enterprise knowledge workflows. | | Local AI Lab Runner | Developer tooling, lab orchestration, troubleshoo..."
-        },
-        {
-          "rank": 4,
-          "score": 0.207347,
+          "score": 0.206603,
           "source_path": "README.md",
           "heading": "AI Engineering Notebook > Fast Validation",
-          "start_line": 26,
-          "end_line": 32,
+          "start_line": 27,
+          "end_line": 33,
           "preview": "Run the full local quality gate: ```bash python scripts/validate_workspace.py ``` This checks documentation links, eval export freshness, runnable project tests, the Enablement Assistant evaluation set, and every lab's r..."
         },
         {
+          "rank": 4,
+          "score": 0.191687,
+          "source_path": "00-meta/senior-review-guide.md",
+          "heading": "Senior Review Guide > Review Rubric",
+          "start_line": 43,
+          "end_line": 46,
+          "preview": "paths, and troubleshooting are documented | Labs and explainers | | Safety | Tool boundaries, credential handling, and refusal behavior are explicit | Agent lab, API lab, RAG project | | Maintainability | One-command val..."
+        },
+        {
           "rank": 5,
-          "score": 0.172439,
-          "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
-          "heading": "StreamFlow Phase 2 > Local Validation",
-          "start_line": 20,
-          "end_line": 27,
-          "preview": "These checks do not require Snowflake, Airflow, or Power BI: ```bash cd 03-projects/streamflow-enterprise-analytics-pipeline python -m unittest discover -s tests ``` The tests verify the expected project structure, requi..."
+          "score": 0.169557,
+          "source_path": "00-meta/roadmap.md",
+          "heading": "Roadmap > Shipped",
+          "start_line": 7,
+          "end_line": 14,
+          "preview": "| Artifact | Evidence | | --- | --- | | Enablement Assistant RAG | Runnable lexical retrieval, grounded answers, citations, refusal behavior, tests, evals, a static demo, and an exported eval report. | | Local AI Lab Run..."
         }
       ]
     },
@@ -204,7 +204,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.171863,
+          "score": 0.173869,
           "source_path": "05-reference/glossary.md",
           "heading": "Glossary > AI And LLM Terms",
           "start_line": 17,
@@ -213,7 +213,7 @@
         },
         {
           "rank": 2,
-          "score": 0.150676,
+          "score": 0.151637,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Basic Flow",
           "start_line": 13,
@@ -222,7 +222,7 @@
         },
         {
           "rank": 3,
-          "score": 0.107099,
+          "score": 0.107275,
           "source_path": "02-labs/prompt-engineering-lab.md",
           "heading": "Prompt Engineering Lab > Exercise",
           "start_line": 33,
@@ -231,21 +231,21 @@
         },
         {
           "rank": 4,
-          "score": 0.103332,
-          "source_path": "05-reference/resource-log.md",
-          "heading": "Resource Log > Resource Quality Checklist",
-          "start_line": 12,
-          "end_line": 16,
-          "preview": "- Is it official documentation, a primary source, or a trusted technical source? - Is it current enough for the topic? - Does it include runnable examples? - Does it explain tradeoffs and limitations? - Can you turn it i..."
-        },
-        {
-          "rank": 5,
-          "score": 0.102411,
+          "score": 0.102396,
           "source_path": "01-concepts/llm-fundamentals.md",
           "heading": "LLM Fundamentals > What To Evaluate",
           "start_line": 50,
           "end_line": 54,
           "preview": "- Does the output satisfy the task, not just sound fluent? - Does performance hold across realistic edge cases? - Are unsupported answers detected? - Are latency and cost acceptable for the user workflow? - Can failures ..."
+        },
+        {
+          "rank": 5,
+          "score": 0.102117,
+          "source_path": "05-reference/resource-log.md",
+          "heading": "Resource Log > Resource Quality Checklist",
+          "start_line": 12,
+          "end_line": 16,
+          "preview": "- Is it official documentation, a primary source, or a trusted technical source? - Is it current enough for the topic? - Does it include runnable examples? - Does it explain tradeoffs and limitations? - Can you turn it i..."
         }
       ]
     },

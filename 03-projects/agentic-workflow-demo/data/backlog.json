@@ -1,0 +1,54 @@
+{
+  "tasks": [
+    {
+      "task_id": "TASK-101",
+      "title": "Expand RAG citation precision evals",
+      "description": "Add line-range and answer-trait assertions to the Enablement Assistant evaluation contract.",
+      "status": "in_progress",
+      "priority": "high",
+      "owner": "Maya",
+      "labels": ["retrieval", "evaluation"],
+      "blocked_by": []
+    },
+    {
+      "task_id": "TASK-102",
+      "title": "Enforce agent approval boundary",
+      "description": "Require explicit approval before the workflow can execute any simulated mutation.",
+      "status": "blocked",
+      "priority": "high",
+      "owner": "Pablo",
+      "labels": ["agents", "safety"],
+      "blocked_by": ["TASK-105"]
+    },
+    {
+      "task_id": "TASK-103",
+      "title": "Add StreamFlow integration smoke test",
+      "description": "Exercise one bounded producer-to-consumer path in continuous integration.",
+      "status": "todo",
+      "priority": "medium",
+      "owner": "Iris",
+      "labels": ["streamflow", "testing"],
+      "blocked_by": []
+    },
+    {
+      "task_id": "TASK-104",
+      "title": "Publish agent trace viewer",
+      "description": "Render decisions, tool calls, approval events, and final outcomes in the static showcase.",
+      "status": "todo",
+      "priority": "medium",
+      "owner": "Noah",
+      "labels": ["agents", "showcase"],
+      "blocked_by": []
+    },
+    {
+      "task_id": "TASK-105",
+      "title": "Define mutation policy",
+      "description": "Document which backlog actions are permitted, approval-gated, or prohibited.",
+      "status": "in_review",
+      "priority": "high",
+      "owner": "Zoe",
+      "labels": ["agents", "governance"],
+      "blocked_by": []
+    }
+  ]
+}

@@ -2,6 +2,31 @@
 
 Enterprise analytics pipeline prototype for turning StreamFlow Phase 1 event output into Snowflake warehouse tables and Power BI-ready metrics.
 
+## Problem
+
+Phase 1 proves that events can be produced, streamed, validated, and written to durable files. Phase 2 answers the next question: how does that operational event stream become trusted business insight?
+
+This project models the downstream warehouse and BI layer:
+
+```mermaid
+flowchart LR
+    Phase1["Phase 1 event output"] --> Bronze["Snowflake Bronze raw events"]
+    Bronze --> SilverValid["Snowflake Silver valid events"]
+    Bronze --> SilverRejected["Snowflake Silver rejected records"]
+    SilverValid --> GoldFacts["Gold fact_events"]
+    SilverValid --> GoldDims["Gold dimensions"]
+    GoldFacts --> Metrics["Domain metrics and QA checks"]
+    GoldDims --> Metrics
+    Metrics --> Dashboard["Power BI semantics and static dashboard"]
+    Airflow["Airflow orchestration"] --> Bronze
+    Airflow --> SilverValid
+    Airflow --> GoldFacts
+```
+
+```text
+Phase 1 output -> Snowflake Bronze -> Silver -> Gold star schema -> Power BI
+```
+
 ## What It Builds
 
 ```text

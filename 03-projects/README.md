@@ -2,16 +2,18 @@
 
 Projects are larger than labs. They should demonstrate practical AI engineering and trainer readiness.
 
-## Recommended Portfolio Projects
+## Portfolio Projects
 
-| Project | What It Proves |
-| --- | --- |
-| Enablement Assistant RAG | RAG, document grounding, evaluation, and enterprise knowledge workflows. |
-| Local AI Lab Runner | Developer tooling, lab orchestration, troubleshooting, and local experiment ergonomics. |
-| StreamFlow Phase 1 | Kafka-compatible streaming, Spark processing, Airflow orchestration, and data quality. |
-| StreamFlow Phase 2 | Snowflake medallion architecture, star schema modeling, Power BI measures, and reconciliation checks. |
-| Prompt Evaluation Harness | Prompt engineering, output quality checks, and repeatable improvement. |
-| Agentic Workflow Demo | Tool use, guardrails, observability, and workflow design. |
+| Status | Project | What It Proves |
+| --- | --- | --- |
+| Shipped | [Enablement Assistant RAG](enablement-assistant-rag.md) | RAG, document grounding, evaluation, and enterprise knowledge workflows. |
+| Shipped | [Local AI Lab Runner](local-ai-lab-runner.md) | Developer tooling, lab orchestration, troubleshooting, and local experiment ergonomics. |
+| Shipped | [StreamFlow Phase 1](streamflow-phase-1.md) | Kafka-compatible streaming, Spark processing, Airflow orchestration, and data quality. |
+| Shipped | [StreamFlow Phase 2](streamflow-phase-2.md) | Snowflake medallion architecture, star schema modeling, Power BI measures, and reconciliation checks. |
+| Shipped | [Agentic Workflow Demo](agentic-workflow-demo.md) | Tool use, guardrails, observability, approval boundaries, and workflow design. |
+| Next | Prompt Evaluation Harness | Prompt engineering, structured-output checks, and repeatable improvement. |
+
+See the [roadmap](../00-meta/roadmap.md) for the active milestone's scope and definition of done.
 
 ## Project Documentation Standard
 

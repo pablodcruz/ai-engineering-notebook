@@ -11,6 +11,7 @@ Use this file to track artifacts that are polished enough to share.
 | Debugging playbook | Drafted | Practical AI app troubleshooting | ../04-explainers/debugging-playbook.md |
 | Enablement Assistant RAG | Runnable | RAG app architecture, source traceability, and evals | ../03-projects/enablement-assistant-rag.md |
 | Local AI Lab Runner | Runnable | Developer experience, readiness checks, and reproducible experiments | ../03-projects/local-ai-lab-runner.md |
+| Agentic Workflow Demo | Runnable | Typed tools, approval boundaries, structured traces, refusal behavior, and behavioral evals | ../03-projects/agentic-workflow-demo.md |
 | StreamFlow Phase 1 | Scaffolded | Streaming data platform design, Spark jobs, Airflow orchestration, and data quality | ../03-projects/streamflow-phase-1.md |
 | StreamFlow Phase 2 | Scaffolded | Snowflake medallion modeling, BI semantic layer, Airflow orchestration, and reconciliation checks | ../03-projects/streamflow-phase-2.md |
 
@@ -20,6 +21,7 @@ Use this file to track artifacts that are polished enough to share.
 python scripts/validate_workspace.py
 cd 03-projects/enablement-assistant && PYTHONPATH=src python -m enablement_assistant.cli eval
 cd 03-projects/local-ai-lab-runner && PYTHONPATH=src python -m local_ai_lab_runner.cli run ../../02-labs/rag-lab.md
+cd 03-projects/agentic-workflow-demo && PYTHONPATH=src python -m agentic_workflow.cli eval
 ```
 
 ## Deployable Showcase
@@ -29,6 +31,8 @@ The static showcase app lives at [../docs/index.html](../docs/index.html). It pr
 The Enablement Assistant has a deployed static demo at [../docs/enablement-assistant.html](../docs/enablement-assistant.html). It demonstrates grounded answers, citations, retrieved context, and refusal behavior without secrets or a runtime server.
 
 The Enablement Assistant eval report lives at [../docs/enablement-eval-report.html](../docs/enablement-eval-report.html). It renders exported CLI eval results from [../docs/enablement-eval-data.json](../docs/enablement-eval-data.json).
+
+The Agentic Workflow trace viewer lives at [../docs/agentic-workflow.html](../docs/agentic-workflow.html). It renders deterministic traces for read-only execution, approval checkpoints, approved simulations, and prohibited-action refusal.
 
 StreamFlow has a deployed project report at [../docs/streamflow-report.html](../docs/streamflow-report.html).
 

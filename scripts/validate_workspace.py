@@ -25,6 +25,12 @@ def main() -> int:
             {},
         ),
         (
+            "agent trace export freshness",
+            [sys.executable, "scripts/export_agentic_trace.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
             "local-ai-lab-runner tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT / "03-projects" / "local-ai-lab-runner",
@@ -40,6 +46,18 @@ def main() -> int:
             "enablement-assistant eval",
             [sys.executable, "-m", "enablement_assistant.cli", "eval"],
             ROOT / "03-projects" / "enablement-assistant",
+            {"PYTHONPATH": "src"},
+        ),
+        (
+            "agentic-workflow-demo tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT / "03-projects" / "agentic-workflow-demo",
+            {},
+        ),
+        (
+            "agentic-workflow-demo eval",
+            [sys.executable, "-m", "agentic_workflow.cli", "eval"],
+            ROOT / "03-projects" / "agentic-workflow-demo",
             {"PYTHONPATH": "src"},
         ),
         (

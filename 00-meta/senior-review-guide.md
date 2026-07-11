@@ -12,12 +12,14 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 
 2. Review the runnable projects:
 
+   - [Agentic Workflow Demo](../03-projects/agentic-workflow-demo.md)
    - [Enablement Assistant RAG](../03-projects/enablement-assistant-rag.md)
    - [Local AI Lab Runner](../03-projects/local-ai-lab-runner.md)
 
 3. Review the deployable showcase:
 
    - [Static showcase app](../docs/index.html)
+   - [Agentic Workflow trace viewer](../docs/agentic-workflow.html)
    - [Enablement Assistant demo](../docs/enablement-assistant.html)
    - [Enablement Assistant eval report](../docs/enablement-eval-report.html)
    - [StreamFlow analytics dashboard](../docs/streamflow-dashboard.html)
@@ -32,6 +34,8 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 
 | Area | Strong Signal | Where It Shows Up |
 | --- | --- | --- |
+| Agent safety | Tool permissions, approval gates, loop limits, and refusals are application-enforced | Agentic Workflow Demo |
+| Observability | Decisions, tool calls, results, approvals, sources, and final states are traceable | Agent trace viewer |
 | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG |
 | Evaluation | Behavior is checked with repeatable questions, exported eval evidence, tests, and source expectations | RAG evals, eval report, and workspace validator |
 | Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |

@@ -1,0 +1,395 @@
+{
+  "metadata": {
+    "project": "Agentic Workflow Demo",
+    "planner": "deterministic intent planner",
+    "backlog": "03-projects/agentic-workflow-demo/data/backlog.json",
+    "baseline_requires_network": false
+  },
+  "tools": [
+    {
+      "name": "search_backlog",
+      "description": "Find backlog tasks by text and optional status.",
+      "input_schema": {
+        "query": "string",
+        "status": "optional string"
+      },
+      "read_only": true,
+      "requires_approval": false
+    },
+    {
+      "name": "get_task",
+      "description": "Return the complete record for one task id.",
+      "input_schema": {
+        "task_id": "string"
+      },
+      "read_only": true,
+      "requires_approval": false
+    },
+    {
+      "name": "draft_summary",
+      "description": "Draft a cited summary for an explicit list of task ids.",
+      "input_schema": {
+        "task_ids": "list[string]"
+      },
+      "read_only": true,
+      "requires_approval": false
+    },
+    {
+      "name": "update_priority",
+      "description": "Simulate changing one task priority in the in-memory backlog.",
+      "input_schema": {
+        "task_id": "string",
+        "priority": "low|medium|high|critical"
+      },
+      "read_only": false,
+      "requires_approval": true
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "Blocked work",
+      "approved": false,
+      "result": {
+        "request": "Summarize blocked work",
+        "status": "completed",
+        "answer": "Backlog summary for 1 task(s): TASK-102: Enforce agent approval boundary (blocked, high, owner Pablo)",
+        "sources": [
+          "data/backlog.json#TASK-102"
+        ],
+        "pending_action": null,
+        "trace": [
+          {
+            "step": 1,
+            "event": "decision",
+            "name": "inspect_blockers",
+            "input": {},
+            "output": {
+              "reason": "Request asks about blocked work."
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 2,
+            "event": "tool_call",
+            "name": "search_backlog",
+            "input": {
+              "query": "*",
+              "status": "blocked"
+            },
+            "output": {
+              "count": 1,
+              "tasks": [
+                {
+                  "task_id": "TASK-102",
+                  "title": "Enforce agent approval boundary",
+                  "status": "blocked",
+                  "priority": "high",
+                  "owner": "Pablo"
+                }
+              ],
+              "sources": [
+                "data/backlog.json#TASK-102"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 3,
+            "event": "tool_call",
+            "name": "get_task",
+            "input": {
+              "task_id": "TASK-102"
+            },
+            "output": {
+              "found": true,
+              "task": {
+                "task_id": "TASK-102",
+                "title": "Enforce agent approval boundary",
+                "description": "Require explicit approval before the workflow can execute any simulated mutation.",
+                "status": "blocked",
+                "priority": "high",
+                "owner": "Pablo",
+                "labels": [
+                  "agents",
+                  "safety"
+                ],
+                "blocked_by": [
+                  "TASK-105"
+                ]
+              },
+              "sources": [
+                "data/backlog.json#TASK-102"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 4,
+            "event": "tool_call",
+            "name": "draft_summary",
+            "input": {
+              "task_ids": [
+                "TASK-102"
+              ]
+            },
+            "output": {
+              "summary": "Backlog summary for 1 task(s): TASK-102: Enforce agent approval boundary (blocked, high, owner Pablo)",
+              "task_ids": [
+                "TASK-102"
+              ],
+              "sources": [
+                "data/backlog.json#TASK-102"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 5,
+            "event": "final",
+            "name": "complete",
+            "input": {},
+            "output": {
+              "answer": "Backlog summary for 1 task(s): TASK-102: Enforce agent approval boundary (blocked, high, owner Pablo)",
+              "sources": [
+                "data/backlog.json#TASK-102"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "label": "Approval checkpoint",
+      "approved": false,
+      "result": {
+        "request": "Change TASK-103 priority to high",
+        "status": "approval_required",
+        "answer": "Approval required before changing TASK-103 priority to high.",
+        "sources": [
+          "data/backlog.json#TASK-103"
+        ],
+        "pending_action": {
+          "tool": "update_priority",
+          "arguments": {
+            "task_id": "TASK-103",
+            "priority": "high"
+          },
+          "reason": "Changing task priority is a mutating action and requires explicit approval."
+        },
+        "trace": [
+          {
+            "step": 1,
+            "event": "decision",
+            "name": "propose_priority_change",
+            "input": {},
+            "output": {
+              "task_id": "TASK-103",
+              "priority": "high"
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 2,
+            "event": "tool_call",
+            "name": "get_task",
+            "input": {
+              "task_id": "TASK-103"
+            },
+            "output": {
+              "found": true,
+              "task": {
+                "task_id": "TASK-103",
+                "title": "Add StreamFlow integration smoke test",
+                "description": "Exercise one bounded producer-to-consumer path in continuous integration.",
+                "status": "todo",
+                "priority": "medium",
+                "owner": "Iris",
+                "labels": [
+                  "streamflow",
+                  "testing"
+                ],
+                "blocked_by": []
+              },
+              "sources": [
+                "data/backlog.json#TASK-103"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 3,
+            "event": "approval",
+            "name": "update_priority",
+            "input": {
+              "task_id": "TASK-103",
+              "priority": "high"
+            },
+            "output": {
+              "reason": "Changing task priority is a mutating action and requires explicit approval."
+            },
+            "status": "pending",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 4,
+            "event": "final",
+            "name": "approval_required",
+            "input": {},
+            "output": {
+              "answer": "Approval required before changing TASK-103 priority to high."
+            },
+            "status": "pending",
+            "duration_ms": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "label": "Approved simulation",
+      "approved": true,
+      "result": {
+        "request": "Change TASK-103 priority to high",
+        "status": "completed",
+        "answer": "Simulated priority change for TASK-103: medium -> high. The fixture file was not modified.",
+        "sources": [
+          "data/backlog.json#TASK-103"
+        ],
+        "pending_action": null,
+        "trace": [
+          {
+            "step": 1,
+            "event": "decision",
+            "name": "propose_priority_change",
+            "input": {},
+            "output": {
+              "task_id": "TASK-103",
+              "priority": "high"
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 2,
+            "event": "tool_call",
+            "name": "get_task",
+            "input": {
+              "task_id": "TASK-103"
+            },
+            "output": {
+              "found": true,
+              "task": {
+                "task_id": "TASK-103",
+                "title": "Add StreamFlow integration smoke test",
+                "description": "Exercise one bounded producer-to-consumer path in continuous integration.",
+                "status": "todo",
+                "priority": "medium",
+                "owner": "Iris",
+                "labels": [
+                  "streamflow",
+                  "testing"
+                ],
+                "blocked_by": []
+              },
+              "sources": [
+                "data/backlog.json#TASK-103"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 3,
+            "event": "approval",
+            "name": "update_priority",
+            "input": {
+              "task_id": "TASK-103",
+              "priority": "high"
+            },
+            "output": {
+              "approved": true
+            },
+            "status": "approved",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 4,
+            "event": "tool_call",
+            "name": "update_priority",
+            "input": {
+              "task_id": "TASK-103",
+              "priority": "high"
+            },
+            "output": {
+              "simulated": true,
+              "task_id": "TASK-103",
+              "before": "medium",
+              "after": "high",
+              "sources": [
+                "data/backlog.json#TASK-103"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 5,
+            "event": "final",
+            "name": "complete",
+            "input": {},
+            "output": {
+              "answer": "Simulated priority change for TASK-103: medium -> high. The fixture file was not modified.",
+              "sources": [
+                "data/backlog.json#TASK-103"
+              ]
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "label": "Prohibited action",
+      "approved": false,
+      "result": {
+        "request": "Delete TASK-101",
+        "status": "refused",
+        "answer": "The requested mutation is outside the allowed tool set.",
+        "sources": [],
+        "pending_action": null,
+        "trace": [
+          {
+            "step": 1,
+            "event": "decision",
+            "name": "refuse",
+            "input": {},
+            "output": {
+              "reason": "The requested mutation is outside the allowed tool set."
+            },
+            "status": "ok",
+            "duration_ms": 0.0
+          },
+          {
+            "step": 2,
+            "event": "final",
+            "name": "refused",
+            "input": {},
+            "output": {
+              "answer": "The requested mutation is outside the allowed tool set."
+            },
+            "status": "refused",
+            "duration_ms": 0.0
+          }
+        ]
+      }
+    }
+  ]
+}
