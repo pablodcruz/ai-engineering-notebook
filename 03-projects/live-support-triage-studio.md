@@ -10,7 +10,8 @@ Support-operations leaders, AI engineers, solution architects, forward deployed 
 
 ## Live Experience
 
-- [Support Triage Studio](../docs/support-triage.html)
+- [Canonical deployed Support Triage Studio](https://ai-engineering-notebook.vercel.app/support-triage)
+- [Recorded GitHub Pages mirror](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html)
 - [Deploy-your-own guide](../docs/deploy-support-triage.html)
 - [AI application operating economics](../04-explainers/ai-app-operating-economics.md)
 - `POST /api/triage` for live, schema-validated generation
@@ -18,6 +19,14 @@ Support-operations leaders, AI engineers, solution architects, forward deployed 
 - [Prompt regression evidence](../docs/prompt-regression-report.html) for the prompt behind the workflow
 
 The same page works in two explicit modes. Recorded examples remain publicly available without inference cost. A configured Vercel deployment can run only three allowlisted synthetic cases through an access-code-protected live API. Technical reviewers can deploy their own copy without sharing a provider key with this site.
+
+## Verified Deployment
+
+The canonical Vercel deployment has completed an end-to-end live run against a funded provider project. The verified path includes browser access control, server-side sample loading, the atomic Redis daily claim, OpenAI generation, exact-schema validation, and response telemetry.
+
+The same deployment was also exercised through a real provider failure: an exhausted API quota returned a safe browser error with an application request id while Vercel logs captured only the provider status, error code, exception type, stage, and provider request id. After credits were added, the same request succeeded without a code change. This demonstrates that application failures can be separated from provider-account failures without exposing prompts, tickets, credentials, or raw exception messages.
+
+Cost exposure is bounded in layers: recorded mode makes no inference call; live mode requires an access code and accepts only synthetic allowlisted cases; a global Redis ceiling limits daily claims; output is capped; `TRIAGE_LIVE_ENABLED` can stop calls immediately; and the deployment owner uses finite prepaid provider credits with automatic recharge disabled. The application controls request volume, while the provider balance is the final account-level backstop.
 
 ## Architecture
 

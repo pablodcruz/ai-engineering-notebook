@@ -1,8 +1,20 @@
 # Showcase Deployment
 
-The showcase is a static app in this `docs/` folder. It can deploy through Vercel or GitHub Pages.
+The repository has two complementary deployment surfaces. Vercel is the canonical runtime for the Support Triage Studio and its Python API functions. GitHub Pages hosts the static portfolio and credential-free recorded mirrors from `docs/`.
 
-## Live URL
+## Canonical Live Application
+
+```text
+https://ai-engineering-notebook.vercel.app/support-triage
+```
+
+Deployment health (configuration presence only; no billable model call):
+
+```text
+https://ai-engineering-notebook.vercel.app/api/health
+```
+
+## Static Portfolio
 
 GitHub Pages:
 
@@ -30,7 +42,8 @@ Deploy flow:
 2. Import `pablodcruz/ai-engineering-notebook`.
 3. Keep the root directory as the repository root.
 4. Deploy.
-5. Replace the README showcase section with the production Vercel URL once the project URL is known.
+5. Set the environment variables in `.env.example`, using secret values only in Vercel.
+6. Run the health check, then make one allowlisted live request to verify the full provider path.
 
 The Vercel CLI is optional. If using it locally:
 
@@ -61,7 +74,7 @@ If the workflow fails at `Configure Pages`, the repository Pages source is not s
 
 ## Local Preview
 
-Open `docs/index.html` directly in a browser. No server, package install, or secrets are required.
+Open `docs/index.html` directly for the static portfolio and recorded experiences. No server, package install, or secrets are required. Testing the live API locally requires the Vercel development server and the documented environment variables.
 
 ## GitHub Pages Workflow
 

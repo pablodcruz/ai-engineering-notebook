@@ -10,19 +10,19 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 
 ## Start Here
 
-1. View the rendered showcase app: [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/).
+1. Open the deployed Support Triage Studio: [https://ai-engineering-notebook.vercel.app/support-triage](https://ai-engineering-notebook.vercel.app/support-triage). Use recorded mode for the public, zero-cost walkthrough; the access-code path makes a real model call.
 2. Inspect the Agentic Workflow trace viewer: [https://pablodcruz.github.io/ai-engineering-notebook/docs/agentic-workflow.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/agentic-workflow.html).
-3. Try the deploy-ready Support Triage Studio: [https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html). The GitHub Pages mirror uses its explicitly labeled recorded path until the live Vercel service is configured.
+3. Use the [GitHub Pages Support Triage mirror](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html) when you want the explicitly labeled recorded experience with no live backend.
 4. Compare prompt candidates in the Prompt Regression report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html).
-4. Try the Enablement Assistant demo: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html).
-5. Review the Enablement Assistant eval report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html).
-6. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
-7. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
-8. Capture technical understanding in [01-concepts](01-concepts).
-9. Build small runnable exercises in [02-labs](02-labs).
-10. Promote the best ideas into [03-projects](03-projects).
-11. Turn useful explanations and diagrams into [04-explainers](04-explainers).
-12. Collect polished demos and writeups in [06-showcase](06-showcase).
+5. Try the Enablement Assistant demo: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html).
+6. Review the Enablement Assistant eval report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html).
+7. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
+8. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
+9. Capture technical understanding in [01-concepts](01-concepts).
+10. Build small runnable exercises in [02-labs](02-labs).
+11. Promote the best ideas into [03-projects](03-projects).
+12. Turn useful explanations and diagrams into [04-explainers](04-explainers).
+13. Collect polished demos and writeups in [06-showcase](06-showcase).
 
 ## Fast Validation
 
@@ -36,7 +36,13 @@ This checks documentation links, eval export freshness, runnable project tests, 
 
 ## Showcase App
 
-View the rendered showcase app:
+Open the canonical live application:
+
+[https://ai-engineering-notebook.vercel.app/support-triage](https://ai-engineering-notebook.vercel.app/support-triage)
+
+The live path is deliberately bounded: it accepts three synthetic cases, requires an access code, validates an exact response schema, uses a shared Redis daily ceiling, and exposes safe request telemetry. Recorded mode is always available without a provider call.
+
+View the static portfolio and zero-cost mirrors:
 
 [https://pablodcruz.github.io/ai-engineering-notebook/docs/](https://pablodcruz.github.io/ai-engineering-notebook/docs/)
 
@@ -56,7 +62,7 @@ Source lives in [docs/index.html](docs/index.html).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpablodcruz%2Fai-engineering-notebook&project-name=ai-engineering-notebook-showcase)
 
-GitHub Pages currently serves the repository with the static app under `/docs/`. The Vercel button is available as a fallback or alternate deployment path. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Vercel is the canonical runtime for the Support Triage Studio because it serves the Python API functions. GitHub Pages serves the static portfolio and explicitly recorded demos under `/docs/`. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Senior Engineer Review Path
 
