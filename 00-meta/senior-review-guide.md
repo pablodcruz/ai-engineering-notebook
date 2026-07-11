@@ -34,6 +34,8 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
    - [Debugging Playbook](../04-explainers/debugging-playbook.md)
    - [Production Readiness Checklist](../04-explainers/production-readiness-checklist.md)
    - [AI Application Operating Economics](../04-explainers/ai-app-operating-economics.md)
+   - [Evaluation And Observability](../01-concepts/evaluation-observability.md)
+   - [AI System Review Checklist](../05-reference/ai-system-review-checklist.md)
 
 ## Review Rubric
 

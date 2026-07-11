@@ -15,30 +15,30 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Prompt Regression Runner | Fifteen fixed support cases, two prompt candidates, eight deterministic checks, optional live recording, a comparison report, and a facilitator guide. |
 | Support Triage Review Console | Deployed synthetic live/recorded workflow, schema validation, layered cost controls, human accept/correct decisions, browser-local metrics, sanitized feedback export, and safe self-deployment. |
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
+| Repository documentation roundup | Folder guides, concept-to-evidence navigation, evaluation and observability guidance, expanded debugging workflow, shared terminology, and a reusable AI-system review checklist. |
 
-## Active: Support Triage Review Console Verification
+## Active: Engineering Quality Automation
 
-Verify the human review extension as a teachable, deployed model-to-reviewer feedback loop.
+Add lightweight static checks and coverage evidence without making the dependency-free baseline difficult to run.
 
 ### Minimum Scope
 
-- Load both recorded and live model recommendations.
-- Accept one decision and correct another with a required reason.
-- Verify browser-local queue state, metrics, reset, and sanitized export.
-- Confirm review actions create no additional provider calls.
+- Define formatting and lint rules for the Python projects.
+- Add type checking where it produces actionable signal.
+- Report test coverage for the runnable AI projects.
+- Integrate the checks into the single workspace command and CI.
 
 ### Definition Of Done
 
-- Review storage excludes ticket text, access codes, and credentials.
-- Model suggestions remain visibly separate from final human decisions.
-- Automated tests preserve the review and export safety contract.
-- The deployed walkthrough and project documentation explain how corrections become evaluation evidence.
-- The full workspace quality gate passes.
+- Local commands and CI use the same pinned configuration.
+- Failures identify the file and rule clearly.
+- Generated files, fixtures, and intentionally minimal prompt assets are scoped appropriately.
+- Coverage is treated as diagnostic evidence, not a vanity target.
+- The dependency-free demos remain runnable and the full workspace gate passes.
 
 ## Next
 
-1. Add lightweight linting, formatting, type checking, and coverage reporting.
-2. Add a bounded StreamFlow integration smoke test.
+1. Add a bounded StreamFlow integration smoke test.
 
 ## Later
 

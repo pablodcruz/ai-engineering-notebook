@@ -24,6 +24,8 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 12. Turn useful explanations and diagrams into [04-explainers](04-explainers).
 13. Collect polished demos and writeups in [06-showcase](06-showcase).
 
+For a systematic architecture review, use the [AI System Review Checklist](05-reference/ai-system-review-checklist.md). For the distinction between tests, evals, traces, and monitoring, read [Evaluation And Observability](01-concepts/evaluation-observability.md).
+
 ## Fast Validation
 
 Run the full local quality gate:
@@ -84,11 +86,11 @@ If you are reviewing this workspace quickly, start with:
 | Folder | Purpose |
 | --- | --- |
 | `00-meta` | Roadmap, build themes, and notebook conventions. |
-| `01-concepts` | Notes on LLMs, prompting, RAG, agents, APIs, SDKs, cloud, and app workflows. |
+| `01-concepts` | Notes on LLMs, prompting, RAG, agents, APIs, cloud workflows, evaluation, and observability. |
 | `02-labs` | Small experiments with setup steps, expected output, and failure notes. |
 | `03-projects` | Larger builds that combine concepts into useful AI tools. |
 | `04-explainers` | Clear writeups, diagrams, and talk tracks for explaining what was built. |
-| `05-reference` | Glossary, resource log, snippets, and reusable technical references. |
+| `05-reference` | Glossary, resource log, and a reusable AI-system review checklist. |
 | `06-showcase` | Polished project summaries, demos, screenshots, and portfolio-style notes. |
 
 ## Build Loop
