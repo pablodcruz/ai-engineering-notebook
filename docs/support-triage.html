@@ -233,7 +233,11 @@
             signal: controller.signal
           });
           const payload = await response.json().catch(() => ({}));
-          if (!response.ok) throw new Error(payload.error?.message || `Live service returned HTTP ${response.status}.`);
+          if (!response.ok) {
+            const detail = payload.error?.message || `Live service returned HTTP ${response.status}.`;
+            const correlation = payload.request_id ? ` Request ID: ${payload.request_id}.` : "";
+            throw new Error(`${detail}${correlation}`);
+          }
           renderResult(payload);
           setMode("live", "Generated under the controlled demo budget", "The server loaded the selected synthetic case, claimed a shared daily allowance, and validated the output contract.");
           messageEl.textContent = "Live triage completed and validated.";

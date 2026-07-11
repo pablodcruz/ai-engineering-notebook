@@ -18,6 +18,7 @@ from api._triage_service import (
     TriageService,
     UpstashDailyCounter,
     get_live_sample,
+    log_provider_failure,
     validate_ticket,
 )
 
@@ -122,11 +123,31 @@ class LiveTriageServiceTests(unittest.TestCase):
     def test_provider_failure_does_not_expose_internal_exception(self) -> None:
         service = TriageService(FakeProvider(fail=True), model="test-model")
 
-        status, payload = service.run("The customer supplied a sufficiently long ticket.")
+        with patch("builtins.print") as print_mock:
+            status, payload = service.run("The customer supplied a sufficiently long ticket.")
 
         self.assertEqual(status, 502)
         self.assertEqual(payload["error"]["code"], "provider_error")
         self.assertNotIn("provider unavailable", str(payload))
+        logged = json.loads(print_mock.call_args.args[0])
+        self.assertEqual(logged["event"], "support_triage_provider_failure")
+        self.assertEqual(logged["exception_type"], "RuntimeError")
+        self.assertNotIn("provider unavailable", print_mock.call_args.args[0])
+
+    def test_provider_log_includes_only_safe_correlation_fields(self) -> None:
+        class FakeStatusError(Exception):
+            status_code = 429
+            request_id = "req_safe"
+            code = "rate_limit_exceeded"
+
+        with patch("builtins.print") as print_mock:
+            log_provider_failure(FakeStatusError("secret message"), request_id="triage_safe", stage="generation")
+
+        logged = json.loads(print_mock.call_args.args[0])
+        self.assertEqual(logged["provider_http_status"], 429)
+        self.assertEqual(logged["provider_request_id"], "req_safe")
+        self.assertEqual(logged["provider_error_code"], "rate_limit_exceeded")
+        self.assertNotIn("secret message", print_mock.call_args.args[0])
 
     def test_rate_limiter_resets_after_window(self) -> None:
         limiter = SlidingWindowRateLimiter(limit=2, window_seconds=10)

@@ -14,6 +14,7 @@ from api._triage_service import (
     error_payload,
     get_live_sample,
     live_configuration_status,
+    log_provider_failure,
 )
 
 
@@ -83,7 +84,8 @@ class handler(BaseHTTPRequestHandler):
         )
         try:
             claim = counter.claim()
-        except Exception:
+        except Exception as exc:
+            log_provider_failure(exc, request_id=request_id, stage="initialization")
             self._json(
                 503,
                 error_payload(

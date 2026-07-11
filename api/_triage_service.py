@@ -90,6 +90,7 @@ class OpenAIProvider:
         return {
             "output": json.loads(response.output_text),
             "response_id": response.id,
+            "provider_request_id": getattr(response, "_request_id", None),
             "input_tokens": getattr(usage, "input_tokens", None),
             "output_tokens": getattr(usage, "output_tokens", None),
         }
@@ -109,7 +110,8 @@ class TriageService:
         started = perf_counter()
         try:
             generated = self.provider.generate(str(ticket).strip())
-        except Exception:
+        except Exception as exc:
+            log_provider_failure(exc, request_id=request_id, stage="generation")
             return 502, error_payload(
                 request_id,
                 "provider_error",
@@ -141,6 +143,7 @@ class TriageService:
                 "input_tokens": generated.get("input_tokens"),
                 "output_tokens": generated.get("output_tokens"),
                 "provider_response_id": generated.get("response_id"),
+                "provider_request_id": generated.get("provider_request_id"),
                 "stored_by_app": False,
             },
         }
@@ -264,3 +267,23 @@ def validate_ticket(ticket: object) -> str | None:
 
 def error_payload(request_id: str, code: str, message: str) -> dict[str, Any]:
     return {"status": "error", "request_id": request_id, "error": {"code": code, "message": message}}
+
+
+def log_provider_failure(exc: Exception, *, request_id: str, stage: str) -> None:
+    """Emit correlation-safe provider diagnostics without prompts, tickets, or secrets."""
+    event: dict[str, Any] = {
+        "event": "support_triage_provider_failure",
+        "request_id": request_id,
+        "stage": stage,
+        "exception_type": type(exc).__name__,
+    }
+    status_code = getattr(exc, "status_code", None)
+    provider_request_id = getattr(exc, "request_id", None)
+    error_code = getattr(exc, "code", None)
+    if isinstance(status_code, int):
+        event["provider_http_status"] = status_code
+    if isinstance(provider_request_id, str) and provider_request_id:
+        event["provider_request_id"] = provider_request_id
+    if isinstance(error_code, str) and error_code:
+        event["provider_error_code"] = error_code
+    print(json.dumps(event, sort_keys=True), flush=True)
