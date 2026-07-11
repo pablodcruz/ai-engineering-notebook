@@ -11,32 +11,32 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | StreamFlow Phase 1 | Synthetic event producer, data quality logic, Redpanda/Spark/Airflow architecture, local tests, and documented smoke tests. |
 | StreamFlow Phase 2 | Snowflake Bronze/Silver/Gold SQL, reconciliation checks, Airflow orchestration, Power BI contracts, and a static dashboard. |
 | Agentic Workflow Demo | Typed tools, approval-gated simulated mutation, structured traces, behavioral evals, and a static trace viewer. |
+| RAG Evaluation Hardening | Balanced 18-case suite with citation-line checks, answer traits, partial-coverage refusal, adversarial cases, and CI-portable corpus exclusions. |
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 
-## Active: RAG Evaluation Hardening
+## Active: Prompt Evaluation Harness
 
-Strengthen the Enablement Assistant regression contract so it measures more than basic source hits and answer/refusal status.
+Build a deterministic harness for comparing structured-output prompts and preserving quality regressions.
 
 ### Minimum Scope
 
-- Add paraphrased, ambiguous, competing-source, partial-coverage, and adversarial questions.
-- Assert citation precision at the source and line-range level.
-- Add expected answer traits and false-positive refusal cases.
-- Record retrieval and answer failures as reviewable evidence.
+- Version prompt candidates and structured test inputs.
+- Validate output schema before scoring content quality.
+- Compare candidates on correctness, completeness, and format validity.
+- Export reviewable case-level evidence to the showcase.
 
 ### Definition Of Done
 
-- The expanded suite includes at least 15 balanced cases.
-- Citation and answer-trait checks fail with actionable diagnostics.
-- The exported eval report renders the expanded evidence.
-- The workspace validator gates changes against the new contract.
-- Known retrieval failures and tuning decisions are documented.
+- The baseline runs locally without credentials or network access.
+- At least two prompt candidates run against a fixed regression set.
+- Schema and answer-trait failures include actionable diagnostics.
+- The workspace validator gates the harness and exported evidence.
+- The project includes a demo script, limitations, and showcase entry.
 
 ## Next
 
-1. Build a prompt evaluation harness for structured-output comparison and regression testing.
-2. Add one bounded StreamFlow integration smoke test to CI.
-3. Add lightweight linting, formatting, type checking, and coverage reporting.
+1. Add one bounded StreamFlow integration smoke test to CI.
+2. Add lightweight linting, formatting, type checking, and coverage reporting.
 
 ## Later
 

@@ -68,7 +68,7 @@ Core behavior:
 - Retrieves ranked chunks for a question.
 - Produces cited answers from retrieved text.
 - Returns "I could not find this in the indexed sources" for uncovered questions.
-- Runs a small evaluation set for source hit and refusal behavior.
+- Runs a balanced evaluation set for retrieval, citations, answer traits, partial coverage, and refusal behavior.
 
 ## Setup
 
@@ -139,15 +139,25 @@ Evaluation questions live in [evals/questions.jsonl](enablement-assistant/evals/
 Current checks:
 
 - The expected source appears in the retrieved set.
-- Covered questions produce a cited answer.
-- Uncovered questions trigger the refusal path.
+- Covered questions produce sequential, evidence-bearing citations.
+- Citation ranges contain the expected source text under the expected heading.
+- Answers contain required traits, omit forbidden traits, and stay within citation limits.
+- Uncovered, partially covered, and source-bypass questions trigger the refusal path.
+- The 18-case set balances direct, paraphrased, competing-source, partial-coverage, adversarial, and refusal scenarios.
 
 Future checks:
 
-- Citation precision by line range.
-- Answer completeness rubric.
-- Regression set for ambiguous questions.
+- Graded completeness rubrics for multi-part answers.
 - Retrieval comparison across chunk sizes and hybrid search.
+- Human review calibration for semantically equivalent answers.
+
+### Hardening Decisions
+
+- Corpus portability: ignored `private/` content is excluded so local and CI retrieval scores are identical and private notes cannot enter public eval evidence.
+- Partial coverage: synthesis now requires overlap with at least half of the meaningful query terms, preventing loosely related snippets from answering configuration-specific questions.
+- Citation focus: extractive answers use at most two source sections, reducing plausible but irrelevant citation spillover.
+- Source bypass: explicit requests to ignore trusted sources, use general knowledge instead, or reveal private material take the refusal path.
+- Query normalization: conversational wrapper terms such as "about" and "say" do not dilute retrieval for the actual subject.
 
 ### Eval Export
 
@@ -196,6 +206,7 @@ The next production version should preserve the same answer, citation, retrieval
 - No user authentication, document permissions, or tenant separation.
 - No freshness tracking for stale documents.
 - No cost, latency, or model telemetry because the baseline does not call a model.
+- Source-bypass detection is phrase-based; a production policy layer needs broader adversarial coverage and model-independent authorization.
 
 ## Troubleshooting
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 import re
 
 from .documents import DocumentChunk
@@ -26,6 +27,14 @@ class GroundedAnswer:
 
 
 SENTENCE_RE = re.compile(r"(?<=[.!?])\s+|\n{2,}")
+REFUSAL_PATTERNS = (
+    "ignore the sources",
+    "ignore sources",
+    "general knowledge instead",
+    "reveal private",
+    "private notes",
+    "reveal secrets",
+)
 
 
 def synthesize_answer(
@@ -34,13 +43,17 @@ def synthesize_answer(
     *,
     min_score: float = 0.06,
     max_sentences: int = 4,
+    max_sources: int = 2,
 ) -> GroundedAnswer:
     """Create a concise extractive answer from retrieved chunks."""
+    lowered_question = question.lower()
+    if any(pattern in lowered_question for pattern in REFUSAL_PATTERNS):
+        return _not_found(question, retrieved)
     if not retrieved or retrieved[0].score < min_score:
         return _not_found(question, retrieved)
 
     query_terms = set(tokenize(question))
-    required_overlap = min(2, len(query_terms))
+    required_overlap = min(len(query_terms), max(2, math.ceil(len(query_terms) * 0.5)))
     best_overlap = max(
         (
             len(query_terms & set(tokenize(f"{result.chunk.heading} {result.chunk.text}")))
@@ -77,6 +90,8 @@ def synthesize_answer(
         if normalized in seen_sentences:
             continue
         source_key = chunk.source_key
+        if source_key not in seen_sources and len(seen_sources) >= max_sources:
+            continue
         if source_key not in seen_sources:
             seen_sources[source_key] = f"S{len(seen_sources) + 1}"
         selected.append((sentence, chunk))

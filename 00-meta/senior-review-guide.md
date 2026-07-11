@@ -37,7 +37,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | Agent safety | Tool permissions, approval gates, loop limits, and refusals are application-enforced | Agentic Workflow Demo |
 | Observability | Decisions, tool calls, results, approvals, sources, and final states are traceable | Agent trace viewer |
 | Grounding | Answers cite source paths and refuse uncovered questions | Enablement Assistant RAG |
-| Evaluation | Behavior is checked with repeatable questions, exported eval evidence, tests, and source expectations | RAG evals, eval report, and workspace validator |
+| Evaluation | Balanced cases check retrieval, evidence-bearing citations, answer traits, partial coverage, adversarial requests, and refusal | RAG evals, eval report, and workspace validator |
 | Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |
 | Developer experience | Local failures are diagnosed before model behavior is blamed | Local AI Lab Runner |
 | Operability | Failure modes, setup paths, and troubleshooting are documented | Labs and explainers |

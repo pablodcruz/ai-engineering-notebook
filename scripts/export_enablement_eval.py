@@ -13,25 +13,13 @@ DEFAULT_OUTPUT = ROOT / "docs" / "enablement-eval-data.json"
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from enablement_assistant.answer import synthesize_answer  # noqa: E402
-from enablement_assistant.cli import DEFAULT_QUESTIONS, _build_retriever, _load_questions  # noqa: E402
-
-
-DEFAULT_EXCLUDES = [
-    ".git",
-    ".venv",
-    "__pycache__",
-    ".pytest_cache",
-    ".cache",
-    "tests",
-    "fixtures",
-    "enablement-assistant",
-    "enablement-assistant-rag.md",
-    "enablement-assistant.html",
-    "enablement-eval-report.html",
-    "enablement-eval-data.json",
-    "lab-template.md",
-    "project-template.md",
-]
+from enablement_assistant.cli import (  # noqa: E402
+    DEFAULT_EXCLUDES,
+    DEFAULT_QUESTIONS,
+    _build_retriever,
+    _load_questions,
+)
+from enablement_assistant.evaluation import evaluate_item  # noqa: E402
 
 
 def main() -> int:
@@ -78,18 +66,27 @@ def build_payload(questions_path: Path, top_k: int) -> dict[str, object]:
         should_answer = bool(item.get("should_answer", True))
         answer = synthesize_answer(question, retriever.search(question, top_k=top_k))
         retrieved_sources = [result.chunk.source_path for result in answer.retrieved]
-        source_hit = not expected_sources or bool(set(expected_sources) & set(retrieved_sources))
-        found_ok = answer.found is should_answer
-        passed = source_hit and found_ok
+        evaluation = evaluate_item(item, answer, corpus_root=ROOT)
         results.append(
             {
+                "id": evaluation["id"],
+                "category": evaluation["category"],
                 "question": question,
                 "expected_sources": expected_sources,
+                "citation_targets": list(item.get("citation_targets", [])),
+                "expected_traits": {
+                    "must_include": list(item.get("answer_must_include", [])),
+                    "must_include_any": list(item.get("answer_must_include_any", [])),
+                    "must_not_include": list(item.get("answer_must_not_include", [])),
+                    "max_citations": item.get("max_citations"),
+                },
                 "should_answer": should_answer,
                 "found": answer.found,
-                "source_hit": source_hit,
-                "found_ok": found_ok,
-                "passed": passed,
+                "source_hit": evaluation["checks"]["retrieval_source"],
+                "found_ok": evaluation["checks"]["answer_behavior"],
+                "passed": evaluation["passed"],
+                "checks": evaluation["checks"],
+                "diagnostics": evaluation["diagnostics"],
                 "answer": answer.answer,
                 "citations": [citation.__dict__ for citation in answer.citations],
                 "retrieved": [
@@ -110,6 +107,10 @@ def build_payload(questions_path: Path, top_k: int) -> dict[str, object]:
     passed_count = sum(1 for result in results if result["passed"])
     answered_count = sum(1 for result in results if result["found"])
     refusal_count = sum(1 for result in results if not result["found"])
+    category_counts: dict[str, int] = {}
+    for result in results:
+        category = str(result["category"])
+        category_counts[category] = category_counts.get(category, 0) + 1
 
     return {
         "metadata": {
@@ -126,7 +127,16 @@ def build_payload(questions_path: Path, top_k: int) -> dict[str, object]:
             "failed": len(results) - passed_count,
             "answered": answered_count,
             "refused": refusal_count,
-            "source_hits": sum(1 for result in results if result["source_hit"]),
+            "source_hits": sum(
+                1 for result in results if result["expected_sources"] and result["source_hit"]
+            ),
+            "citation_precision_passed": sum(
+                1 for result in results if result["checks"]["citation_precision"]
+            ),
+            "answer_traits_passed": sum(
+                1 for result in results if result["checks"]["answer_traits"]
+            ),
+            "categories": category_counts,
         },
         "results": results,
     }

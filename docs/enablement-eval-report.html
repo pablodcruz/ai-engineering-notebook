@@ -31,7 +31,8 @@
           <p>
             This report is generated from the same JSONL eval set used by the CLI.
             It shows whether each question was answered or refused, whether the
-            expected source was retrieved, and which citations were returned.
+            expected source was retrieved, whether citations cover the expected
+            evidence lines, and whether the answer contains the required traits.
           </p>
         </div>
         <div class="eval-summary" id="eval-summary" aria-label="Evaluation summary">
@@ -50,6 +51,14 @@
           <article>
             <strong>0</strong>
             <span>source hits</span>
+          </article>
+          <article>
+            <strong>0</strong>
+            <span>citation checks</span>
+          </article>
+          <article>
+            <strong>0</strong>
+            <span>answer-trait checks</span>
           </article>
         </div>
       </section>
@@ -77,7 +86,9 @@
             <li>Covered questions must produce a grounded answer.</li>
             <li>Uncovered questions must trigger the refusal path.</li>
             <li>Expected sources must appear in retrieved context.</li>
-            <li>Citations must preserve source path, heading, and line range.</li>
+            <li>Citations must cover the expected source, heading, and evidence lines.</li>
+            <li>Answers must include required traits and omit forbidden traits.</li>
+            <li>Partial coverage and source-bypass instructions must refuse.</li>
           </ul>
         </article>
 
@@ -128,6 +139,14 @@
             <strong>${summary.source_hits}</strong>
             <span>source hits</span>
           </article>
+          <article>
+            <strong>${summary.citation_precision_passed}/${summary.total}</strong>
+            <span>citation checks</span>
+          </article>
+          <article>
+            <strong>${summary.answer_traits_passed}/${summary.total}</strong>
+            <span>answer-trait checks</span>
+          </article>
         `;
       }
 
@@ -157,7 +176,7 @@
               <article class="eval-result-card">
                 <div class="eval-result-topline">
                   <span class="health-pill ${result.passed ? "" : "reject"}">${result.passed ? "PASS" : "FAIL"}</span>
-                  <span>${result.found ? "answered" : "refused"} - ${result.source_hit ? "source hit" : "source miss"}</span>
+                  <span>${escapeHtml(result.category)} · ${result.found ? "answered" : "refused"} · ${result.source_hit ? "source hit" : "source miss"}</span>
                 </div>
                 <h3>${index + 1}. ${escapeHtml(result.question)}</h3>
                 <p>${escapeHtml(result.answer)}</p>
@@ -166,12 +185,19 @@
                     <h4>Expected</h4>
                     <p>${result.should_answer ? "Answer from trusted sources" : "Refuse because corpus does not cover it"}</p>
                     <p>${result.expected_sources.length ? result.expected_sources.map(escapeHtml).join(", ") : "No expected source"}</p>
+                    <p>${result.expected_traits.must_include.length ? `Required: ${result.expected_traits.must_include.map(escapeHtml).join(", ")}` : "No required exact traits"}</p>
                   </div>
                   <div>
                     <h4>Top Retrieval</h4>
                     <p>${top ? `${escapeHtml(top.source_path)} (${Number(top.score).toFixed(3)})` : "No retrieved chunks"}</p>
                   </div>
                 </div>
+                <ul class="retrieved-mini-list">
+                  ${Object.entries(result.checks).map(([name, passed]) => `
+                    <li><strong>${passed ? "PASS" : "FAIL"} ${escapeHtml(name.replaceAll("_", " "))}</strong></li>
+                  `).join("")}
+                  ${result.diagnostics.map((message) => `<li><span>${escapeHtml(message)}</span></li>`).join("")}
+                </ul>
                 <div class="citation-list">${citations}</div>
                 <ul class="retrieved-mini-list">${retrieved}</ul>
               </article>

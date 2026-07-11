@@ -13,6 +13,23 @@ from .retrieval import TfIdfRetriever
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 NOTEBOOK_ROOT = PROJECT_ROOT.parents[1]
 DEFAULT_QUESTIONS = PROJECT_ROOT / "evals" / "questions.jsonl"
+DEFAULT_EXCLUDES = (
+    ".git",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".cache",
+    "tests",
+    "fixtures",
+    "private",
+    "enablement-assistant",
+    "enablement-assistant-rag.md",
+    "enablement-assistant.html",
+    "enablement-eval-report.html",
+    "enablement-eval-data.json",
+    "lab-template.md",
+    "project-template.md",
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -46,22 +63,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--exclude",
         action="append",
-        default=[
-            ".git",
-            ".venv",
-            "__pycache__",
-            ".pytest_cache",
-            ".cache",
-            "tests",
-            "fixtures",
-            "enablement-assistant",
-            "enablement-assistant-rag.md",
-            "enablement-assistant.html",
-            "enablement-eval-report.html",
-            "enablement-eval-data.json",
-            "lab-template.md",
-            "project-template.md",
-        ],
+        default=list(DEFAULT_EXCLUDES),
         help="Directory or file name to exclude. Can be repeated.",
     )
 
@@ -153,23 +155,23 @@ def index(args: argparse.Namespace) -> int:
 
 
 def evaluate(args: argparse.Namespace) -> int:
+    from .evaluation import evaluate_item
+
     retriever = _build_retriever(args.corpus, args.exclude)
     questions = _load_questions(args.questions)
     failures = 0
 
     for item in questions:
-        question = item["question"]
-        expected_sources = set(item.get("expected_sources", []))
-        should_answer = bool(item.get("should_answer", True))
+        question = str(item["question"])
         answer = synthesize_answer(question, retriever.search(question, top_k=args.top_k))
-        retrieved_sources = {result.chunk.source_path for result in answer.retrieved}
-        source_hit = not expected_sources or bool(expected_sources & retrieved_sources)
-        found_ok = answer.found is should_answer
-        ok = source_hit and found_ok
-        failures += 0 if ok else 1
-        status = "PASS" if ok else "FAIL"
-        print(f"{status} {question}")
-        print(f"  found={answer.found} expected_found={should_answer} source_hit={source_hit}")
+        result = evaluate_item(item, answer, corpus_root=args.corpus)
+        failures += 0 if result["passed"] else 1
+        status = "PASS" if result["passed"] else "FAIL"
+        print(f"{status} [{result['category']}] {question}")
+        for check, passed in result["checks"].items():
+            print(f"  {'ok' if passed else 'FAIL'} {check}")
+        for diagnostic in result["diagnostics"]:
+            print(f"  - {diagnostic}")
 
     print()
     print(f"{len(questions) - failures}/{len(questions)} passed")
