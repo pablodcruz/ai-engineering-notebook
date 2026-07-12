@@ -45,6 +45,16 @@ python scripts/validate_workspace.py --quality
 
 This additionally enforces Ruff linting and formatting, practical mypy coverage over core modules, and an 80% branch-aware unit-test coverage floor. See [QUALITY.md](QUALITY.md) for scope and exclusions.
 
+Run the isolated recorded-mode browser suite:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run test:browser
+```
+
+The Playwright suite uses its own Chromium build and no application secrets or billable model calls. See [BROWSER_TESTING.md](BROWSER_TESTING.md).
+
 ## Showcase App
 
 Open the canonical live application:

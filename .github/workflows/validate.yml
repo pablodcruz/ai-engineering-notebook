@@ -35,3 +35,28 @@ jobs:
         with:
           name: python-coverage
           path: coverage/
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install pinned browser-test dependencies
+        run: npm ci
+
+      - name: Install isolated Chromium test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Support Triage browser tests
+        run: npm run test:browser
+
+      - name: Upload Playwright evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

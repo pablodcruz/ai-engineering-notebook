@@ -17,30 +17,31 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 | Repository documentation roundup | Folder guides, concept-to-evidence navigation, evaluation and observability guidance, expanded debugging workflow, shared terminology, and a reusable AI-system review checklist. |
 | Engineering quality automation | Pinned Ruff, mypy, and coverage tooling; shared root configuration; an 80% branch-aware floor; CI artifacts; and one optional local quality mode. |
+| Support Triage browser automation | Five isolated Chromium tests covering recorded recommendations, human accept/correct decisions, metrics, sanitized export, reset, and access-request links without secrets or model calls. |
 
-## Active: StreamFlow Integration Smoke Test
+## Active: Review Feedback To Evaluation Pipeline
 
-Add one bounded end-to-end path that proves the containerized streaming components exchange real data under automation.
+Turn exported synthetic human corrections into reviewed candidate evaluation cases without automatically changing the permanent golden set.
 
 ### Minimum Scope
 
-- Start the smallest required container set.
-- Produce a deterministic event batch.
-- Consume or process the events through one real component boundary.
-- Assert record count, schema, and one failure-path behavior.
+- Validate the browser export schema and synthetic-data marker.
+- Summarize acceptance, override, and reason counts.
+- Convert corrected decisions into candidate prompt-regression cases.
+- Require an explicit reviewer step before promotion into permanent eval data.
 
 ### Definition Of Done
 
-- The smoke test is bounded and terminates without manual intervention.
-- CI or an explicitly documented opt-in workflow can run it reproducibly.
-- Failures identify the component boundary that broke.
-- Existing dependency-free validation remains fast.
-- Setup, cleanup, troubleshooting, and expected output are documented.
+- Malformed, non-synthetic, and unsupported exports fail clearly.
+- Candidate cases preserve the model suggestion, human decision, and override reason.
+- No exported case is promoted automatically.
+- Unit tests cover accepted, corrected, duplicate, and invalid records.
+- Documentation connects the pipeline to the Review Console and Prompt Regression Runner.
 
 ## Next
 
-1. Add automated browser tests for the Support Triage Review Console.
-2. Convert reviewed synthetic feedback into candidate evaluation cases.
+1. Add a bounded StreamFlow integration smoke test.
+2. Add a mocked Zendesk-style support adapter.
 
 ## Later
 
