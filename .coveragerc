@@ -1,0 +1,28 @@
+[run]
+branch = True
+parallel = True
+source =
+    api
+    03-projects/enablement-assistant/src
+    03-projects/agentic-workflow-demo/src
+    03-projects/local-ai-lab-runner/src
+    03-projects/prompt-regression-runner/src
+    03-projects/streamflow-containerized-stream-processing/src
+omit =
+    */tests/*
+    */tests/fixtures/*
+    */__pycache__/*
+    */cli.py
+    */live_openai.py
+    */producer.py
+    api/health.py
+    api/triage.py
+
+[report]
+fail_under = 80
+show_missing = True
+skip_covered = True
+precision = 1
+
+[html]
+directory = coverage/html

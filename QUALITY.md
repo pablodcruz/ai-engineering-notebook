@@ -33,7 +33,7 @@ python -m ruff format .
 | mypy | Reusable domain and application-service modules | Typed interfaces and internal data flow |
 | coverage.py | Deterministic business logic exercised by six unit-test suites and three behavioral eval commands | Branch-aware terminal, XML, and HTML reports |
 
-Tool versions are pinned in `requirements-dev.txt`. Configuration lives in the root `pyproject.toml`, so local and CI checks use the same rules.
+Tool versions are pinned in `requirements-dev.txt`. Configuration lives in root-level `ruff.toml`, `mypy.ini`, and `.coveragerc` files, so local and CI checks use the same rules without presenting quality metadata as an installable root Python application.
 
 ## Deliberate Boundaries
 

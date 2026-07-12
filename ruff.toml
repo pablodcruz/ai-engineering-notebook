@@ -1,0 +1,22 @@
+target-version = "py312"
+line-length = 100
+extend-exclude = [
+  "docs",
+  "03-projects/*/tests/fixtures",
+  "03-projects/streamflow-containerized-stream-processing/airflow",
+  "03-projects/streamflow-containerized-stream-processing/spark",
+  "03-projects/streamflow-enterprise-analytics-pipeline/airflow",
+]
+
+[lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
+ignore = [
+  "UP017", # datetime.UTC requires Python 3.11; projects support Python 3.10.
+  "UP042", # StrEnum requires Python 3.11; projects support Python 3.10.
+]
+
+[lint.per-file-ignores]
+"api/health.py" = ["E402"]
+"api/triage.py" = ["E402"]
+"tests/*.py" = ["E402"]
+"03-projects/*/tests/*.py" = ["E402"]

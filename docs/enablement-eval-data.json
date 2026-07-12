@@ -96,7 +96,7 @@
         },
         {
           "rank": 3,
-          "score": 0.31915,
+          "score": 0.319245,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -183,7 +183,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.357969,
+          "score": 0.358159,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -210,7 +210,7 @@
         },
         {
           "rank": 4,
-          "score": 0.206085,
+          "score": 0.206093,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Common Failure Modes",
           "start_line": 67,
@@ -386,7 +386,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.220208,
+          "score": 0.220231,
           "source_path": "05-reference/glossary.md",
           "heading": "Glossary > Retrieval",
           "start_line": 17,
@@ -509,7 +509,7 @@
         },
         {
           "rank": 2,
-          "score": 0.260666,
+          "score": 0.260672,
           "source_path": "01-concepts/agents.md",
           "heading": "Agents And Agentic Workflows > Engineering Lens",
           "start_line": 41,
@@ -527,7 +527,7 @@
         },
         {
           "rank": 4,
-          "score": 0.238522,
+          "score": 0.238534,
           "source_path": "03-projects/agentic-workflow-demo.md",
           "heading": "Project: Agentic Workflow Demo > Why This Matters",
           "start_line": 13,
@@ -536,7 +536,7 @@
         },
         {
           "rank": 5,
-          "score": 0.212647,
+          "score": 0.21266,
           "source_path": "03-projects/agentic-workflow-demo.md",
           "heading": "Project: Agentic Workflow Demo > Architecture > Permission Model",
           "start_line": 35,
@@ -615,7 +615,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.499465,
+          "score": 0.499484,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Diagnose By Layer > 4. External Service",
           "start_line": 64,
@@ -624,7 +624,7 @@
         },
         {
           "rank": 2,
-          "score": 0.295758,
+          "score": 0.295779,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Diagnose By Layer > 2. Application Contract",
           "start_line": 52,
@@ -642,7 +642,7 @@
         },
         {
           "rank": 4,
-          "score": 0.239549,
+          "score": 0.239553,
           "source_path": "01-concepts/apis-sdks-developer-tools.md",
           "heading": "APIs, SDKs, And Developer Tools > Core Concepts",
           "start_line": 9,
@@ -936,7 +936,7 @@
         },
         {
           "rank": 2,
-          "score": 0.485661,
+          "score": 0.485677,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Problem",
           "start_line": 5,
@@ -954,7 +954,7 @@
         },
         {
           "rank": 4,
-          "score": 0.469737,
+          "score": 0.470088,
           "source_path": "03-projects/local-ai-lab-runner/README.md",
           "heading": "Local AI Lab Runner > What It Checks",
           "start_line": 47,
@@ -1042,7 +1042,7 @@
         },
         {
           "rank": 2,
-          "score": 0.252658,
+          "score": 0.252715,
           "source_path": "03-projects/agentic-workflow-demo/README.md",
           "heading": "Agentic Workflow Demo",
           "start_line": 3,
@@ -1069,7 +1069,7 @@
         },
         {
           "rank": 5,
-          "score": 0.229665,
+          "score": 0.229706,
           "source_path": "01-concepts/agents.md",
           "heading": "Agents And Agentic Workflows > Explain It Back",
           "start_line": 61,
@@ -1145,7 +1145,7 @@
         },
         {
           "rank": 2,
-          "score": 0.296246,
+          "score": 0.296553,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
           "heading": "StreamFlow Phase 2 > Warehouse Design",
           "start_line": 81,
@@ -1154,7 +1154,7 @@
         },
         {
           "rank": 3,
-          "score": 0.281453,
+          "score": 0.281488,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/data_dictionary.md",
           "heading": "StreamFlow Phase 2 Data Dictionary > Silver > `SILVER_EVENTS`",
           "start_line": 20,
@@ -1163,7 +1163,7 @@
         },
         {
           "rank": 4,
-          "score": 0.266877,
+          "score": 0.266914,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/snowflake_setup.md",
           "heading": "Snowflake Setup > What Snowflake Does Here",
           "start_line": 7,
@@ -1172,7 +1172,7 @@
         },
         {
           "rank": 5,
-          "score": 0.251283,
+          "score": 0.251288,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
           "heading": "StreamFlow Phase 2 > Problem",
           "start_line": 7,
@@ -1314,7 +1314,7 @@
         },
         {
           "rank": 5,
-          "score": 0.141211,
+          "score": 0.141217,
           "source_path": "QUALITY.md",
           "heading": "Engineering Quality Automation > Coverage Policy",
           "start_line": 52,
@@ -1356,7 +1356,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.226747,
+          "score": 0.226765,
           "source_path": "03-projects/prompt-regression-runner/README.md",
           "heading": "Prompt Regression Runner",
           "start_line": 3,
@@ -1374,7 +1374,7 @@
         },
         {
           "rank": 3,
-          "score": 0.170593,
+          "score": 0.1706,
           "source_path": "01-concepts/llm-fundamentals.md",
           "heading": "LLM Fundamentals > Engineering Lens",
           "start_line": 38,
@@ -1383,7 +1383,7 @@
         },
         {
           "rank": 4,
-          "score": 0.169924,
+          "score": 0.169932,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Build Notes",
           "start_line": 71,
@@ -1392,7 +1392,7 @@
         },
         {
           "rank": 5,
-          "score": 0.1684,
+          "score": 0.168416,
           "source_path": "04-explainers/ai-app-operating-economics.md",
           "heading": "AI Application Operating Economics > Request Economics",
           "start_line": 20,
@@ -1434,7 +1434,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.16487,
+          "score": 0.164891,
           "source_path": "04-explainers/production-readiness-checklist.md",
           "heading": "Production Readiness Checklist",
           "start_line": 3,
@@ -1443,7 +1443,7 @@
         },
         {
           "rank": 2,
-          "score": 0.164729,
+          "score": 0.16478,
           "source_path": "01-concepts/ai-application-workflows.md",
           "heading": "AI Application Workflows > Workflow 3: Tool-Using Assistant",
           "start_line": 33,
@@ -1452,7 +1452,7 @@
         },
         {
           "rank": 3,
-          "score": 0.154777,
+          "score": 0.15479,
           "source_path": "05-reference/glossary.md",
           "heading": "Glossary > Retrieval",
           "start_line": 17,
@@ -1514,7 +1514,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.178033,
+          "score": 0.178059,
           "source_path": "00-meta/notebook-conventions.md",
           "heading": "Notebook Conventions > File Style",
           "start_line": 16,
@@ -1532,7 +1532,7 @@
         },
         {
           "rank": 3,
-          "score": 0.170375,
+          "score": 0.170464,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -1550,7 +1550,7 @@
         },
         {
           "rank": 5,
-          "score": 0.130791,
+          "score": 0.130796,
           "source_path": "01-concepts/README.md",
           "heading": "Concepts > Standard For A Useful Concept Note",
           "start_line": 31,
@@ -1610,7 +1610,7 @@
         },
         {
           "rank": 3,
-          "score": 0.177113,
+          "score": 0.177118,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > How To Explain By Audience",
           "start_line": 53,
@@ -1619,7 +1619,7 @@
         },
         {
           "rank": 4,
-          "score": 0.173813,
+          "score": 0.17386,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Why This Matters",
           "start_line": 5,
