@@ -16,7 +16,7 @@ class BacklogTask:
     blocked_by: tuple[str, ...] = ()
 
     @classmethod
-    def from_dict(cls, payload: dict[str, Any]) -> "BacklogTask":
+    def from_dict(cls, payload: dict[str, Any]) -> BacklogTask:
         return cls(
             task_id=str(payload["task_id"]),
             title=str(payload["title"]),

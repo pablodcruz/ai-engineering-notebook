@@ -6,7 +6,6 @@ from typing import Any
 
 from .workflow import run_workflow
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CASES = PROJECT_ROOT / "evals" / "cases.jsonl"
 
@@ -36,7 +35,10 @@ def evaluate_cases(path: Path = DEFAULT_CASES) -> tuple[list[dict[str, Any]], in
             "status": result.status == case["expected_status"],
             "tools": all(tool in tool_names for tool in expected_tools),
             "forbidden_tools": not any(tool in tool_names for tool in forbidden_tools),
-            "sources": all(any(expected in source for source in result.sources) for expected in expected_sources),
+            "sources": all(
+                any(expected in source for source in result.sources)
+                for expected in expected_sources
+            ),
         }
         passed = all(checks.values())
         failures += 0 if passed else 1

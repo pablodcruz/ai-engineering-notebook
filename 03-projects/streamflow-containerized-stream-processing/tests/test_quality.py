@@ -1,14 +1,19 @@
 from __future__ import annotations
 
-from pathlib import Path
 import json
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from streamflow.producer import generate_events, write_jsonl
-from streamflow.quality import mark_duplicate_events, parse_event_json, split_valid_rejected, validate_event
+from streamflow.quality import (
+    mark_duplicate_events,
+    parse_event_json,
+    split_valid_rejected,
+    validate_event,
+)
 
 
 class StreamFlowQualityTests(unittest.TestCase):
@@ -109,4 +114,3 @@ class StreamFlowQualityTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

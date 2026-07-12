@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-from pathlib import Path
 import os
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from local_ai_lab_runner.checks import Severity, has_failures, profile_for_lab, run_checks
 from local_ai_lab_runner.labs import discover_labs, load_lab
 from local_ai_lab_runner.runner import build_checkpoints, summarize
-
 
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "labs"
 
@@ -45,7 +44,12 @@ class LocalLabRunnerTests(unittest.TestCase):
         lab = load_lab(FIXTURE_ROOT / "good-lab.md", root=FIXTURE_ROOT)
         findings = run_checks(lab, simulate={"missing-package"})
 
-        self.assertTrue(any(finding.check.startswith("package.") and finding.severity == Severity.FAIL for finding in findings))
+        self.assertTrue(
+            any(
+                finding.check.startswith("package.") and finding.severity == Severity.FAIL
+                for finding in findings
+            )
+        )
 
     def test_builds_checkpoints_from_findings(self) -> None:
         lab = load_lab(FIXTURE_ROOT / "good-lab.md", root=FIXTURE_ROOT)
@@ -53,9 +57,13 @@ class LocalLabRunnerTests(unittest.TestCase):
         checkpoints = build_checkpoints(lab, findings)
 
         self.assertEqual(checkpoints[0].name, "Read the lab goal")
-        self.assertTrue(all(checkpoint.status in {Severity.PASS, Severity.WARN, Severity.FAIL} for checkpoint in checkpoints))
+        self.assertTrue(
+            all(
+                checkpoint.status in {Severity.PASS, Severity.WARN, Severity.FAIL}
+                for checkpoint in checkpoints
+            )
+        )
 
 
 if __name__ == "__main__":
     unittest.main()
-

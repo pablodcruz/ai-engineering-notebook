@@ -1,15 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import re
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
-import re
-import sys
 from urllib.error import HTTPError, URLError
 from urllib.parse import unquote, urlparse
 from urllib.request import Request, urlopen
-
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP_DIRS = {".git", ".venv", "__pycache__", ".pytest_cache", ".mypy_cache"}
@@ -79,7 +77,10 @@ def collect_links() -> list[Link]:
             continue
         text = path.read_text(encoding="utf-8")
         if path.suffix.lower() == ".md":
-            links.extend(Link(source=path, target=match.group(1)) for match in MARKDOWN_LINK_RE.finditer(text))
+            links.extend(
+                Link(source=path, target=match.group(1))
+                for match in MARKDOWN_LINK_RE.finditer(text)
+            )
         elif path.suffix.lower() == ".html":
             html_parser = LinkParser(path)
             html_parser.feed(text)
@@ -132,7 +133,9 @@ def check_local_path(
 
 
 def check_external(link: Link, target: str) -> str | None:
-    request = Request(target, method="HEAD", headers={"User-Agent": "ai-engineering-notebook-link-check"})
+    request = Request(
+        target, method="HEAD", headers={"User-Agent": "ai-engineering-notebook-link-check"}
+    )
     try:
         with urlopen(request, timeout=15) as response:
             if response.status >= 400:
@@ -147,7 +150,9 @@ def check_external(link: Link, target: str) -> str | None:
 
 
 def check_external_get(link: Link, target: str) -> str | None:
-    request = Request(target, method="GET", headers={"User-Agent": "ai-engineering-notebook-link-check"})
+    request = Request(
+        target, method="GET", headers={"User-Agent": "ai-engineering-notebook-link-check"}
+    )
     try:
         with urlopen(request, timeout=15) as response:
             if response.status >= 400:

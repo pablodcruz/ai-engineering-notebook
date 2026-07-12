@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "03-projects" / "agentic-workflow-demo"
@@ -14,7 +13,6 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from agentic_workflow.tools import TOOL_SPECS  # noqa: E402
 from agentic_workflow.workflow import run_workflow  # noqa: E402
-
 
 SCENARIOS = (
     ("Blocked work", "Summarize blocked work", False),
@@ -52,7 +50,9 @@ def _stable_result(request: str, approved: bool) -> dict[str, object]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Export agent workflow traces for the static showcase.")
+    parser = argparse.ArgumentParser(
+        description="Export agent workflow traces for the static showcase."
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()

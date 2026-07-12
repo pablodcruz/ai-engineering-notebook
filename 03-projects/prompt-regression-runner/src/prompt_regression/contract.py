@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Any
 
-
 PRODUCT_AREAS = {"authentication", "billing", "integrations", "performance", "account", "unknown"}
 URGENCY_LEVELS = {"low", "medium", "high"}
 REQUIRED_FIELDS = {
@@ -37,15 +36,23 @@ def validate_output(payload: object) -> list[str]:
         errors.append(f"missing fields: {', '.join(missing)}")
     if extra:
         errors.append(f"unexpected fields: {', '.join(extra)}")
-    if not isinstance(payload.get("customer_problem"), str) or not str(payload.get("customer_problem", "")).strip():
+    if (
+        not isinstance(payload.get("customer_problem"), str)
+        or not str(payload.get("customer_problem", "")).strip()
+    ):
         errors.append("customer_problem must be a non-empty string")
     if payload.get("product_area") not in PRODUCT_AREAS:
         errors.append(f"product_area must be one of {sorted(PRODUCT_AREAS)}")
     if payload.get("urgency") not in URGENCY_LEVELS:
         errors.append(f"urgency must be one of {sorted(URGENCY_LEVELS)}")
     missing_information = payload.get("missing_information")
-    if not isinstance(missing_information, list) or not all(isinstance(item, str) for item in missing_information):
+    if not isinstance(missing_information, list) or not all(
+        isinstance(item, str) for item in missing_information
+    ):
         errors.append("missing_information must be a list of strings")
-    if not isinstance(payload.get("recommended_response"), str) or not str(payload.get("recommended_response", "")).strip():
+    if (
+        not isinstance(payload.get("recommended_response"), str)
+        or not str(payload.get("recommended_response", "")).strip()
+    ):
         errors.append("recommended_response must be a non-empty string")
     return errors

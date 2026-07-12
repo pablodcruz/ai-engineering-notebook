@@ -9,7 +9,6 @@ from .backlog import BacklogRepository
 from .models import PendingAction, TraceStep, WorkflowResult
 from .tools import BacklogTools
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_BACKLOG = PROJECT_ROOT / "data" / "backlog.json"
 TASK_PATTERN = re.compile(r"\bTASK-\d+\b", re.IGNORECASE)
@@ -37,7 +36,9 @@ class BacklogAgent:
 
         try:
             if self._is_unsupported_mutation(lowered):
-                return self._refuse(normalized, "The requested mutation is outside the allowed tool set.")
+                return self._refuse(
+                    normalized, "The requested mutation is outside the allowed tool set."
+                )
 
             task_match = TASK_PATTERN.search(normalized)
             priority_match = PRIORITY_PATTERN.search(normalized)
@@ -72,7 +73,9 @@ class BacklogAgent:
                 return self._complete(normalized, answer)
 
             if any(term in lowered for term in ("summary", "summarize", "overview", "active work")):
-                self._decision("summarize_backlog", {"reason": "Request asks for a backlog overview."})
+                self._decision(
+                    "summarize_backlog", {"reason": "Request asks for a backlog overview."}
+                )
                 found = self._call("search_backlog", {"query": "*"})
                 task_ids = [task["task_id"] for task in found["tasks"]]
                 summary = self._call("draft_summary", {"task_ids": task_ids})
@@ -93,7 +96,9 @@ class BacklogAgent:
             self._add_trace("final", "workflow_error", {}, {"message": str(exc)}, "error", 0.0)
             return WorkflowResult(normalized, "error", str(exc), self._sources, list(self._trace))
 
-    def _change_priority(self, request: str, task_id: str, priority: str, *, approved: bool) -> WorkflowResult:
+    def _change_priority(
+        self, request: str, task_id: str, priority: str, *, approved: bool
+    ) -> WorkflowResult:
         arguments = {"task_id": task_id, "priority": priority}
         self._decision("propose_priority_change", arguments)
         current = self._call("get_task", {"task_id": task_id})
@@ -116,9 +121,13 @@ class BacklogAgent:
             )
             answer = f"Approval required before changing {task_id} priority to {priority}."
             self._add_trace("final", "approval_required", {}, {"answer": answer}, "pending", 0.0)
-            return WorkflowResult(request, "approval_required", answer, self._sources, list(self._trace), pending)
+            return WorkflowResult(
+                request, "approval_required", answer, self._sources, list(self._trace), pending
+            )
 
-        self._add_trace("approval", "update_priority", arguments, {"approved": True}, "approved", 0.0)
+        self._add_trace(
+            "approval", "update_priority", arguments, {"approved": True}, "approved", 0.0
+        )
         changed = self._call("update_priority", arguments, approved=True)
         answer = (
             f"Simulated priority change for {task_id}: {changed['before']} -> {changed['after']}. "
@@ -126,7 +135,9 @@ class BacklogAgent:
         )
         return self._complete(request, answer)
 
-    def _call(self, name: str, arguments: dict[str, Any], *, approved: bool = False) -> dict[str, Any]:
+    def _call(
+        self, name: str, arguments: dict[str, Any], *, approved: bool = False
+    ) -> dict[str, Any]:
         if self._tool_calls >= self.max_tool_calls:
             raise StepLimitExceeded(f"Tool-call limit reached ({self.max_tool_calls})")
         self._tool_calls += 1
@@ -138,7 +149,9 @@ class BacklogAgent:
             self._add_trace("tool_result", name, arguments, {"error": str(exc)}, "error", duration)
             raise
         duration = (perf_counter() - started) * 1000
-        self._sources.extend(source for source in output.get("sources", []) if source not in self._sources)
+        self._sources.extend(
+            source for source in output.get("sources", []) if source not in self._sources
+        )
         self._add_trace("tool_call", name, arguments, output, "ok", duration)
         return output
 
@@ -146,7 +159,9 @@ class BacklogAgent:
         self._add_trace("decision", name, {}, output, "ok", 0.0)
 
     def _complete(self, request: str, answer: str) -> WorkflowResult:
-        self._add_trace("final", "complete", {}, {"answer": answer, "sources": self._sources}, "ok", 0.0)
+        self._add_trace(
+            "final", "complete", {}, {"answer": answer, "sources": self._sources}, "ok", 0.0
+        )
         return WorkflowResult(request, "completed", answer, self._sources, list(self._trace))
 
     def _refuse(self, request: str, reason: str) -> WorkflowResult:
@@ -177,11 +192,16 @@ class BacklogAgent:
 
     @staticmethod
     def _is_priority_change(request: str) -> bool:
-        return "priority" in request and any(term in request for term in ("change", "set", "update", "raise", "make"))
+        return "priority" in request and any(
+            term in request for term in ("change", "set", "update", "raise", "make")
+        )
 
     @staticmethod
     def _is_unsupported_mutation(request: str) -> bool:
-        return any(term in request for term in ("delete", "close task", "send email", "deploy", "assign task"))
+        return any(
+            term in request
+            for term in ("delete", "close task", "send email", "deploy", "assign task")
+        )
 
 
 def run_workflow(

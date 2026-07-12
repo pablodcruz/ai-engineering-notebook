@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from http.server import BaseHTTPRequestHandler
 import json
+from http.server import BaseHTTPRequestHandler
 
 from api._triage_service import LIVE_SAMPLE_IDS, PROMPT_VERSION, live_configuration_status
 

@@ -53,7 +53,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | Developer experience | Local failures are diagnosed before model behavior is blamed | Local AI Lab Runner |
 | Operability | Failure modes, setup paths, and troubleshooting are documented | Labs and explainers |
 | Safety | Tool boundaries, credential handling, and refusal behavior are explicit | Agent lab, API lab, RAG project |
-| Maintainability | One-command validation, link checks, and CI make regressions visible | `scripts/validate_workspace.py`, `scripts/check_links.py`, and GitHub Actions |
+| Maintainability | One-command validation, pinned lint and type checks, branch-aware coverage, link checks, and CI make regressions visible | `scripts/validate_workspace.py`, `scripts/run_quality.py`, `QUALITY.md`, and GitHub Actions |
 | Communication | Each artifact explains problem, architecture, limitations, and demo path | Project writeups and showcase |
 
 ## Questions A Senior Engineer Should Ask

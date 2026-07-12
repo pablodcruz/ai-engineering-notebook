@@ -1,16 +1,16 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timezone
 import json
 import os
-from pathlib import Path
 import sys
+from collections.abc import Callable
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from pathlib import Path
 from time import perf_counter, time
 from typing import Any, Protocol
 from urllib.request import Request, urlopen
 from uuid import uuid4
-
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER_SRC = ROOT / "03-projects" / "prompt-regression-runner" / "src"
@@ -19,7 +19,6 @@ if str(RUNNER_SRC) not in sys.path:
 
 from prompt_regression.contract import validate_output  # noqa: E402
 from prompt_regression.live_openai import build_request  # noqa: E402
-
 
 PROMPT_VERSION = "structured-v2"
 PROMPT_PATH = ROOT / "03-projects" / "prompt-regression-runner" / "prompts" / f"{PROMPT_VERSION}.md"
@@ -42,7 +41,7 @@ class ServiceConfig:
     allowed_origin: str
 
     @classmethod
-    def from_environment(cls) -> "ServiceConfig":
+    def from_environment(cls) -> ServiceConfig:
         model = os.getenv("OPENAI_MODEL", "").strip()
         access_code = os.getenv("TRIAGE_DEMO_ACCESS_CODE", "").strip()
         redis_url = os.getenv("UPSTASH_REDIS_REST_URL", "").strip()
@@ -186,7 +185,7 @@ class UpstashDailyCounter:
         token: str,
         limit: int,
         *,
-        opener=urlopen,
+        opener: Callable[..., Any] = urlopen,
     ) -> None:
         self.url = url.rstrip("/")
         self.token = token
@@ -246,7 +245,8 @@ def live_configuration_status() -> dict[str, bool]:
         "provider_key_configured": bool(os.getenv("OPENAI_API_KEY", "").strip()),
         "access_code_configured": bool(os.getenv("TRIAGE_DEMO_ACCESS_CODE", "").strip()),
         "daily_limit_configured": daily_limit_valid,
-        "allowed_origin_configured": os.getenv("TRIAGE_ALLOWED_ORIGIN", "").strip() not in {"", "*"},
+        "allowed_origin_configured": os.getenv("TRIAGE_ALLOWED_ORIGIN", "").strip()
+        not in {"", "*"},
         "daily_guard_configured": bool(
             os.getenv("UPSTASH_REDIS_REST_URL", "").strip()
             and os.getenv("UPSTASH_REDIS_REST_TOKEN", "").strip()
@@ -266,7 +266,11 @@ def validate_ticket(ticket: object) -> str | None:
 
 
 def error_payload(request_id: str, code: str, message: str) -> dict[str, Any]:
-    return {"status": "error", "request_id": request_id, "error": {"code": code, "message": message}}
+    return {
+        "status": "error",
+        "request_id": request_id,
+        "error": {"code": code, "message": message},
+    }
 
 
 def log_provider_failure(exc: Exception, *, request_id: str, stage: str) -> None:

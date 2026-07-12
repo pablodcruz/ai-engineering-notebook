@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-from pathlib import Path
 import sys
-from typing import Iterable
+from collections.abc import Iterable
+from pathlib import Path
 
 from snowflake_smoke_test import clear_proxy_environment, connection_kwargs, load_env_file
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = PROJECT_ROOT.parents[1]
@@ -44,19 +42,33 @@ DEMO_TABLES = [
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run the StreamFlow Phase 2 Snowflake demo pipeline.")
-    parser.add_argument("--env-file", type=Path, required=True, help="Local env file with SNOWFLAKE_* values.")
-    parser.add_argument("--count", type=int, default=250, help="Number of synthetic Phase 1 events to generate.")
-    parser.add_argument("--invalid-rate", type=float, default=0.08, help="Fraction of generated invalid events.")
+    parser = argparse.ArgumentParser(
+        description="Run the StreamFlow Phase 2 Snowflake demo pipeline."
+    )
+    parser.add_argument(
+        "--env-file", type=Path, required=True, help="Local env file with SNOWFLAKE_* values."
+    )
+    parser.add_argument(
+        "--count", type=int, default=250, help="Number of synthetic Phase 1 events to generate."
+    )
+    parser.add_argument(
+        "--invalid-rate", type=float, default=0.08, help="Fraction of generated invalid events."
+    )
     parser.add_argument("--seed", type=int, default=13, help="Synthetic event seed.")
-    parser.add_argument("--reset-demo", action="store_true", help="Truncate StreamFlow demo tables before loading.")
+    parser.add_argument(
+        "--reset-demo", action="store_true", help="Truncate StreamFlow demo tables before loading."
+    )
     parser.add_argument(
         "--load-mode",
         choices=("insert", "stage"),
         default="insert",
         help="Load generated events by direct Bronze inserts or Snowflake stage PUT/COPY.",
     )
-    parser.add_argument("--no-proxy", action="store_true", help="Clear proxy environment variables for this process.")
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Clear proxy environment variables for this process.",
+    )
     return parser
 
 
@@ -95,7 +107,9 @@ def reset_demo_tables(cursor) -> None:
 
 
 def stage_sample_file(cursor, sample_path: Path) -> None:
-    cursor.execute("REMOVE @STREAMFLOW_DB.BRONZE.STREAMFLOW_STAGE PATTERN = '.*streamflow_events.*'")
+    cursor.execute(
+        "REMOVE @STREAMFLOW_DB.BRONZE.STREAMFLOW_STAGE PATTERN = '.*streamflow_events.*'"
+    )
     normalized = sample_path.resolve().as_posix()
     cursor.execute(
         f"PUT 'file://{normalized}' @STREAMFLOW_DB.BRONZE.STREAMFLOW_STAGE "
@@ -152,7 +166,9 @@ def main() -> int:
     cache_dir.mkdir(exist_ok=True)
     sample_path = cache_dir / "streamflow_events.jsonl"
     print(f"Generating {args.count} sample events at {sample_path}", flush=True)
-    events = generate_sample(sample_path, count=args.count, seed=args.seed, invalid_rate=args.invalid_rate)
+    events = generate_sample(
+        sample_path, count=args.count, seed=args.seed, invalid_rate=args.invalid_rate
+    )
 
     with snowflake.connector.connect(**connection_kwargs()) as conn:
         with conn.cursor() as cursor:
@@ -168,7 +184,9 @@ def main() -> int:
             else:
                 print("Inserting generated events into Bronze", flush=True)
                 insert_bronze_events(cursor, events)
-                transform_files = [path for path in TRANSFORM_FILES if path != "sql/bronze/load_bronze_events.sql"]
+                transform_files = [
+                    path for path in TRANSFORM_FILES if path != "sql/bronze/load_bronze_events.sql"
+                ]
 
             collected_results: list[tuple[str, list[tuple]]] = []
             for relative_path in transform_files:

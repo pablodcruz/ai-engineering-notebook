@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from pathlib import Path
-from datetime import datetime, timezone
 import io
 import json
 import sys
 import unittest
+from datetime import datetime, timezone
+from pathlib import Path
 from unittest.mock import patch
-
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -21,7 +20,6 @@ from api._triage_service import (
     log_provider_failure,
     validate_ticket,
 )
-
 
 VALID_OUTPUT = {
     "customer_problem": "Password reset email is missing",
@@ -112,7 +110,9 @@ class LiveTriageServiceTests(unittest.TestCase):
         self.assertEqual(provider.received, [])
 
     def test_provider_schema_failure_is_visible(self) -> None:
-        service = TriageService(FakeProvider({"customer_problem": "Incomplete"}), model="test-model")
+        service = TriageService(
+            FakeProvider({"customer_problem": "Incomplete"}), model="test-model"
+        )
 
         status, payload = service.run("The customer supplied a sufficiently long ticket.")
 
@@ -141,7 +141,9 @@ class LiveTriageServiceTests(unittest.TestCase):
             code = "rate_limit_exceeded"
 
         with patch("builtins.print") as print_mock:
-            log_provider_failure(FakeStatusError("secret message"), request_id="triage_safe", stage="generation")
+            log_provider_failure(
+                FakeStatusError("secret message"), request_id="triage_safe", stage="generation"
+            )
 
         logged = json.loads(print_mock.call_args.args[0])
         self.assertEqual(logged["provider_http_status"], 429)

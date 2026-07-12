@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from .evals import DEFAULT_CASES, evaluate_cases
 from .tools import TOOL_SPECS
@@ -32,7 +32,9 @@ def main(argv: list[str] | None = None) -> int:
                     print(f"- {source}")
             print("Trace:")
             for step in result.trace:
-                print(f"{step.step}. {step.event} {step.name} [{step.status}] {step.duration_ms:.3f}ms")
+                print(
+                    f"{step.step}. {step.event} {step.name} [{step.status}] {step.duration_ms:.3f}ms"
+                )
         return {"completed": 0, "approval_required": 3, "refused": 2}.get(result.status, 1)
 
     if args.command == "tools":
@@ -49,7 +51,9 @@ def main(argv: list[str] | None = None) -> int:
         results, failures = evaluate_cases(args.cases)
         for result in results:
             status = "PASS" if result["passed"] else "FAIL"
-            print(f"{status} {result['name']}: {result['status']} tools={','.join(result['tools']) or 'none'}")
+            print(
+                f"{status} {result['name']}: {result['status']} tools={','.join(result['tools']) or 'none'}"
+            )
         print()
         print(f"{len(results) - failures}/{len(results)} passed")
         return 0 if failures == 0 else 1
@@ -59,12 +63,16 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="backlog-agent", description="Run a constrained backlog workflow.")
+    parser = argparse.ArgumentParser(
+        prog="backlog-agent", description="Run a constrained backlog workflow."
+    )
     subparsers = parser.add_subparsers(dest="command")
 
     run_parser = subparsers.add_parser("run", help="Run one request and print its trace.")
     run_parser.add_argument("request")
-    run_parser.add_argument("--approve", action="store_true", help="Approve the proposed simulated mutation.")
+    run_parser.add_argument(
+        "--approve", action="store_true", help="Approve the proposed simulated mutation."
+    )
     run_parser.add_argument("--backlog", type=Path, default=DEFAULT_BACKLOG)
     run_parser.add_argument("--max-tool-calls", type=int, default=8)
     run_parser.add_argument("--json", action="store_true", dest="as_json")

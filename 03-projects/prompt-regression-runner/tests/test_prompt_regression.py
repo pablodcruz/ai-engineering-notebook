@@ -1,14 +1,19 @@
 from __future__ import annotations
 
-from copy import deepcopy
-from pathlib import Path
 import sys
 import unittest
+from copy import deepcopy
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from prompt_regression.contract import OUTPUT_SCHEMA, validate_output
-from prompt_regression.dataset import DEFAULT_CASES, DEFAULT_RECORDED_DIR, load_cases, load_recording
+from prompt_regression.dataset import (
+    DEFAULT_CASES,
+    DEFAULT_RECORDED_DIR,
+    load_cases,
+    load_recording,
+)
 from prompt_regression.live_openai import build_request
 from prompt_regression.scoring import compare_candidates, evaluate_candidate, score_case
 
@@ -49,7 +54,9 @@ class PromptRegressionTests(unittest.TestCase):
         reports = {report["candidate"]: report for report in comparison["candidates"]}
 
         self.assertEqual(comparison["winner"], "structured-v2")
-        self.assertGreater(reports["structured-v2"]["score"] - reports["baseline-v1"]["score"], 0.25)
+        self.assertGreater(
+            reports["structured-v2"]["score"] - reports["baseline-v1"]["score"], 0.25
+        )
 
     def test_regression_changes_case_result(self) -> None:
         recording = deepcopy(self.structured)

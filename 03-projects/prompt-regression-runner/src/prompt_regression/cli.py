@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from .dataset import DEFAULT_CASES, DEFAULT_RECORDED_DIR, load_cases, load_recording
 from .live_openai import record_live_outputs
@@ -34,10 +34,14 @@ def main(argv: list[str] | None = None) -> int:
                 print(comparison["teaching_note"])
             return 0
         if args.command == "case":
-            comparison = compare_candidates(cases, [load_recording(path) for path in args.recordings])
+            comparison = compare_candidates(
+                cases, [load_recording(path) for path in args.recordings]
+            )
             found = False
             for report in comparison["candidates"]:
-                result = next((item for item in report["results"] if item["case_id"] == args.case_id), None)
+                result = next(
+                    (item for item in report["results"] if item["case_id"] == args.case_id), None
+                )
                 if result:
                     found = True
                     print(f"{report['candidate']} · {result['title']} · {result['score']:.1%}")
@@ -80,7 +84,10 @@ def build_parser() -> argparse.ArgumentParser:
         "recordings",
         nargs="+",
         type=Path,
-        default=[DEFAULT_RECORDED_DIR / "baseline-v1.json", DEFAULT_RECORDED_DIR / "structured-v2.json"],
+        default=[
+            DEFAULT_RECORDED_DIR / "baseline-v1.json",
+            DEFAULT_RECORDED_DIR / "structured-v2.json",
+        ],
     )
     compare.add_argument("--json", action="store_true", dest="as_json")
 
@@ -88,10 +95,14 @@ def build_parser() -> argparse.ArgumentParser:
     case.add_argument("case_id")
     case.add_argument("recordings", nargs="+", type=Path)
 
-    live = subparsers.add_parser("record-live", help="Generate a recording through the OpenAI Responses API.")
+    live = subparsers.add_parser(
+        "record-live", help="Generate a recording through the OpenAI Responses API."
+    )
     live.add_argument("--candidate", required=True)
     live.add_argument("--prompt", required=True, type=Path)
-    live.add_argument("--model", required=True, help="Explicit model id for reproducible recording metadata.")
+    live.add_argument(
+        "--model", required=True, help="Explicit model id for reproducible recording metadata."
+    )
     live.add_argument("--output", required=True, type=Path)
     return parser
 

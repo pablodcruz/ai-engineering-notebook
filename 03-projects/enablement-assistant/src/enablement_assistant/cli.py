@@ -2,13 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from .answer import synthesize_answer
 from .documents import build_chunks, load_markdown_documents
 from .retrieval import TfIdfRetriever
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 NOTEBOOK_ROOT = PROJECT_ROOT.parents[1]
@@ -81,7 +80,9 @@ def build_parser() -> argparse.ArgumentParser:
     retrieve_parser.add_argument("--json", action="store_true", dest="as_json")
 
     index_parser = subparsers.add_parser("index", help="Build and save a portable chunk index.")
-    index_parser.add_argument("--out", type=Path, default=PROJECT_ROOT / ".cache" / "notebook-index.json")
+    index_parser.add_argument(
+        "--out", type=Path, default=PROJECT_ROOT / ".cache" / "notebook-index.json"
+    )
 
     eval_parser = subparsers.add_parser("eval", help="Run grounded-answer evaluation questions.")
     eval_parser.add_argument("--questions", type=Path, default=DEFAULT_QUESTIONS)

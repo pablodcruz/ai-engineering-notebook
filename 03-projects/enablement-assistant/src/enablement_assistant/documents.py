@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
-import re
-
+from typing import TypedDict
 
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 DEFAULT_EXCLUDES = {".git", ".venv", "__pycache__", ".pytest_cache", "node_modules"}
+
+
+class Section(TypedDict):
+    heading: str
+    body: list[tuple[int, str]]
 
 
 @dataclass(frozen=True)
@@ -65,7 +70,9 @@ def build_chunks(
 ) -> list[DocumentChunk]:
     chunks: list[DocumentChunk] = []
     for document in documents:
-        chunks.extend(_chunk_document(document, target_words=target_words, overlap_words=overlap_words))
+        chunks.extend(
+            _chunk_document(document, target_words=target_words, overlap_words=overlap_words)
+        )
     return chunks
 
 
@@ -91,7 +98,9 @@ def _chunk_document(
             start_line = min(line for _, line in chunk_words)
             end_line = max(line for _, line in chunk_words)
             chunk_text = _text_from_words(chunk_words)
-            chunk_id = f"{document.relative_path}#section-{section_index + 1}-chunk-{chunk_index + 1}"
+            chunk_id = (
+                f"{document.relative_path}#section-{section_index + 1}-chunk-{chunk_index + 1}"
+            )
             chunks.append(
                 DocumentChunk(
                     id=chunk_id,
@@ -110,9 +119,9 @@ def _chunk_document(
     return chunks
 
 
-def _sections(text: str) -> list[dict[str, object]]:
+def _sections(text: str) -> list[Section]:
     lines = text.splitlines()
-    sections: list[dict[str, object]] = []
+    sections: list[Section] = []
     heading_stack: list[tuple[int, str]] = []
     current_heading = "Document"
     current_body: list[tuple[int, str]] = []
@@ -129,7 +138,11 @@ def _sections(text: str) -> list[dict[str, object]]:
             flush()
             level = len(match.group(1))
             title = match.group(2).strip()
-            heading_stack[:] = [(existing_level, existing_title) for existing_level, existing_title in heading_stack if existing_level < level]
+            heading_stack[:] = [
+                (existing_level, existing_title)
+                for existing_level, existing_title in heading_stack
+                if existing_level < level
+            ]
             heading_stack.append((level, title))
             current_heading = " > ".join(title for _, title in heading_stack)
             continue

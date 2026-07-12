@@ -5,7 +5,6 @@ from typing import Any
 
 from .contract import validate_output
 
-
 CHECK_NAMES = (
     "json_valid",
     "schema_valid",
@@ -26,7 +25,9 @@ def evaluate_candidate(cases: list[dict[str, Any]], recording: dict[str, Any]) -
         results.append(score_case(case, outputs.get(case_id)))
 
     total_checks = len(results) * len(CHECK_NAMES)
-    passed_checks = sum(sum(1 for passed in result["checks"].values() if passed) for result in results)
+    passed_checks = sum(
+        sum(1 for passed in result["checks"].values() if passed) for result in results
+    )
     return {
         "candidate": str(recording["candidate"]),
         "prompt_file": str(recording["prompt_file"]),
@@ -53,17 +54,25 @@ def score_case(case: dict[str, Any], raw_output: object) -> dict[str, Any]:
             parsed = None
             diagnostics.append(f"invalid JSON: {exc.msg}")
 
-    schema_errors = validate_output(parsed) if json_valid else ["schema check skipped because JSON is invalid"]
+    schema_errors = (
+        validate_output(parsed) if json_valid else ["schema check skipped because JSON is invalid"]
+    )
     schema_valid = not schema_errors
     diagnostics.extend(schema_errors)
     payload = parsed if isinstance(parsed, dict) else {}
     problem = str(payload.get("customer_problem", "")).lower()
-    missing_information = " ".join(str(value) for value in payload.get("missing_information", [])).lower()
+    missing_information = " ".join(
+        str(value) for value in payload.get("missing_information", [])
+    ).lower()
     serialized = json.dumps(payload, sort_keys=True).lower()
     response = str(payload.get("recommended_response", ""))
 
-    required_problem_terms = [str(value).lower() for value in case.get("required_problem_terms", [])]
-    expected_missing = [str(value).lower() for value in case.get("expected_missing_information", [])]
+    required_problem_terms = [
+        str(value).lower() for value in case.get("required_problem_terms", [])
+    ]
+    expected_missing = [
+        str(value).lower() for value in case.get("expected_missing_information", [])
+    ]
     forbidden = [str(value).lower() for value in case.get("forbidden_terms", [])]
 
     checks = {
@@ -72,7 +81,9 @@ def score_case(case: dict[str, Any], raw_output: object) -> dict[str, Any]:
         "product_area_correct": payload.get("product_area") == case["expected_product_area"],
         "urgency_correct": payload.get("urgency") == case["expected_urgency"],
         "problem_terms_present": all(term in problem for term in required_problem_terms),
-        "missing_information_covered": all(term in missing_information for term in expected_missing),
+        "missing_information_covered": all(
+            term in missing_information for term in expected_missing
+        ),
         "grounded": json_valid and not any(term in serialized for term in forbidden),
         "recommended_response_actionable": len(response.split()) >= 5,
     }
@@ -92,7 +103,9 @@ def score_case(case: dict[str, Any], raw_output: object) -> dict[str, Any]:
     }
 
 
-def compare_candidates(cases: list[dict[str, Any]], recordings: list[dict[str, Any]]) -> dict[str, Any]:
+def compare_candidates(
+    cases: list[dict[str, Any]], recordings: list[dict[str, Any]]
+) -> dict[str, Any]:
     reports = [evaluate_candidate(cases, recording) for recording in recordings]
     reports.sort(key=lambda report: (report["score"], report["cases_passed"]), reverse=True)
     return {

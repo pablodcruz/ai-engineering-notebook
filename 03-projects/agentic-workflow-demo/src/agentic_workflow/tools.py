@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from .backlog import BacklogRepository
-from .models import ToolSpec
+from .models import BacklogTask, ToolSpec
 
 
 class ApprovalRequired(PermissionError):
@@ -44,7 +44,9 @@ class BacklogTools:
         self.repository = repository
         self.specs = {spec.name: spec for spec in TOOL_SPECS}
 
-    def call(self, name: str, arguments: dict[str, Any], *, approved: bool = False) -> dict[str, Any]:
+    def call(
+        self, name: str, arguments: dict[str, Any], *, approved: bool = False
+    ) -> dict[str, Any]:
         spec = self.specs.get(name)
         if spec is None:
             raise ValueError(f"Tool is not allowed: {name}")
@@ -66,10 +68,16 @@ class BacklogTools:
             task = self.repository.get(task_id)
             if task is None:
                 return {"found": False, "task_id": task_id, "sources": []}
-            return {"found": True, "task": task.to_dict(), "sources": [self.repository.source_for(task_id)]}
+            return {
+                "found": True,
+                "task": task.to_dict(),
+                "sources": [self.repository.source_for(task_id)],
+            }
         if name == "draft_summary":
             task_ids = [str(value).upper() for value in arguments.get("task_ids", [])]
-            tasks = [task for task_id in task_ids if (task := self.repository.get(task_id)) is not None]
+            tasks = [
+                task for task_id in task_ids if (task := self.repository.get(task_id)) is not None
+            ]
             lines = [
                 f"{task.task_id}: {task.title} ({task.status}, {task.priority}, owner {task.owner})"
                 for task in tasks
@@ -99,7 +107,7 @@ class BacklogTools:
         raise AssertionError(f"Unhandled tool: {name}")
 
     @staticmethod
-    def _summary(task) -> dict[str, Any]:
+    def _summary(task: BacklogTask) -> dict[str, Any]:
         return {
             "task_id": task.task_id,
             "title": task.title,

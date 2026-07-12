@@ -20,7 +20,8 @@ def evaluate_item(
 
     checks = {
         "answer_behavior": answer.found is should_answer,
-        "retrieval_source": not expected_sources or any(source in retrieved_sources for source in expected_sources),
+        "retrieval_source": not expected_sources
+        or any(source in retrieved_sources for source in expected_sources),
         "citation_contract": _citation_contract_ok(answer, should_answer),
         "citation_precision": _citation_targets_ok(
             item.get("citation_targets", []), answer, corpus_root, diagnostics

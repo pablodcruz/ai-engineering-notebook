@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import replace
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from .models import BacklogTask
@@ -13,20 +13,30 @@ class BacklogRepository:
         self.source_name = source_name
 
     @classmethod
-    def from_json(cls, path: Path) -> "BacklogRepository":
+    def from_json(cls, path: Path) -> BacklogRepository:
         payload = json.loads(path.read_text(encoding="utf-8"))
         tasks = [BacklogTask.from_dict(item) for item in payload["tasks"]]
         source_name = f"data/{path.name}" if path.parent.name == "data" else path.name
         return cls(tasks, source_name=source_name)
 
     def search(self, query: str = "", status: str | None = None) -> list[BacklogTask]:
-        terms = [term for term in query.lower().split() if term not in {"*", "all", "backlog", "work"}]
+        terms = [
+            term for term in query.lower().split() if term not in {"*", "all", "backlog", "work"}
+        ]
         matches = []
         for task in self._tasks.values():
             if status and task.status != status:
                 continue
             haystack = " ".join(
-                [task.task_id, task.title, task.description, task.status, task.priority, task.owner, *task.labels]
+                [
+                    task.task_id,
+                    task.title,
+                    task.description,
+                    task.status,
+                    task.priority,
+                    task.owner,
+                    *task.labels,
+                ]
             ).lower()
             if terms and not all(term in haystack for term in terms):
                 continue

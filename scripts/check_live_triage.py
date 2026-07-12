@@ -7,9 +7,17 @@ from urllib.request import Request, urlopen
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Check a deployed Support Triage Studio health endpoint.")
-    parser.add_argument("base_url", help="Deployment base URL, for example https://project.vercel.app")
-    parser.add_argument("--expect-configured", action="store_true", help="Fail unless provider configuration is present.")
+    parser = argparse.ArgumentParser(
+        description="Check a deployed Support Triage Studio health endpoint."
+    )
+    parser.add_argument(
+        "base_url", help="Deployment base URL, for example https://project.vercel.app"
+    )
+    parser.add_argument(
+        "--expect-configured",
+        action="store_true",
+        help="Fail unless provider configuration is present.",
+    )
     args = parser.parse_args()
 
     url = f"{args.base_url.rstrip('/')}/api/health"

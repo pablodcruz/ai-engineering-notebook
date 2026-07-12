@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from http.server import BaseHTTPRequestHandler
 import hmac
 import json
 import os
+from http.server import BaseHTTPRequestHandler
 
 from api._triage_service import (
     OpenAIProvider,
@@ -17,9 +17,10 @@ from api._triage_service import (
     log_provider_failure,
 )
 
-
 RATE_LIMITER = SlidingWindowRateLimiter(
-    limit=int(os.getenv("TRIAGE_RATE_LIMIT", "8")) if os.getenv("TRIAGE_RATE_LIMIT", "8").isdigit() else 8,
+    limit=int(os.getenv("TRIAGE_RATE_LIMIT", "8"))
+    if os.getenv("TRIAGE_RATE_LIMIT", "8").isdigit()
+    else 8,
     window_seconds=60,
 )
 
@@ -35,7 +36,9 @@ class handler(BaseHTTPRequestHandler):
         if not live_configuration_status()["live_enabled"]:
             self._json(
                 503,
-                error_payload(request_id, "live_disabled", "Live model calls are currently disabled."),
+                error_payload(
+                    request_id, "live_disabled", "Live model calls are currently disabled."
+                ),
             )
             return
         try:
@@ -44,14 +47,24 @@ class handler(BaseHTTPRequestHandler):
             self._json(503, error_payload(request_id, "service_unconfigured", str(exc)))
             return
 
-        client_key = self.headers.get("X-Forwarded-For", self.client_address[0]).split(",")[0].strip()
+        client_key = (
+            self.headers.get("X-Forwarded-For", self.client_address[0]).split(",")[0].strip()
+        )
         if not RATE_LIMITER.allow(client_key):
-            self._json(429, error_payload(request_id, "rate_limited", "Too many demo requests. Retry in one minute."))
+            self._json(
+                429,
+                error_payload(
+                    request_id, "rate_limited", "Too many demo requests. Retry in one minute."
+                ),
+            )
             return
 
         supplied = self.headers.get("X-Demo-Access-Code", "")
         if not hmac.compare_digest(supplied, config.access_code):
-            self._json(401, error_payload(request_id, "access_denied", "A valid demo access code is required."))
+            self._json(
+                401,
+                error_payload(request_id, "access_denied", "A valid demo access code is required."),
+            )
             return
 
         try:

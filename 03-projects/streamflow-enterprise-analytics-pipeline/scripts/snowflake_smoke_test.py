@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import argparse
 import os
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 REQUIRED_ENV = (
     "SNOWFLAKE_ACCOUNT",
@@ -66,9 +65,17 @@ def connection_kwargs() -> dict[str, str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Validate local Snowflake connectivity for StreamFlow Phase 2.")
-    parser.add_argument("--env-file", type=Path, help="Optional local env file with SNOWFLAKE_* values.")
-    parser.add_argument("--no-proxy", action="store_true", help="Clear proxy environment variables for this process.")
+    parser = argparse.ArgumentParser(
+        description="Validate local Snowflake connectivity for StreamFlow Phase 2."
+    )
+    parser.add_argument(
+        "--env-file", type=Path, help="Optional local env file with SNOWFLAKE_* values."
+    )
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Clear proxy environment variables for this process.",
+    )
     return parser
 
 
@@ -98,7 +105,10 @@ def main() -> int:
     try:
         import snowflake.connector
     except ImportError:
-        print('Install the optional dependency first: python -m pip install -e ".[snowflake]"', file=sys.stderr)
+        print(
+            'Install the optional dependency first: python -m pip install -e ".[snowflake]"',
+            file=sys.stderr,
+        )
         return 2
 
     try:
@@ -121,7 +131,7 @@ def main() -> int:
 
     labels = ("account", "user", "role", "warehouse", "database", "schema")
     print("Snowflake connection OK")
-    for label, value in zip(labels, row):
+    for label, value in zip(labels, row, strict=True):
         print(f"{label}: {value}")
     return 0
 

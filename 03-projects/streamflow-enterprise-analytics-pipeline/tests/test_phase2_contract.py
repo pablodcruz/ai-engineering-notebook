@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
 import unittest
-
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -41,7 +40,13 @@ class Phase2ContractTests(unittest.TestCase):
 
     def test_bronze_preserves_raw_payload_and_load_metadata(self) -> None:
         sql = read("sql/bronze/create_bronze_tables.sql").upper()
-        for token in ["RAW_PAYLOAD VARIANT", "SOURCE_FILE", "SOURCE_ROW_NUMBER", "INGEST_RUN_ID", "LOADED_AT"]:
+        for token in [
+            "RAW_PAYLOAD VARIANT",
+            "SOURCE_FILE",
+            "SOURCE_ROW_NUMBER",
+            "INGEST_RUN_ID",
+            "LOADED_AT",
+        ]:
             self.assertIn(token, sql)
         self.assertIn("CREATE STAGE IF NOT EXISTS", sql)
         self.assertIn("STREAMFLOW_PARQUET_FORMAT", sql)
@@ -57,12 +62,23 @@ class Phase2ContractTests(unittest.TestCase):
             "WHEN NOT MATCHED THEN INSERT",
         ]:
             self.assertIn(token, sql)
-        for reason in ["MISSING_EVENT_ID", "INVALID_EVENT_TS", "INVALID_EVENT_TYPE", "DUPLICATE_EVENT_ID"]:
+        for reason in [
+            "MISSING_EVENT_ID",
+            "INVALID_EVENT_TS",
+            "INVALID_EVENT_TYPE",
+            "DUPLICATE_EVENT_ID",
+        ]:
             self.assertIn(reason, sql)
 
     def test_gold_model_contains_fact_and_dimensions(self) -> None:
         sql = read("sql/gold/create_gold_tables.sql").upper()
-        for table in ["DIM_DATE", "DIM_EVENT_TYPE", "DIM_ENTITY", "FACT_EVENTS", "FACT_COMMERCE_METRICS"]:
+        for table in [
+            "DIM_DATE",
+            "DIM_EVENT_TYPE",
+            "DIM_ENTITY",
+            "FACT_EVENTS",
+            "FACT_COMMERCE_METRICS",
+        ]:
             self.assertRegex(sql, rf"CREATE TABLE IF NOT EXISTS .*{table}")
 
     def test_quality_and_reconciliation_checks_return_failed_rows(self) -> None:

@@ -18,11 +18,20 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run workspace validation
-        run: python scripts/validate_workspace.py
+      - name: Install pinned quality tools
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run workspace validation and engineering quality gate
+        run: python scripts/validate_workspace.py --quality
 
       - name: Upload Enablement eval evidence
         uses: actions/upload-artifact@v4
         with:
           name: enablement-eval-data
           path: docs/enablement-eval-data.json
+
+      - name: Upload coverage evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-coverage
+          path: coverage/

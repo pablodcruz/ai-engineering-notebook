@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 REQUIRED_FIELDS = ("event_id", "event_type", "event_ts", "source", "payload")
 ALLOWED_EVENT_TYPES = ("page_view", "add_to_cart", "purchase", "video_play")
 ALLOWED_SOURCES = ("simulator", "web", "mobile", "api")
@@ -25,4 +24,3 @@ def event_contract() -> dict[str, dict[str, object]]:
         "payload": {"type": "object", "required": True},
         "entity_id": {"type": "string", "required": False},
     }
-

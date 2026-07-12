@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CASES = PROJECT_ROOT / "data" / "cases.jsonl"
 DEFAULT_RECORDED_DIR = PROJECT_ROOT / "recorded"

@@ -1,9 +1,8 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
-import re
-
 
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 
@@ -33,7 +32,9 @@ def load_lab(path: Path, *, root: Path | None = None) -> LabDocument:
     title = next((heading for level, heading in headings if level == 1), "")
     sections = tuple(heading for level, heading in headings if level == 2)
     relative_path = _relative_path(resolved, root)
-    return LabDocument(path=resolved, relative_path=relative_path, text=text, title=title, sections=sections)
+    return LabDocument(
+        path=resolved, relative_path=relative_path, text=text, title=title, sections=sections
+    )
 
 
 def discover_labs(root: Path) -> list[Path]:
@@ -65,4 +66,3 @@ def _relative_path(path: Path, root: Path | None) -> str:
         return path.relative_to(root.resolve()).as_posix()
     except ValueError:
         return path.name
-

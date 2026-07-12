@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from collections import Counter
-from dataclasses import dataclass
 import math
 import re
+from collections import Counter
+from dataclasses import dataclass
 
 from .documents import DocumentChunk
-
 
 TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9-]*")
 STOPWORDS = {
@@ -56,7 +55,7 @@ class TfIdfRetriever:
         self.idf = idf
 
     @classmethod
-    def from_chunks(cls, chunks: list[DocumentChunk]) -> "TfIdfRetriever":
+    def from_chunks(cls, chunks: list[DocumentChunk]) -> TfIdfRetriever:
         doc_frequencies: Counter[str] = Counter()
         tokenized_chunks: list[list[str]] = []
 
@@ -78,7 +77,7 @@ class TfIdfRetriever:
         query_vector = _normalize(_tfidf_vector(query_terms, self.idf))
         scored: list[tuple[float, DocumentChunk]] = []
 
-        for chunk, vector in zip(self.chunks, self.vectors):
+        for chunk, vector in zip(self.chunks, self.vectors, strict=True):
             score = _dot(query_vector, vector)
             score += _phrase_boost(query_terms, chunk)
             score += _heading_boost(query_terms, chunk)
@@ -94,20 +93,13 @@ class TfIdfRetriever:
 
 def tokenize(text: str) -> list[str]:
     terms = [match.group(0).lower() for match in TOKEN_RE.finditer(text.lower())]
-    return [
-        _normalize_token(term)
-        for term in terms
-        if term not in STOPWORDS and len(term) > 1
-    ]
+    return [_normalize_token(term) for term in terms if term not in STOPWORDS and len(term) > 1]
 
 
 def _tfidf_vector(terms: list[str], idf: dict[str, float]) -> dict[str, float]:
     counts = Counter(terms)
     total = max(sum(counts.values()), 1)
-    return {
-        term: (count / total) * idf.get(term, 1.0)
-        for term, count in counts.items()
-    }
+    return {term: (count / total) * idf.get(term, 1.0) for term, count in counts.items()}
 
 
 def _normalize(vector: dict[str, float]) -> dict[str, float]:

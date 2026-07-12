@@ -25,18 +25,28 @@ def build_checkpoints(lab: LabDocument, findings: list[Finding]) -> list[Checkpo
         ),
         Checkpoint(
             "Confirm local environment",
-            Severity.FAIL if any(check.startswith("runtime.") or check.startswith("package.") for check in failures) else Severity.PASS,
+            Severity.FAIL
+            if any(
+                check.startswith("runtime.") or check.startswith("package.") for check in failures
+            )
+            else Severity.PASS,
             "Runtime and package checks are ready.",
         ),
         Checkpoint(
             "Confirm credentials",
-            Severity.FAIL if any(check.startswith("credential.") for check in failures) else Severity.PASS,
+            Severity.FAIL
+            if any(check.startswith("credential.") for check in failures)
+            else Severity.PASS,
             "Credential checks are ready.",
         ),
         Checkpoint(
             "Review lab instructions",
-            Severity.WARN if any(check.startswith("lab.section.") for check in warnings) else Severity.PASS,
-            "Recommended lab sections are present." if not warnings else "Some recommended sections are missing.",
+            Severity.WARN
+            if any(check.startswith("lab.section.") for check in warnings)
+            else Severity.PASS,
+            "Recommended lab sections are present."
+            if not warnings
+            else "Some recommended sections are missing.",
         ),
         Checkpoint(
             "Run known-good baseline",
@@ -52,4 +62,3 @@ def summarize(findings: list[Finding]) -> dict[str, int]:
         "warn": sum(1 for finding in findings if finding.severity == Severity.WARN),
         "fail": sum(1 for finding in findings if finding.severity == Severity.FAIL),
     }
-

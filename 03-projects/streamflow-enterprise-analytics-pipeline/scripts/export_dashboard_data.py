@@ -1,16 +1,14 @@
 from __future__ import annotations
 
 import argparse
-from datetime import UTC, date, datetime
-from decimal import Decimal
 import json
 import os
+from datetime import UTC, date, datetime
+from decimal import Decimal
 from pathlib import Path
-import sys
 from typing import Any
 
 from snowflake_smoke_test import clear_proxy_environment, connection_kwargs, load_env_file
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = PROJECT_ROOT.parents[1]
@@ -18,10 +16,20 @@ DEFAULT_OUTPUT = REPO_ROOT / "docs" / "streamflow-dashboard-data.json"
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Export public-safe StreamFlow dashboard data from Snowflake.")
-    parser.add_argument("--env-file", type=Path, required=True, help="Local env file with SNOWFLAKE_* values.")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Dashboard JSON output path.")
-    parser.add_argument("--no-proxy", action="store_true", help="Clear proxy environment variables for this process.")
+    parser = argparse.ArgumentParser(
+        description="Export public-safe StreamFlow dashboard data from Snowflake."
+    )
+    parser.add_argument(
+        "--env-file", type=Path, required=True, help="Local env file with SNOWFLAKE_* values."
+    )
+    parser.add_argument(
+        "--output", type=Path, default=DEFAULT_OUTPUT, help="Dashboard JSON output path."
+    )
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Clear proxy environment variables for this process.",
+    )
     return parser
 
 
@@ -37,7 +45,7 @@ def fetch_dicts(cursor, sql: str) -> list[dict[str, Any]]:
     cursor.execute(sql)
     columns = [column[0].lower() for column in cursor.description]
     return [
-        {column: json_value(value) for column, value in zip(columns, row)}
+        {column: json_value(value) for column, value in zip(columns, row, strict=True)}
         for row in cursor.fetchall()
     ]
 
@@ -128,7 +136,10 @@ def main() -> int:
             )
             metadata = {
                 "source": "snowflake",
-                "exported_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+                "exported_at": datetime.now(UTC)
+                .replace(microsecond=0)
+                .isoformat()
+                .replace("+00:00", "Z"),
                 "database": os.getenv("SNOWFLAKE_DATABASE"),
                 "warehouse": os.getenv("SNOWFLAKE_WAREHOUSE"),
             }

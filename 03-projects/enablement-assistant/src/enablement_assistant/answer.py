@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import math
 import re
+from dataclasses import dataclass
 
 from .documents import DocumentChunk
 from .retrieval import RetrievalResult, tokenize
@@ -146,7 +146,9 @@ def _split_sentences(text: str) -> list[str]:
     ]
 
 
-def _first_chunk_for_source(source_key: str, selected: list[tuple[str, DocumentChunk]]) -> DocumentChunk:
+def _first_chunk_for_source(
+    source_key: str, selected: list[tuple[str, DocumentChunk]]
+) -> DocumentChunk:
     for _, chunk in selected:
         if chunk.source_key == source_key:
             return chunk

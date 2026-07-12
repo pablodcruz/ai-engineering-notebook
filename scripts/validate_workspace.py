@@ -1,16 +1,16 @@
 from __future__ import annotations
 
+import argparse
 import os
-from pathlib import Path
 import subprocess
 import sys
 import time
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main() -> int:
+def main(*, include_quality: bool = False) -> int:
     checks = [
         (
             "documentation links",
@@ -105,6 +105,17 @@ def main() -> int:
         ),
     ]
 
+    if include_quality:
+        checks.insert(
+            0,
+            (
+                "engineering quality automation",
+                [sys.executable, "scripts/run_quality.py"],
+                ROOT,
+                {},
+            ),
+        )
+
     lab_root = ROOT / "02-labs"
     runner_root = ROOT / "03-projects" / "local-ai-lab-runner"
     for lab_path in sorted(lab_root.glob("*.md")):
@@ -151,4 +162,11 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    parser = argparse.ArgumentParser(description="Validate the AI Engineering Notebook workspace.")
+    parser.add_argument(
+        "--quality",
+        action="store_true",
+        help="Also require pinned development tools, static checks, typing, and coverage.",
+    )
+    arguments = parser.parse_args()
+    raise SystemExit(main(include_quality=arguments.quality))

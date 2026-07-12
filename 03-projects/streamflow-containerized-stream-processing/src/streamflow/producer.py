@@ -1,21 +1,22 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timedelta, timezone
 import json
 import logging
-from pathlib import Path
 import random
 import sys
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any
 
 from .schemas import ALLOWED_EVENT_TYPES, ALLOWED_SOURCES, StreamFlowConfig
 
-
 LOGGER = logging.getLogger("streamflow.producer")
 
 
-def generate_events(count: int, *, seed: int = 7, invalid_rate: float = 0.1) -> list[dict[str, Any]]:
+def generate_events(
+    count: int, *, seed: int = 7, invalid_rate: float = 0.1
+) -> list[dict[str, Any]]:
     rng = random.Random(seed)
     start = datetime(2026, 6, 30, 14, 30, tzinfo=timezone.utc)
     events: list[dict[str, Any]] = []
@@ -44,7 +45,9 @@ def generate_events(count: int, *, seed: int = 7, invalid_rate: float = 0.1) -> 
 
 def inject_invalid_shape(event: dict[str, Any], rng: random.Random) -> dict[str, Any]:
     mutated = dict(event)
-    mutation = rng.choice(["missing_event_id", "bad_type", "bad_timestamp", "bad_source", "bad_payload"])
+    mutation = rng.choice(
+        ["missing_event_id", "bad_type", "bad_timestamp", "bad_source", "bad_payload"]
+    )
     if mutation == "missing_event_id":
         mutated.pop("event_id", None)
     elif mutation == "bad_type":
@@ -84,7 +87,9 @@ def publish_events(events: list[dict[str, Any]], config: StreamFlowConfig) -> No
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Generate and publish StreamFlow synthetic events.")
+    parser = argparse.ArgumentParser(
+        description="Generate and publish StreamFlow synthetic events."
+    )
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--invalid-rate", type=float, default=0.1)
@@ -111,4 +116,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

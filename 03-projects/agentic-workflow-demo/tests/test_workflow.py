@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -47,7 +47,9 @@ class AgenticWorkflowTests(unittest.TestCase):
     def test_approved_priority_change_is_simulated_and_traced(self) -> None:
         result = run_workflow("Change TASK-103 priority to high", approved=True)
         update = next(
-            step for step in result.trace if step.event == "tool_call" and step.name == "update_priority"
+            step
+            for step in result.trace
+            if step.event == "tool_call" and step.name == "update_priority"
         )
 
         self.assertEqual(result.status, "completed")
@@ -72,7 +74,9 @@ class AgenticWorkflowTests(unittest.TestCase):
     def test_trace_is_ordered_and_contains_timing(self) -> None:
         result = run_workflow("Give me a backlog summary")
 
-        self.assertEqual([step.step for step in result.trace], list(range(1, len(result.trace) + 1)))
+        self.assertEqual(
+            [step.step for step in result.trace], list(range(1, len(result.trace) + 1))
+        )
         self.assertTrue(all(step.duration_ms >= 0 for step in result.trace))
         self.assertEqual(result.trace[0].event, "decision")
         self.assertEqual(result.trace[-1].event, "final")

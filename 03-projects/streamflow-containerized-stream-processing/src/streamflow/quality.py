@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from datetime import datetime, timezone
-import json
 from typing import Any
 
 from .schemas import ALLOWED_EVENT_TYPES, ALLOWED_SOURCES, REQUIRED_FIELDS
@@ -71,7 +71,9 @@ def mark_duplicate_events(results: list[ValidationResult]) -> list[ValidationRes
     return marked
 
 
-def split_valid_rejected(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def split_valid_rejected(
+    events: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     results = mark_duplicate_events([validate_event(event) for event in events])
     valid: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
@@ -102,4 +104,3 @@ def normalize_event(event: dict[str, Any]) -> dict[str, Any]:
         if parsed is not None:
             normalized["event_ts"] = parsed.isoformat().replace("+00:00", "Z")
     return normalized
-

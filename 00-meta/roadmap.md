@@ -16,29 +16,31 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Support Triage Review Console | Deployed synthetic live/recorded workflow, schema validation, layered cost controls, human accept/correct decisions, browser-local metrics, sanitized feedback export, and safe self-deployment. |
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 | Repository documentation roundup | Folder guides, concept-to-evidence navigation, evaluation and observability guidance, expanded debugging workflow, shared terminology, and a reusable AI-system review checklist. |
+| Engineering quality automation | Pinned Ruff, mypy, and coverage tooling; shared root configuration; an 80% branch-aware floor; CI artifacts; and one optional local quality mode. |
 
-## Active: Engineering Quality Automation
+## Active: StreamFlow Integration Smoke Test
 
-Add lightweight static checks and coverage evidence without making the dependency-free baseline difficult to run.
+Add one bounded end-to-end path that proves the containerized streaming components exchange real data under automation.
 
 ### Minimum Scope
 
-- Define formatting and lint rules for the Python projects.
-- Add type checking where it produces actionable signal.
-- Report test coverage for the runnable AI projects.
-- Integrate the checks into the single workspace command and CI.
+- Start the smallest required container set.
+- Produce a deterministic event batch.
+- Consume or process the events through one real component boundary.
+- Assert record count, schema, and one failure-path behavior.
 
 ### Definition Of Done
 
-- Local commands and CI use the same pinned configuration.
-- Failures identify the file and rule clearly.
-- Generated files, fixtures, and intentionally minimal prompt assets are scoped appropriately.
-- Coverage is treated as diagnostic evidence, not a vanity target.
-- The dependency-free demos remain runnable and the full workspace gate passes.
+- The smoke test is bounded and terminates without manual intervention.
+- CI or an explicitly documented opt-in workflow can run it reproducibly.
+- Failures identify the component boundary that broke.
+- Existing dependency-free validation remains fast.
+- Setup, cleanup, troubleshooting, and expected output are documented.
 
 ## Next
 
-1. Add a bounded StreamFlow integration smoke test.
+1. Add automated browser tests for the Support Triage Review Console.
+2. Convert reviewed synthetic feedback into candidate evaluation cases.
 
 ## Later
 

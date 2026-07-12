@@ -2,13 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
-from .checks import Severity, default_lab_root, has_failures, profile_for_lab, run_checks
+from .checks import default_lab_root, has_failures, profile_for_lab, run_checks
 from .labs import discover_labs, load_lab
 from .runner import build_checkpoints, summarize
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_LAB_ROOT = default_lab_root(PROJECT_ROOT)

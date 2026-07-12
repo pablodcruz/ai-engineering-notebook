@@ -36,6 +36,15 @@ python scripts/validate_workspace.py
 
 This checks documentation links, eval export freshness, runnable project tests, the Enablement Assistant evaluation set, and every lab's readiness contract.
 
+Run the complete CI-equivalent engineering gate:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python scripts/validate_workspace.py --quality
+```
+
+This additionally enforces Ruff linting and formatting, practical mypy coverage over core modules, and an 80% branch-aware unit-test coverage floor. See [QUALITY.md](QUALITY.md) for scope and exclusions.
+
 ## Showcase App
 
 Open the canonical live application:

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from enablement_assistant.answer import synthesize_answer
@@ -10,7 +10,6 @@ from enablement_assistant.cli import DEFAULT_EXCLUDES, _load_questions
 from enablement_assistant.documents import build_chunks, load_markdown_documents
 from enablement_assistant.evaluation import evaluate_item
 from enablement_assistant.retrieval import TfIdfRetriever
-
 
 FIXTURE_CORPUS = Path(__file__).parent / "fixtures" / "corpus"
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -127,7 +126,17 @@ class AssistantTests(unittest.TestCase):
         self.assertGreaterEqual(len(cases), 15)
         self.assertGreaterEqual(answered, 8)
         self.assertGreaterEqual(refused, 5)
-        self.assertTrue({"direct", "paraphrase", "competing_source", "partial_coverage", "adversarial", "refusal"} <= categories)
+        self.assertTrue(
+            {
+                "direct",
+                "paraphrase",
+                "competing_source",
+                "partial_coverage",
+                "adversarial",
+                "refusal",
+            }
+            <= categories
+        )
 
 
 if __name__ == "__main__":

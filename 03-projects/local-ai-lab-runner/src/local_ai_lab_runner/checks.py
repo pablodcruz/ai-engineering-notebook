@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from enum import Enum
 import importlib.util
 import os
-from pathlib import Path
 import sys
+from dataclasses import dataclass
+from enum import Enum
+from pathlib import Path
 
 from .labs import LabDocument
 
@@ -101,7 +101,9 @@ def _lab_checks(lab: LabDocument | None, profile: CheckProfile) -> list[Finding]
 
     for section in profile.recommended_sections:
         if lab.has_section(section):
-            findings.append(Finding(Severity.PASS, f"lab.section.{section}", f"Found section: {section}."))
+            findings.append(
+                Finding(Severity.PASS, f"lab.section.{section}", f"Found section: {section}.")
+            )
         else:
             findings.append(
                 Finding(
@@ -142,14 +144,18 @@ def _package_checks(required_packages: tuple[str, ...], simulate: set[str]) -> l
     findings: list[Finding] = []
     for package in packages:
         if importlib.util.find_spec(package) is not None:
-            findings.append(Finding(Severity.PASS, f"package.{package}", f"Package import available: {package}."))
+            findings.append(
+                Finding(
+                    Severity.PASS, f"package.{package}", f"Package import available: {package}."
+                )
+            )
         else:
             findings.append(
                 Finding(
                     Severity.FAIL,
                     f"package.{package}",
                     f"Package import unavailable: {package}.",
-                    f"Install the package in the active environment, then rerun the check.",
+                    "Install the package in the active environment, then rerun the check.",
                 )
             )
     if "missing-package" in simulate:
@@ -178,7 +184,9 @@ def _credential_checks(required_env: tuple[str, ...], simulate: set[str]) -> lis
     for variable in required_env:
         present = bool(os.getenv(variable)) and "missing-credential" not in simulate
         if present:
-            findings.append(Finding(Severity.PASS, f"credential.{variable}", f"{variable} is present."))
+            findings.append(
+                Finding(Severity.PASS, f"credential.{variable}", f"{variable} is present.")
+            )
         else:
             findings.append(
                 Finding(
@@ -202,7 +210,9 @@ def _known_good_sample(simulate: set[str]) -> Finding:
     payload = {"prompt": "Return readiness status.", "status": "ready"}
     if payload["status"] == "ready":
         return Finding(Severity.PASS, "sample.local", "Known-good local sample completed.")
-    return Finding(Severity.FAIL, "sample.local", "Known-good local sample returned an unexpected result.")
+    return Finding(
+        Severity.FAIL, "sample.local", "Known-good local sample returned an unexpected result."
+    )
 
 
 def default_lab_root(project_root: Path) -> Path:
