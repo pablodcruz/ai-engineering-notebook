@@ -6,6 +6,12 @@ import sys
 from pathlib import Path
 
 from .dataset import DEFAULT_CASES, DEFAULT_RECORDED_DIR, load_cases, load_recording
+from .feedback import (
+    build_approval_artifact,
+    load_feedback_export,
+    prepare_feedback_candidates,
+    render_feedback_report,
+)
 from .live_openai import record_live_outputs
 from .scoring import compare_candidates, evaluate_candidate
 
@@ -60,6 +66,34 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(f"Recorded {len(payload['outputs'])} outputs to {args.output}")
             return 0
+        if args.command == "prepare-feedback":
+            package = prepare_feedback_candidates(load_feedback_export(args.export), cases)
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
+            if args.report:
+                args.report.parent.mkdir(parents=True, exist_ok=True)
+                args.report.write_text(render_feedback_report(package), encoding="utf-8")
+            summary = package["summary"]
+            print(
+                f"Validated {summary['review_count']} reviews: "
+                f"{summary['accepted_count']} accepted, {summary['corrected_count']} corrected"
+            )
+            print(f"Wrote {summary['candidate_count']} awaiting-review candidates to {args.output}")
+            if args.report:
+                print(f"Wrote reviewer report to {args.report}")
+            return 0
+        if args.command == "approve-feedback":
+            package = load_feedback_export(args.package)
+            approval = build_approval_artifact(
+                package, reviewer=args.reviewer, approved_ids=args.approve
+            )
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(approval, indent=2) + "\n", encoding="utf-8")
+            print(
+                f"Recorded explicit approval for {len(args.approve)} candidate(s) in {args.output}"
+            )
+            print("The permanent golden set was not modified.")
+            return 0
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"FAIL {exc}", file=sys.stderr)
         return 2
@@ -104,6 +138,23 @@ def build_parser() -> argparse.ArgumentParser:
         "--model", required=True, help="Explicit model id for reproducible recording metadata."
     )
     live.add_argument("--output", required=True, type=Path)
+
+    prepare = subparsers.add_parser(
+        "prepare-feedback",
+        help="Validate a synthetic Review Console export and create candidate eval cases.",
+    )
+    prepare.add_argument("export", type=Path)
+    prepare.add_argument("--output", required=True, type=Path)
+    prepare.add_argument("--report", type=Path)
+
+    approve = subparsers.add_parser(
+        "approve-feedback",
+        help="Record explicit human approval without editing the permanent golden set.",
+    )
+    approve.add_argument("package", type=Path)
+    approve.add_argument("--reviewer", required=True)
+    approve.add_argument("--approve", required=True, action="append")
+    approve.add_argument("--output", required=True, type=Path)
     return parser
 
 

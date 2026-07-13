@@ -71,6 +71,49 @@ The model id is required rather than silently defaulted so every recording ident
 
 The adapter follows the official [Responses API](https://developers.openai.com/api/docs/guides/responses-vs-chat-completions) and [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) patterns. Prompt comparison remains model-agnostic because scoring consumes recorded JSON, not a provider-specific response object.
 
+## Review Feedback Pipeline
+
+The Support Triage Review Console exports sanitized, synthetic model-versus-human decisions.
+The runner can validate that export and turn corrected decisions into candidate regression cases:
+
+```powershell
+python -m prompt_regression.cli prepare-feedback `
+  feedback\recorded\support-triage-reviews.json `
+  --output feedback\local\candidates.json `
+  --report feedback\local\review-report.md
+```
+
+The pipeline fails on an unsupported schema, a false synthetic-data marker, unknown sample ids,
+invalid decisions, contradictory outcomes, mismatched counts, and duplicate review ids. Accepted
+decisions contribute to the summary but do not create new cases. Identical corrections are reduced
+to one stable candidate so repeated browser reviews do not inflate the queue.
+
+Each candidate preserves:
+
+- The source case and review ids.
+- The model suggestion and final human decision.
+- The override reason and changed fields.
+- A proposed regression case joined against the existing synthetic ticket.
+- An `awaiting_human_review` promotion status.
+
+After inspecting the candidates, record an explicit approval decision:
+
+```powershell
+python -m prompt_regression.cli approve-feedback `
+  feedback\local\candidates.json `
+  --reviewer "Reviewer name" `
+  --approve F-T002-EXAMPLE `
+  --output feedback\local\approval.json
+```
+
+An approval artifact does not modify `data/cases.jsonl`. The reviewer must still confirm the
+policy decision, complete the deterministic expectations, and promote the case through a separate
+reviewed code change. This prevents one correction from silently becoming permanent evaluation
+truth.
+
+Open the [deployed candidate report](../../docs/feedback-candidate-report.html) for recorded evidence
+or run `python ../../scripts/export_feedback_candidates.py --check` to verify that its data is current.
+
 ## Trainer Demo Path
 
 1. Explain that the same 15 tickets go to both candidates.
@@ -88,3 +131,5 @@ The adapter follows the official [Responses API](https://developers.openai.com/a
 - The runner does not use an LLM-as-judge.
 - Latency and token usage are preserved by live recordings but are not scored in the deterministic baseline.
 - Production use needs dataset ownership, review policy, privacy controls, and calibrated human rubrics.
+- The feedback workflow accepts only the three published synthetic demo cases; arbitrary customer
+  exports and ticket text are intentionally unsupported.

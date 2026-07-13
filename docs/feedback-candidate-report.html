@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support Triage Feedback Pipeline</title>
+    <meta
+      name="description"
+      content="Synthetic human corrections converted into reviewable evaluation candidates without automatically changing the permanent golden set."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="support-triage.html">Review Console</a>
+        <a href="prompt-regression-report.html">Prompt Regression</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/prompt-regression-runner">Source</a>
+      </nav>
+    </header>
+
+    <main class="eval-main">
+      <section class="eval-hero" aria-labelledby="feedback-title">
+        <div>
+          <p class="eyebrow">Human feedback to evaluation</p>
+          <h1 id="feedback-title">Corrections become candidates, not automatic truth.</h1>
+          <p>
+            This recorded evidence validates a sanitized Review Console export, summarizes
+            reviewer decisions, removes duplicate corrections, and prepares regression cases.
+            Every candidate remains outside the permanent golden set until explicitly reviewed.
+          </p>
+        </div>
+        <div class="eval-summary" id="feedback-summary" aria-label="Feedback summary">
+          <article><strong>&mdash;</strong><span>loading feedback</span></article>
+        </div>
+      </section>
+
+      <section class="eval-grid" aria-label="Feedback pipeline evidence">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Review queue</p>
+              <h2>Candidate Evaluation Cases</h2>
+            </div>
+            <span id="promotion-state">Loading...</span>
+          </div>
+          <div id="candidate-list" class="candidate-comparison"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Learning signal</p>
+              <h2>Override Reasons</h2>
+            </div>
+          </div>
+          <div id="reason-list" class="evidence-stack"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Safety boundary</p>
+              <h2>Promotion Is Deliberate</h2>
+            </div>
+          </div>
+          <ul class="compact-list">
+            <li>Only the three published synthetic sample ids are supported.</li>
+            <li>Malformed, non-synthetic, and duplicate review records fail clearly.</li>
+            <li>An approval artifact must name the reviewer and selected candidate ids.</li>
+            <li>Permanent eval data changes only through a separate reviewed code change.</li>
+          </ul>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Reproduce it</p>
+              <h2>From Browser Export To Reviewed Evidence</h2>
+            </div>
+          </div>
+          <div class="evidence-stack">
+            <code>prompt-regression prepare-feedback support-triage-synthetic-reviews.json --output candidates.json --report review.md</code>
+            <code>prompt-regression approve-feedback candidates.json --reviewer "Name" --approve CANDIDATE_ID --output approval.json</code>
+          </div>
+          <p class="muted-copy">
+            The second command records approval; it deliberately does not edit
+            <code>data/cases.jsonl</code>.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const summaryEl = document.querySelector("#feedback-summary");
+      const candidateListEl = document.querySelector("#candidate-list");
+      const reasonListEl = document.querySelector("#reason-list");
+      const promotionStateEl = document.querySelector("#promotion-state");
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function label(value) {
+        return String(value).replaceAll("_", " ");
+      }
+
+      fetch("feedback-candidate-data.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((payload) => {
+          const packageData = payload.candidate_package;
+          const summary = packageData.summary;
+          summaryEl.innerHTML = `
+            <article><strong>${summary.review_count}</strong><span>validated reviews</span></article>
+            <article><strong>${summary.accepted_count}</strong><span>accepted</span></article>
+            <article><strong>${summary.corrected_count}</strong><span>corrected</span></article>
+            <article><strong>${summary.candidate_count}</strong><span>unique candidates</span></article>
+          `;
+          promotionStateEl.textContent = label(packageData.promotion_status).toUpperCase();
+          candidateListEl.innerHTML = packageData.candidates.map((candidate) => `
+            <article>
+              <span class="health-pill neutral">AWAITING REVIEW</span>
+              <h3>${escapeHtml(candidate.candidate_id)}</h3>
+              <p><strong>${escapeHtml(candidate.source_case_id)}</strong> &middot; ${escapeHtml(label(candidate.override_reason))}</p>
+              <p>Changed: ${candidate.changed_fields.map((field) => escapeHtml(label(field))).join(", ")}</p>
+              <details>
+                <summary>Compare model and human decisions</summary>
+                <p><strong>Model:</strong> ${escapeHtml(candidate.model_decision.product_area)} / ${escapeHtml(candidate.model_decision.urgency)}</p>
+                <p>${escapeHtml(candidate.model_decision.recommended_response)}</p>
+                <p><strong>Human:</strong> ${escapeHtml(candidate.human_decision.product_area)} / ${escapeHtml(candidate.human_decision.urgency)}</p>
+                <p>${escapeHtml(candidate.human_decision.recommended_response)}</p>
+              </details>
+            </article>
+          `).join("");
+          const reasons = Object.entries(summary.override_reasons);
+          reasonListEl.innerHTML = reasons.map(([reason, count]) => `
+            <div><strong>${count}</strong> &middot; ${escapeHtml(label(reason))}</div>
+          `).join("");
+        })
+        .catch((error) => {
+          promotionStateEl.textContent = "Could not load evidence";
+          candidateListEl.innerHTML = `<p>${escapeHtml(error.message)}</p>`;
+        });
+    </script>
+  </body>
+</html>

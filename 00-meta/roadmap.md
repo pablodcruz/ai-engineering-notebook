@@ -17,31 +17,31 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 | Repository documentation roundup | Folder guides, concept-to-evidence navigation, evaluation and observability guidance, expanded debugging workflow, shared terminology, and a reusable AI-system review checklist. |
 | Engineering quality automation | Pinned Ruff, mypy, and coverage tooling; shared root configuration; an 80% branch-aware floor; CI artifacts; and one optional local quality mode. |
-| Support Triage browser automation | Five isolated Chromium tests covering recorded recommendations, human accept/correct decisions, metrics, sanitized export, reset, and access-request links without secrets or model calls. |
+| Support Triage browser automation | Six isolated Chromium tests covering recorded recommendations, human accept/correct decisions, metrics, sanitized export, reset, access-request links, and the feedback candidate report without secrets or model calls. |
+| Review Feedback To Evaluation Pipeline | Strict synthetic export validation, accept/override summaries, correction deduplication, candidate regression cases, explicit approval artifacts, tests, and a deployed recorded report without automatic golden-set promotion. |
 
-## Active: Review Feedback To Evaluation Pipeline
+## Active: Bounded StreamFlow Integration Smoke Test
 
-Turn exported synthetic human corrections into reviewed candidate evaluation cases without automatically changing the permanent golden set.
+Prove that the Phase 1 components can exchange a small synthetic event through their real integration boundaries without requiring a long-running local stack for every validation run.
 
 ### Minimum Scope
 
-- Validate the browser export schema and synthetic-data marker.
-- Summarize acceptance, override, and reason counts.
-- Convert corrected decisions into candidate prompt-regression cases.
-- Require an explicit reviewer step before promotion into permanent eval data.
+- Start only the minimum required containerized services.
+- Publish a bounded synthetic event batch.
+- Verify accepted and rejected records at the processing boundary.
+- Tear down cleanly and preserve actionable failure output.
 
 ### Definition Of Done
 
-- Malformed, non-synthetic, and unsupported exports fail clearly.
-- Candidate cases preserve the model suggestion, human decision, and override reason.
-- No exported case is promoted automatically.
-- Unit tests cover accepted, corrected, duplicate, and invalid records.
-- Documentation connects the pipeline to the Review Console and Prompt Regression Runner.
+- The smoke test has a deterministic timeout and bounded resource usage.
+- It proves a real cross-component path rather than only unit behavior.
+- CI remains reliable, with the integration test isolated from the fast default gate if needed.
+- Setup, expected output, and common Docker failures are documented.
 
 ## Next
 
-1. Add a bounded StreamFlow integration smoke test.
-2. Add a mocked Zendesk-style support adapter.
+1. Add a mocked Zendesk-style support adapter.
+2. Add an operational evidence dashboard for support-triage cost, latency, failures, and reviewer agreement.
 
 ## Later
 

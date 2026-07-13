@@ -17,6 +17,7 @@ Support-operations leaders, AI engineers, solution architects, forward deployed 
 - `POST /api/triage` for live, schema-validated generation
 - `GET /api/health` for deployment configuration health
 - [Prompt regression evidence](../docs/prompt-regression-report.html) for the prompt behind the workflow
+- [Feedback candidate report](../docs/feedback-candidate-report.html) for the reviewed improvement loop
 
 The same page works in two explicit modes. Recorded examples remain publicly available without inference cost. A configured Vercel deployment can run only three allowlisted synthetic cases through an access-code-protected live API. Technical reviewers can deploy their own copy without sharing a provider key with this site.
 
@@ -131,6 +132,12 @@ The manual **Live Triage Smoke Check** GitHub Actions workflow runs the same hea
 ## Evaluation Story
 
 The live workflow answers “Can a customer use it now?” The regression runner answers “How do we know a prompt change did not break known behavior?” They share the same prompt and output validator, so the public demo and the evaluation evidence are one system rather than unrelated samples.
+
+The feedback pipeline completes that loop without treating every reviewer correction as automatic
+truth. It validates the synthetic browser export, summarizes agreement and override reasons,
+deduplicates repeated corrections, and prepares candidate regression cases. A named reviewer must
+explicitly approve selected candidates, and permanent golden-set promotion still requires a
+separate reviewed code change.
 
 ## Known Limitations
 

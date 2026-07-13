@@ -32,6 +32,7 @@ build/
 out/
 coverage/
 .cache/
+03-projects/prompt-regression-runner/feedback/local/
 03-projects/streamflow-containerized-stream-processing/data/raw/
 03-projects/streamflow-containerized-stream-processing/data/curated/
 03-projects/streamflow-containerized-stream-processing/data/rejects/

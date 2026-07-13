@@ -24,6 +24,7 @@ MYPY_TARGETS = [
     "03-projects/local-ai-lab-runner/src/local_ai_lab_runner/runner.py",
     "03-projects/prompt-regression-runner/src/prompt_regression/contract.py",
     "03-projects/prompt-regression-runner/src/prompt_regression/dataset.py",
+    "03-projects/prompt-regression-runner/src/prompt_regression/feedback.py",
     "03-projects/prompt-regression-runner/src/prompt_regression/scoring.py",
     "03-projects/streamflow-containerized-stream-processing/src/streamflow/quality.py",
     "03-projects/streamflow-containerized-stream-processing/src/streamflow/schemas.py",

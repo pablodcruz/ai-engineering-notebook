@@ -1,0 +1,92 @@
+{
+  "schema_version": "support-triage-review-export-v1",
+  "synthetic_data_only": true,
+  "exported_at": "2026-07-13T14:30:00.000Z",
+  "review_count": 4,
+  "reviews": [
+    {
+      "schema_version": "review-v1",
+      "review_id": "review_example_T001",
+      "sample_id": "T001",
+      "execution_mode": "recorded",
+      "source_request_id": "recorded_T001",
+      "prompt_version": "structured-v2",
+      "outcome": "accepted",
+      "override_reason": null,
+      "model_decision": {
+        "product_area": "authentication",
+        "urgency": "high",
+        "recommended_response": "Confirm the account email and check spam or quarantine before retrying the reset once."
+      },
+      "final_decision": {
+        "product_area": "authentication",
+        "urgency": "high",
+        "recommended_response": "Confirm the account email and check spam or quarantine before retrying the reset once."
+      },
+      "reviewed_at": "2026-07-13T14:20:00.000Z"
+    },
+    {
+      "schema_version": "review-v1",
+      "review_id": "review_example_T002",
+      "sample_id": "T002",
+      "execution_mode": "live",
+      "source_request_id": "triage_example_T002",
+      "prompt_version": "structured-v2",
+      "outcome": "overridden",
+      "override_reason": "response_improvement",
+      "model_decision": {
+        "product_area": "billing",
+        "urgency": "high",
+        "recommended_response": "Collect both transaction ids and escalate the duplicate charge."
+      },
+      "final_decision": {
+        "product_area": "billing",
+        "urgency": "high",
+        "recommended_response": "Collect both pending transaction ids and timestamps, compare them with the invoice, and avoid promising a refund until billing confirms a duplicate settlement."
+      },
+      "reviewed_at": "2026-07-13T14:22:00.000Z"
+    },
+    {
+      "schema_version": "review-v1",
+      "review_id": "review_example_T002_duplicate",
+      "sample_id": "T002",
+      "execution_mode": "recorded",
+      "source_request_id": "recorded_T002_duplicate",
+      "prompt_version": "structured-v2",
+      "outcome": "overridden",
+      "override_reason": "response_improvement",
+      "model_decision": {
+        "product_area": "billing",
+        "urgency": "high",
+        "recommended_response": "Collect both transaction ids and escalate the duplicate charge."
+      },
+      "final_decision": {
+        "product_area": "billing",
+        "urgency": "high",
+        "recommended_response": "Collect both pending transaction ids and timestamps, compare them with the invoice, and avoid promising a refund until billing confirms a duplicate settlement."
+      },
+      "reviewed_at": "2026-07-13T14:24:00.000Z"
+    },
+    {
+      "schema_version": "review-v1",
+      "review_id": "review_example_T003",
+      "sample_id": "T003",
+      "execution_mode": "recorded",
+      "source_request_id": "recorded_T003",
+      "prompt_version": "structured-v2",
+      "outcome": "overridden",
+      "override_reason": "policy_or_safety",
+      "model_decision": {
+        "product_area": "integrations",
+        "urgency": "medium",
+        "recommended_response": "Ask for a webhook id and investigate when convenient."
+      },
+      "final_decision": {
+        "product_area": "integrations",
+        "urgency": "high",
+        "recommended_response": "Collect a failed production delivery id, endpoint, timestamp, and response body, then escalate the production-only failure without claiming a root cause."
+      },
+      "reviewed_at": "2026-07-13T14:26:00.000Z"
+    }
+  ]
+}

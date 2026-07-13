@@ -37,6 +37,12 @@ def main(*, include_quality: bool = False) -> int:
             {},
         ),
         (
+            "feedback candidate export freshness",
+            [sys.executable, "scripts/export_feedback_candidates.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
             "live support triage gateway tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT,

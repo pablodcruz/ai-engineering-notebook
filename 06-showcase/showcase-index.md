@@ -13,6 +13,7 @@ Use this file to track artifacts that are polished enough to share.
 | Local AI Lab Runner | Runnable | Developer experience, readiness checks, and reproducible experiments | ../03-projects/local-ai-lab-runner.md |
 | Agentic Workflow Demo | Runnable | Typed tools, approval boundaries, structured traces, refusal behavior, and behavioral evals | ../03-projects/agentic-workflow-demo.md |
 | Prompt Regression Runner | Runnable | Prompt comparison, structured regression checks, recorded/live separation, and trainer facilitation | ../03-projects/prompt-regression-runner.md |
+| Review Feedback Pipeline | Runnable | Strict synthetic-export validation, human-correction summaries, deduplicated candidate eval cases, and explicit approval boundaries | ../docs/feedback-candidate-report.html |
 | Support Triage Review Console | Live | Controlled synthetic model calls, human accept/correct decisions, review metrics, sanitized feedback export, layered cost controls, and safe self-deployment | ../03-projects/live-support-triage-studio.md |
 | StreamFlow Phase 1 | Scaffolded | Streaming data platform design, Spark jobs, Airflow orchestration, and data quality | ../03-projects/streamflow-phase-1.md |
 | StreamFlow Phase 2 | Scaffolded | Snowflake medallion modeling, BI semantic layer, Airflow orchestration, and reconciliation checks | ../03-projects/streamflow-phase-2.md |
@@ -38,6 +39,8 @@ The Enablement Assistant eval report lives at [../docs/enablement-eval-report.ht
 The Agentic Workflow trace viewer lives at [../docs/agentic-workflow.html](../docs/agentic-workflow.html). It renders deterministic traces for read-only execution, approval checkpoints, approved simulations, and prohibited-action refusal.
 
 The Prompt Regression report lives at [../docs/prompt-regression-report.html](../docs/prompt-regression-report.html). It compares two candidates across fixed support tickets and links aggregate scores to case-level failures.
+
+The Feedback Candidate report lives at [../docs/feedback-candidate-report.html](../docs/feedback-candidate-report.html). It shows how sanitized human corrections become deduplicated, awaiting-review evaluation candidates without automatically changing the permanent golden set.
 
 The Support Triage Review Console lives at [../docs/support-triage.html](../docs/support-triage.html). It turns the same evaluated task into a customer-facing workflow, labels live and recorded execution separately, captures human accept/correct decisions, exports synthetic feedback, and exposes its cost controls. The [deploy-your-own guide](../docs/deploy-support-triage.html) keeps reviewer credentials and billing inside their own deployment.
 

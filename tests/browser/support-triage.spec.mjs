@@ -123,3 +123,15 @@ test("demo access request opens a browser compose URL without sending", async ({
   expect(destination.searchParams.get("to")).toBe("pablo.de.la.cruz.pro@gmail.com");
   expect(destination.searchParams.get("su")).toBe("Support Triage Demo Access Request");
 });
+
+
+test("feedback report exposes candidates without claiming golden-set promotion", async ({ page }) => {
+  await page.goto("/feedback-candidate-report.html");
+
+  await expect(page).toHaveTitle("Support Triage Feedback Pipeline");
+  await expect(page.locator("#promotion-state")).toHaveText("AWAITING HUMAN REVIEW");
+  await expect(page.locator("#feedback-summary")).toContainText("4validated reviews");
+  await expect(page.locator("#feedback-summary")).toContainText("2unique candidates");
+  await expect(page.locator("#candidate-list article")).toHaveCount(2);
+  await expect(page.getByText("Permanent eval data changes only through a separate reviewed code change.")).toBeVisible();
+});

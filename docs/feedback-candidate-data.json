@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "project": "Support Triage Feedback Pipeline",
+    "source": "committed synthetic Review Console export",
+    "permanent_golden_set_modified": false
+  },
+  "candidate_package": {
+    "schema_version": "feedback-candidate-package-v1",
+    "synthetic_data_only": true,
+    "promotion_status": "awaiting_human_review",
+    "source_exported_at": "2026-07-13T14:30:00.000Z",
+    "summary": {
+      "review_count": 4,
+      "accepted_count": 1,
+      "corrected_count": 3,
+      "candidate_count": 2,
+      "duplicate_corrections_omitted": 1,
+      "override_reasons": {
+        "policy_or_safety": 1,
+        "response_improvement": 2
+      }
+    },
+    "candidates": [
+      {
+        "candidate_id": "F-T002-16728c7c",
+        "source_case_id": "T002",
+        "source_review_id": "review_example_T002",
+        "execution_mode": "live",
+        "prompt_version": "structured-v2",
+        "reviewed_at": "2026-07-13T14:22:00.000Z",
+        "override_reason": "response_improvement",
+        "changed_fields": [
+          "recommended_response"
+        ],
+        "model_decision": {
+          "product_area": "billing",
+          "urgency": "high",
+          "recommended_response": "Collect both transaction ids and escalate the duplicate charge."
+        },
+        "human_decision": {
+          "product_area": "billing",
+          "urgency": "high",
+          "recommended_response": "Collect both pending transaction ids and timestamps, compare them with the invoice, and avoid promising a refund until billing confirms a duplicate settlement."
+        },
+        "regression_case": {
+          "id": "F-T002-16728c7c",
+          "title": "Human-corrected Duplicate card charge",
+          "category": "financial_impact",
+          "ticket": "Our company card was charged twice for the June subscription. I can see two pending charges but only one invoice.",
+          "expected_product_area": "billing",
+          "expected_urgency": "high",
+          "required_problem_terms": [
+            "charged",
+            "twice"
+          ],
+          "expected_missing_information": [
+            "transaction"
+          ],
+          "forbidden_terms": [
+            "refund has been issued"
+          ],
+          "human_expected_response": "Collect both pending transaction ids and timestamps, compare them with the invoice, and avoid promising a refund until billing confirms a duplicate settlement.",
+          "source_review_id": "review_example_T002"
+        }
+      },
+      {
+        "candidate_id": "F-T003-9919078b",
+        "source_case_id": "T003",
+        "source_review_id": "review_example_T003",
+        "execution_mode": "recorded",
+        "prompt_version": "structured-v2",
+        "reviewed_at": "2026-07-13T14:26:00.000Z",
+        "override_reason": "policy_or_safety",
+        "changed_fields": [
+          "recommended_response",
+          "urgency"
+        ],
+        "model_decision": {
+          "product_area": "integrations",
+          "urgency": "medium",
+          "recommended_response": "Ask for a webhook id and investigate when convenient."
+        },
+        "human_decision": {
+          "product_area": "integrations",
+          "urgency": "high",
+          "recommended_response": "Collect a failed production delivery id, endpoint, timestamp, and response body, then escalate the production-only failure without claiming a root cause."
+        },
+        "regression_case": {
+          "id": "F-T003-9919078b",
+          "title": "Human-corrected Production webhook failures",
+          "category": "technical_failure",
+          "ticket": "Every production webhook has returned HTTP 500 since this morning. Sandbox deliveries still work.",
+          "expected_product_area": "integrations",
+          "expected_urgency": "high",
+          "required_problem_terms": [
+            "webhook",
+            "500"
+          ],
+          "expected_missing_information": [
+            "endpoint"
+          ],
+          "forbidden_terms": [
+            "database outage"
+          ],
+          "human_expected_response": "Collect a failed production delivery id, endpoint, timestamp, and response body, then escalate the production-only failure without claiming a root cause.",
+          "source_review_id": "review_example_T003"
+        }
+      }
+    ],
+    "review_instructions": [
+      "Confirm the human decision reflects the intended support policy.",
+      "Confirm deterministic expectations remain sufficient for this case.",
+      "Create an approval artifact for selected candidate ids.",
+      "Merge approved cases into permanent eval data only through a reviewed code change."
+    ]
+  }
+}
