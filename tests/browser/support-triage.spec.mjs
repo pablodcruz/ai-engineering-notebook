@@ -135,3 +135,23 @@ test("feedback report exposes candidates without claiming golden-set promotion",
   await expect(page.locator("#candidate-list article")).toHaveCount(2);
   await expect(page.getByText("Permanent eval data changes only through a separate reviewed code change.")).toBeVisible();
 });
+
+
+test("support adapter shows safe proposal, redaction, and rejection traces", async ({ page }) => {
+  await page.goto("/support-adapter.html");
+
+  await expect(page).toHaveTitle("Mocked Zendesk-Style Support Adapter");
+  await expect(page.locator("#scenario-status")).toHaveText("PROPOSAL READY");
+  await expect(page.locator("#proposal")).toContainText("AWAITING HUMAN APPROVAL");
+  await expect(page.locator("#scenario-metrics")).toContainText("External mutationNone");
+
+  await page.getByRole("button", { name: "PII is removed before triage" }).click();
+  await expect(page.locator("#normalized-ticket")).toContainText("[REDACTED_EMAIL]");
+  await expect(page.locator("#normalized-ticket")).toContainText("[REDACTED_PHONE]");
+  await expect(page.locator("body")).not.toContainText("pablo@example.com");
+
+  await page.getByRole("button", { name: "Invalid signature is rejected" }).click();
+  await expect(page.locator("#scenario-status")).toHaveText("REJECTED");
+  await expect(page.locator("#normalized-ticket")).toContainText("did not cross the trust boundary");
+  await expect(page.locator("#proposal")).toContainText("No ticket update was proposed");
+});

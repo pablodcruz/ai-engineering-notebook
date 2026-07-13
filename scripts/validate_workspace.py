@@ -43,6 +43,12 @@ def main(*, include_quality: bool = False) -> int:
             {},
         ),
         (
+            "support adapter export freshness",
+            [sys.executable, "scripts/export_support_adapter.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
             "live support triage gateway tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
             ROOT,
@@ -96,6 +102,12 @@ def main(*, include_quality: bool = False) -> int:
             ],
             ROOT / "03-projects" / "prompt-regression-runner",
             {"PYTHONPATH": "src"},
+        ),
+        (
+            "zendesk-style-support-adapter tests",
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+            ROOT / "03-projects" / "zendesk-style-support-adapter",
+            {},
         ),
         (
             "streamflow phase 1 tests",

@@ -58,7 +58,7 @@ All workspace validation checks passed.</code></pre>
 
       <section class="metrics" aria-label="Workspace metrics">
         <article>
-          <strong>7</strong>
+          <strong>8</strong>
           <span>Production-shaped projects</span>
         </article>
         <article>
@@ -104,6 +104,27 @@ All workspace validation checks passed.</code></pre>
               <a href="prompt-regression-report.html">Inspect evaluation</a>
               <a href="feedback-candidate-report.html">Inspect feedback loop</a>
               <a href="deploy-support-triage.html">Deploy your own</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="card-topline">
+              <span class="status">Runnable</span>
+              <span>Customer Integration</span>
+            </div>
+            <h3>Mocked Zendesk-Style Support Adapter</h3>
+            <p>
+              Receives signed synthetic support webhooks, blocks replay, redacts PII,
+              maps tickets into the triage workflow, and stops at a proposed update.
+            </p>
+            <ul>
+              <li>Strict webhook and ticket contracts</li>
+              <li>HMAC verification and duplicate-event protection</li>
+              <li>No account, external service, or ticket mutation</li>
+            </ul>
+            <div class="card-actions">
+              <a href="support-adapter.html">Inspect integration traces</a>
+              <a href="https://github.com/pablodcruz/ai-engineering-notebook/blob/main/03-projects/zendesk-style-support-adapter.md">Read project record</a>
             </div>
           </article>
 
@@ -257,7 +278,7 @@ All workspace validation checks passed.</code></pre>
           <article>
             <h3>CI ready</h3>
             <code>.github/workflows/validate.yml</code>
-            <p>Runs pinned Ruff, mypy, 80% branch-aware coverage, six isolated Chromium workflow tests, and the complete workspace validation on push and pull request.</p>
+            <p>Runs pinned Ruff, mypy, 80% branch-aware coverage, seven isolated Chromium workflow tests, and the complete workspace validation on push and pull request.</p>
           </article>
           <article>
             <h3>Operational notes</h3>

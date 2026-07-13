@@ -7,6 +7,7 @@ source =
     03-projects/agentic-workflow-demo/src
     03-projects/local-ai-lab-runner/src
     03-projects/prompt-regression-runner/src
+    03-projects/zendesk-style-support-adapter/src
     03-projects/streamflow-containerized-stream-processing/src
 omit =
     */tests/*

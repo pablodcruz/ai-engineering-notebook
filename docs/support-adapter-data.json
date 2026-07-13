@@ -1,0 +1,357 @@
+{
+  "metadata": {
+    "project": "Mocked Zendesk-Style Support Adapter",
+    "schema_version": "support-adapter-evidence-v1",
+    "scenario_count": 5,
+    "synthetic_data_only": true,
+    "external_services_required": false,
+    "external_mutations_performed": false
+  },
+  "contract": {
+    "inbound": "signed zendesk-style-webhook-v1",
+    "internal": "normalized redacted ticket",
+    "outbound": "proposed-only ticket update",
+    "approval_required": true
+  },
+  "scenarios": [
+    {
+      "id": "valid_proposal",
+      "label": "Valid ticket creates proposal",
+      "teaching_point": "Authentication, normalization, triage, and proposal creation all pass.",
+      "input_summary": {
+        "event_id": "evt_recorded_valid",
+        "event_type": "ticket.created",
+        "ticket_id": 9003,
+        "demo_case_id": "T003",
+        "signature_supplied": true,
+        "synthetic_data_only": true
+      },
+      "result": {
+        "status": "proposal_ready",
+        "normalized_ticket": {
+          "source": "zendesk_style_mock",
+          "external_ticket_id": "9003",
+          "event_id": "evt_recorded_valid",
+          "case_id": "T003",
+          "subject": "Production webhook failures",
+          "description": "Every production webhook has returned HTTP 500 since this morning.",
+          "status": "new",
+          "priority": null,
+          "tags": [
+            "public_demo",
+            "synthetic"
+          ],
+          "requester_reference": "requester_2d8e4313fabb",
+          "redactions": {
+            "email": 0,
+            "phone": 0
+          }
+        },
+        "triage_decision": {
+          "customer_problem": "Production webhook deliveries return HTTP 500 while sandbox deliveries succeed",
+          "product_area": "integrations",
+          "urgency": "high",
+          "missing_information": [
+            "production endpoint URL, delivery ids, and response logs"
+          ],
+          "recommended_response": "Collect the endpoint and failed delivery ids, then compare production and sandbox request handling."
+        },
+        "proposed_update": {
+          "external_ticket_id": "9003",
+          "update_mode": "proposed_only",
+          "requires_human_approval": true,
+          "fields": {
+            "priority": "high",
+            "tags": [
+              "ai_triage_proposed",
+              "product_area_integrations",
+              "public_demo",
+              "synthetic",
+              "urgency_high"
+            ],
+            "internal_note": "Collect the endpoint and failed delivery ids, then compare production and sandbox request handling."
+          }
+        },
+        "trace": [
+          {
+            "step": "authenticate_webhook",
+            "status": "passed",
+            "detail": {
+              "signature_logged": false
+            }
+          },
+          {
+            "step": "validate_contract",
+            "status": "passed",
+            "detail": {
+              "event_id": "evt_recorded_valid",
+              "event_type": "ticket.created"
+            }
+          },
+          {
+            "step": "claim_event",
+            "status": "passed",
+            "detail": {
+              "event_id": "evt_recorded_valid"
+            }
+          },
+          {
+            "step": "normalize_and_redact",
+            "status": "passed",
+            "detail": {
+              "external_ticket_id": "9003",
+              "case_id": "T003",
+              "redactions": {
+                "email": 0,
+                "phone": 0
+              },
+              "requester_email_retained": false
+            }
+          },
+          {
+            "step": "run_triage",
+            "status": "passed",
+            "detail": {
+              "product_area": "integrations",
+              "urgency": "high"
+            }
+          },
+          {
+            "step": "propose_ticket_update",
+            "status": "awaiting_approval",
+            "detail": {
+              "external_ticket_id": "9003",
+              "update_mode": "proposed_only"
+            }
+          }
+        ],
+        "external_mutation_performed": false
+      }
+    },
+    {
+      "id": "pii_redaction",
+      "label": "PII is removed before triage",
+      "teaching_point": "Requester email is replaced by a reference and text PII is redacted.",
+      "input_summary": {
+        "event_id": "evt_recorded_pii",
+        "event_type": "ticket.created",
+        "ticket_id": 9001,
+        "demo_case_id": "T001",
+        "contains_synthetic_pii": true,
+        "signature_supplied": true,
+        "synthetic_data_only": true
+      },
+      "result": {
+        "status": "proposal_ready",
+        "normalized_ticket": {
+          "source": "zendesk_style_mock",
+          "external_ticket_id": "9001",
+          "event_id": "evt_recorded_pii",
+          "case_id": "T001",
+          "subject": "Password reset email missing",
+          "description": "Reset mail never arrives. Contact [REDACTED_EMAIL] or [REDACTED_PHONE].",
+          "status": "new",
+          "priority": null,
+          "tags": [
+            "public_demo",
+            "synthetic"
+          ],
+          "requester_reference": "requester_430467124bf7",
+          "redactions": {
+            "email": 1,
+            "phone": 1
+          }
+        },
+        "triage_decision": {
+          "customer_problem": "Password reset email has not arrived after three attempts, blocking access before a demo",
+          "product_area": "authentication",
+          "urgency": "high",
+          "missing_information": [
+            "account email and reset-attempt timestamps"
+          ],
+          "recommended_response": "Confirm the account email and timestamps, then inspect reset-email delivery without claiming the provider is at fault."
+        },
+        "proposed_update": {
+          "external_ticket_id": "9001",
+          "update_mode": "proposed_only",
+          "requires_human_approval": true,
+          "fields": {
+            "priority": "high",
+            "tags": [
+              "ai_triage_proposed",
+              "product_area_authentication",
+              "public_demo",
+              "synthetic",
+              "urgency_high"
+            ],
+            "internal_note": "Confirm the account email and timestamps, then inspect reset-email delivery without claiming the provider is at fault."
+          }
+        },
+        "trace": [
+          {
+            "step": "authenticate_webhook",
+            "status": "passed",
+            "detail": {
+              "signature_logged": false
+            }
+          },
+          {
+            "step": "validate_contract",
+            "status": "passed",
+            "detail": {
+              "event_id": "evt_recorded_pii",
+              "event_type": "ticket.created"
+            }
+          },
+          {
+            "step": "claim_event",
+            "status": "passed",
+            "detail": {
+              "event_id": "evt_recorded_pii"
+            }
+          },
+          {
+            "step": "normalize_and_redact",
+            "status": "passed",
+            "detail": {
+              "external_ticket_id": "9001",
+              "case_id": "T001",
+              "redactions": {
+                "email": 1,
+                "phone": 1
+              },
+              "requester_email_retained": false
+            }
+          },
+          {
+            "step": "run_triage",
+            "status": "passed",
+            "detail": {
+              "product_area": "authentication",
+              "urgency": "high"
+            }
+          },
+          {
+            "step": "propose_ticket_update",
+            "status": "awaiting_approval",
+            "detail": {
+              "external_ticket_id": "9001",
+              "update_mode": "proposed_only"
+            }
+          }
+        ],
+        "external_mutation_performed": false
+      }
+    },
+    {
+      "id": "duplicate_delivery",
+      "label": "Duplicate delivery is ignored",
+      "teaching_point": "The same event id cannot create a second proposal.",
+      "input_summary": {
+        "event_id": "evt_recorded_duplicate",
+        "event_type": "ticket.created",
+        "ticket_id": 9002,
+        "demo_case_id": "T002",
+        "delivery_attempt": 2,
+        "signature_supplied": true,
+        "synthetic_data_only": true
+      },
+      "result": {
+        "status": "ignored",
+        "reason": "duplicate_delivery",
+        "external_ticket_id": "9002",
+        "trace": [
+          {
+            "step": "authenticate_webhook",
+            "status": "passed",
+            "detail": {
+              "signature_logged": false
+            }
+          },
+          {
+            "step": "validate_contract",
+            "status": "passed",
+            "detail": {
+              "event_id": "evt_recorded_duplicate",
+              "event_type": "ticket.created"
+            }
+          },
+          {
+            "step": "claim_event",
+            "status": "ignored",
+            "detail": {
+              "event_id": "evt_recorded_duplicate",
+              "reason": "duplicate_delivery"
+            }
+          }
+        ],
+        "external_mutation_performed": false
+      }
+    },
+    {
+      "id": "invalid_signature",
+      "label": "Invalid signature is rejected",
+      "teaching_point": "Untrusted bytes are rejected before ticket details are parsed or logged.",
+      "input_summary": {
+        "body_bytes": 488,
+        "signature_supplied": true,
+        "signature_valid": false,
+        "synthetic_data_only": true
+      },
+      "result": {
+        "status": "rejected",
+        "error": {
+          "code": "invalid_signature",
+          "message": "Webhook authentication failed."
+        },
+        "trace": [
+          {
+            "step": "authenticate_webhook",
+            "status": "rejected",
+            "detail": {
+              "reason": "signature_mismatch"
+            }
+          }
+        ],
+        "external_mutation_performed": false
+      }
+    },
+    {
+      "id": "unsupported_case",
+      "label": "Unsupported case fails closed",
+      "teaching_point": "A valid signature does not bypass the synthetic case allowlist.",
+      "input_summary": {
+        "event_id": "evt_recorded_unsupported",
+        "event_type": "ticket.created",
+        "ticket_id": 9999,
+        "demo_case_id": "T999",
+        "signature_supplied": true,
+        "synthetic_data_only": true
+      },
+      "result": {
+        "status": "rejected",
+        "error": {
+          "code": "invalid_event",
+          "message": "The event does not reference a supported synthetic case."
+        },
+        "trace": [
+          {
+            "step": "authenticate_webhook",
+            "status": "passed",
+            "detail": {
+              "signature_logged": false
+            }
+          },
+          {
+            "step": "validate_contract",
+            "status": "rejected",
+            "detail": {
+              "reason": "The event does not reference a supported synthetic case."
+            }
+          }
+        ],
+        "external_mutation_performed": false
+      }
+    }
+  ]
+}

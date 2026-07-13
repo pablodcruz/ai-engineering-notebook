@@ -26,6 +26,8 @@ MYPY_TARGETS = [
     "03-projects/prompt-regression-runner/src/prompt_regression/dataset.py",
     "03-projects/prompt-regression-runner/src/prompt_regression/feedback.py",
     "03-projects/prompt-regression-runner/src/prompt_regression/scoring.py",
+    "03-projects/zendesk-style-support-adapter/src/support_adapter/adapter.py",
+    "03-projects/zendesk-style-support-adapter/src/support_adapter/recorded.py",
     "03-projects/streamflow-containerized-stream-processing/src/streamflow/quality.py",
     "03-projects/streamflow-containerized-stream-processing/src/streamflow/schemas.py",
 ]
@@ -36,6 +38,7 @@ COVERAGE_TEST_DIRS = [
     "03-projects/agentic-workflow-demo/tests",
     "03-projects/local-ai-lab-runner/tests",
     "03-projects/prompt-regression-runner/tests",
+    "03-projects/zendesk-style-support-adapter/tests",
     "03-projects/streamflow-containerized-stream-processing/tests",
 ]
 

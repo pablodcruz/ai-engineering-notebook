@@ -13,6 +13,7 @@ Projects are larger than labs. They should demonstrate practical AI engineering 
 | Shipped | [Agentic Workflow Demo](agentic-workflow-demo.md) | Tool use, guardrails, observability, approval boundaries, and workflow design. |
 | Shipped | [Prompt Regression Runner](prompt-regression-runner.md) | Prompt versioning, structured-output checks, regression evidence, and trainer delivery. |
 | Live | [Support Triage Review Console](live-support-triage-studio.md) | A deployed server-side model workflow with schema validation, human accept/correct decisions, evaluation export, operational telemetry, cost controls, and a recorded fallback. |
+| Shipped | [Mocked Zendesk-Style Support Adapter](zendesk-style-support-adapter.md) | Signed webhook verification, strict mapping, replay protection, PII redaction, recorded triage injection, proposed-only updates, and integration traces. |
 
 See the [roadmap](../00-meta/roadmap.md) for the active milestone's scope and definition of done.
 

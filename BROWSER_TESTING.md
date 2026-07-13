@@ -31,6 +31,8 @@ npm run test:browser:headed
 - Verify exports exclude access codes and ticket text.
 - Reset browser-local review history.
 - Validate the browser-based demo-access request URL without opening Gmail or sending mail.
+- Render feedback candidates without claiming permanent golden-set promotion.
+- Exercise valid, PII-redacted, and rejected mocked support-adapter traces.
 
 ## CI Behavior
 
@@ -46,6 +48,7 @@ The suite does not:
 - Store or submit a demo access code.
 - Sign into Gmail or send an access-request email.
 - Test Vercel, Redis, or OpenAI availability.
+- Contact Zendesk or mutate an external support ticket.
 - Replace Python gateway tests or AI behavioral evals.
 
 The separate health and live smoke checks cover deployed API boundaries. Browser tests protect the deterministic user workflow without introducing provider cost or personal credentials.

@@ -78,7 +78,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.38035,
+          "score": 0.380825,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Learning Objectives",
           "start_line": 13,
@@ -87,7 +87,7 @@
         },
         {
           "rank": 2,
-          "score": 0.31994,
+          "score": 0.320551,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Common Failure Modes",
           "start_line": 24,
@@ -96,7 +96,7 @@
         },
         {
           "rank": 3,
-          "score": 0.318507,
+          "score": 0.318953,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -105,7 +105,7 @@
         },
         {
           "rank": 4,
-          "score": 0.27589,
+          "score": 0.275723,
           "source_path": "02-labs/README.md",
           "heading": "Labs > Lab Standards",
           "start_line": 7,
@@ -114,7 +114,7 @@
         },
         {
           "rank": 5,
-          "score": 0.257903,
+          "score": 0.258211,
           "source_path": "02-labs/prompt-engineering-lab.md",
           "heading": "Prompt Engineering Lab > Common Failure Modes",
           "start_line": 72,
@@ -183,7 +183,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.358613,
+          "score": 0.360201,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -192,7 +192,7 @@
         },
         {
           "rank": 2,
-          "score": 0.22308,
+          "score": 0.224193,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Debrief",
           "start_line": 78,
@@ -201,7 +201,7 @@
         },
         {
           "rank": 3,
-          "score": 0.214348,
+          "score": 0.215481,
           "source_path": "02-labs/prompt-engineering-lab.md",
           "heading": "Prompt Engineering Lab > Common Failure Modes",
           "start_line": 72,
@@ -210,7 +210,7 @@
         },
         {
           "rank": 4,
-          "score": 0.206751,
+          "score": 0.207494,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Common Failure Modes",
           "start_line": 67,
@@ -219,7 +219,7 @@
         },
         {
           "rank": 5,
-          "score": 0.194985,
+          "score": 0.195405,
           "source_path": "01-concepts/apis-sdks-developer-tools.md",
           "heading": "APIs, SDKs, And Developer Tools > Common Live Issues",
           "start_line": 31,
@@ -274,23 +274,23 @@
           "label": "S1",
           "source_path": "03-projects/README.md",
           "heading": "Projects > Project Documentation Standard",
-          "start_line": 21,
-          "end_line": 31
+          "start_line": 22,
+          "end_line": 32
         }
       ],
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.38688,
+          "score": 0.378807,
           "source_path": "03-projects/README.md",
           "heading": "Projects > Project Documentation Standard",
-          "start_line": 21,
-          "end_line": 31,
+          "start_line": 22,
+          "end_line": 32,
           "preview": "Each project should include: - Problem statement. - Architecture sketch. - Setup instructions. - Demo script. - Known limitations. - Troubleshooting notes. - Demo talking points. The [project template](project-template.m..."
         },
         {
           "rank": 2,
-          "score": 0.268402,
+          "score": 0.273784,
           "source_path": "03-projects/prompt-regression-runner/prompts/baseline-v1.md",
           "heading": "Document",
           "start_line": 1,
@@ -299,7 +299,7 @@
         },
         {
           "rank": 3,
-          "score": 0.247682,
+          "score": 0.237069,
           "source_path": "03-projects/README.md",
           "heading": "Projects",
           "start_line": 3,
@@ -308,7 +308,7 @@
         },
         {
           "rank": 4,
-          "score": 0.229226,
+          "score": 0.229882,
           "source_path": "05-reference/README.md",
           "heading": "Reference > How To Use This Folder",
           "start_line": 15,
@@ -317,7 +317,7 @@
         },
         {
           "rank": 5,
-          "score": 0.217937,
+          "score": 0.216785,
           "source_path": "04-explainers/README.md",
           "heading": "Explainers",
           "start_line": 3,
@@ -386,7 +386,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.221244,
+          "score": 0.222025,
           "source_path": "05-reference/glossary.md",
           "heading": "Glossary > Retrieval",
           "start_line": 17,
@@ -395,7 +395,7 @@
         },
         {
           "rank": 2,
-          "score": 0.219716,
+          "score": 0.220583,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Basic Flow",
           "start_line": 13,
@@ -404,16 +404,16 @@
         },
         {
           "rank": 3,
-          "score": 0.13303,
+          "score": 0.132069,
           "source_path": "README.md",
           "heading": "AI Engineering Notebook > Workspace Map",
-          "start_line": 106,
-          "end_line": 114,
+          "start_line": 108,
+          "end_line": 116,
           "preview": "| Folder | Purpose | | --- | --- | | `00-meta` | Roadmap, build themes, and notebook conventions. | | `01-concepts` | Notes on LLMs, prompting, RAG, agents, APIs, cloud workflows, evaluation, and observability. | | `02-l..."
         },
         {
           "rank": 4,
-          "score": 0.12395,
+          "score": 0.124501,
           "source_path": "01-concepts/llm-fundamentals.md",
           "heading": "LLM Fundamentals > Common Learner Confusions",
           "start_line": 31,
@@ -422,7 +422,7 @@
         },
         {
           "rank": 5,
-          "score": 0.122511,
+          "score": 0.121385,
           "source_path": "00-meta/senior-review-guide.md",
           "heading": "Senior Review Guide",
           "start_line": 3,
@@ -500,16 +500,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.276985,
-          "source_path": "03-projects/agentic-workflow-demo.md",
-          "heading": "Project: Agentic Workflow Demo > Architecture",
-          "start_line": 17,
-          "end_line": 31,
-          "preview": "```mermaid flowchart LR Request[\"User request\"] --> Planner[\"Deterministic planner\"] Planner --> Registry[\"Typed tool registry\"] Registry --> ReadTools[\"Read-only backlog tools\"] Registry --> Mutation[\"Approval-gated pri..."
-        },
-        {
-          "rank": 2,
-          "score": 0.256733,
+          "score": 0.26105,
           "source_path": "01-concepts/agents.md",
           "heading": "Agents And Agentic Workflows > Engineering Lens",
           "start_line": 41,
@@ -517,8 +508,17 @@
           "preview": "Agent design is permission design. The model may choose actions, but the application owns which actions exist, what they can access, and when execution must stop. Design decisions to make explicit: - Which tools are read..."
         },
         {
+          "rank": 2,
+          "score": 0.254688,
+          "source_path": "03-projects/agentic-workflow-demo.md",
+          "heading": "Project: Agentic Workflow Demo > Architecture",
+          "start_line": 17,
+          "end_line": 31,
+          "preview": "```mermaid flowchart LR Request[\"User request\"] --> Planner[\"Deterministic planner\"] Planner --> Registry[\"Typed tool registry\"] Registry --> ReadTools[\"Read-only backlog tools\"] Registry --> Mutation[\"Approval-gated pri..."
+        },
+        {
           "rank": 3,
-          "score": 0.246883,
+          "score": 0.252831,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Common Failure Modes",
           "start_line": 61,
@@ -527,7 +527,7 @@
         },
         {
           "rank": 4,
-          "score": 0.236462,
+          "score": 0.239675,
           "source_path": "03-projects/agentic-workflow-demo.md",
           "heading": "Project: Agentic Workflow Demo > Why This Matters",
           "start_line": 13,
@@ -536,7 +536,7 @@
         },
         {
           "rank": 5,
-          "score": 0.212082,
+          "score": 0.216875,
           "source_path": "01-concepts/agents.md",
           "heading": "Agents And Agentic Workflows > Why This Matters",
           "start_line": 5,
@@ -615,7 +615,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.501224,
+          "score": 0.499186,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Diagnose By Layer > 4. External Service",
           "start_line": 64,
@@ -624,7 +624,7 @@
         },
         {
           "rank": 2,
-          "score": 0.297562,
+          "score": 0.295748,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Diagnose By Layer > 2. Application Contract",
           "start_line": 52,
@@ -633,7 +633,7 @@
         },
         {
           "rank": 3,
-          "score": 0.245341,
+          "score": 0.246867,
           "source_path": "02-labs/api-sdk-integration-lab.md",
           "heading": "API And SDK Integration Lab > Learning Objectives",
           "start_line": 13,
@@ -642,21 +642,21 @@
         },
         {
           "rank": 4,
-          "score": 0.237144,
-          "source_path": "01-concepts/apis-sdks-developer-tools.md",
-          "heading": "APIs, SDKs, And Developer Tools > Core Concepts",
-          "start_line": 9,
-          "end_line": 17,
-          "preview": "- API: a network interface for sending requests and receiving responses. - SDK: a language-specific library that makes API usage easier. - Authentication: proving the application is allowed to call a service. - Request p..."
-        },
-        {
-          "rank": 5,
-          "score": 0.234551,
+          "score": 0.23824,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Diagnose By Layer",
           "start_line": 42,
           "end_line": 42,
           "preview": "Work from the outside in so a model prompt is not blamed for an infrastructure failure."
+        },
+        {
+          "rank": 5,
+          "score": 0.235842,
+          "source_path": "02-labs/api-sdk-integration-lab.md",
+          "heading": "API And SDK Integration Lab > Exercise",
+          "start_line": 47,
+          "end_line": 53,
+          "preview": "1. Confirm runtime and package installation. 2. Configure credentials through environment variables or local secret handling. 3. Run a minimal request. 4. Print or inspect the raw response. 5. Change the prompt or input ..."
         }
       ]
     },
@@ -718,7 +718,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.399931,
+          "score": 0.401841,
           "source_path": "04-explainers/production-readiness-checklist.md",
           "heading": "Production Readiness Checklist > Model And Prompting",
           "start_line": 22,
@@ -727,7 +727,7 @@
         },
         {
           "rank": 2,
-          "score": 0.213434,
+          "score": 0.214354,
           "source_path": "05-reference/ai-system-review-checklist.md",
           "heading": "AI System Review Checklist > 3. Model Contract",
           "start_line": 22,
@@ -736,7 +736,7 @@
         },
         {
           "rank": 3,
-          "score": 0.192753,
+          "score": 0.194796,
           "source_path": "01-concepts/prompt-engineering.md",
           "heading": "Prompt Engineering > What To Evaluate",
           "start_line": 54,
@@ -745,7 +745,7 @@
         },
         {
           "rank": 4,
-          "score": 0.167351,
+          "score": 0.169442,
           "source_path": "02-labs/prompt-engineering-lab.md",
           "heading": "Prompt Engineering Lab > Exercise",
           "start_line": 33,
@@ -754,7 +754,7 @@
         },
         {
           "rank": 5,
-          "score": 0.166706,
+          "score": 0.167563,
           "source_path": "02-labs/README.md",
           "heading": "Labs > Recommended Lab Sequence",
           "start_line": 21,
@@ -822,7 +822,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.414819,
+          "score": 0.414055,
           "source_path": "03-projects/streamflow-phase-1.md",
           "heading": "Project: StreamFlow Phase 1 > Demo Talking Points",
           "start_line": 119,
@@ -831,7 +831,7 @@
         },
         {
           "rank": 2,
-          "score": 0.340338,
+          "score": 0.337847,
           "source_path": "03-projects/streamflow-containerized-stream-processing/README.md",
           "heading": "StreamFlow Phase 1 > Expected Outputs",
           "start_line": 119,
@@ -840,7 +840,7 @@
         },
         {
           "rank": 3,
-          "score": 0.277054,
+          "score": 0.280423,
           "source_path": "03-projects/streamflow-containerized-stream-processing/README.md",
           "heading": "StreamFlow Phase 1",
           "start_line": 3,
@@ -849,16 +849,16 @@
         },
         {
           "rank": 4,
-          "score": 0.229426,
+          "score": 0.229951,
           "source_path": "00-meta/roadmap.md",
           "heading": "Roadmap > Later > Data Engineering For AI",
-          "start_line": 70,
-          "end_line": 73,
+          "start_line": 71,
+          "end_line": 74,
           "preview": "- Spark data quality report over event data. - Batch dataset profiling for AI readiness. - dbt-based warehouse transformations and tests. - Incremental ingestion with Snowpipe, Streams, or Tasks."
         },
         {
           "rank": 5,
-          "score": 0.227398,
+          "score": 0.223356,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/data_dictionary.md",
           "heading": "StreamFlow Phase 2 Data Dictionary > Silver > `SILVER_REJECTED_EVENTS`",
           "start_line": 40,
@@ -927,7 +927,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.499978,
+          "score": 0.507314,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Known Limitations",
           "start_line": 173,
@@ -936,7 +936,7 @@
         },
         {
           "rank": 2,
-          "score": 0.485305,
+          "score": 0.491591,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Problem",
           "start_line": 5,
@@ -945,7 +945,7 @@
         },
         {
           "rank": 3,
-          "score": 0.481323,
+          "score": 0.487799,
           "source_path": "03-projects/local-ai-lab-runner/README.md",
           "heading": "Local AI Lab Runner",
           "start_line": 3,
@@ -954,7 +954,7 @@
         },
         {
           "rank": 4,
-          "score": 0.470003,
+          "score": 0.477453,
           "source_path": "03-projects/local-ai-lab-runner/README.md",
           "heading": "Local AI Lab Runner > What It Checks",
           "start_line": 47,
@@ -963,7 +963,7 @@
         },
         {
           "rank": 5,
-          "score": 0.46687,
+          "score": 0.476039,
           "source_path": "03-projects/local-ai-lab-runner.md",
           "heading": "Project: Local AI Lab Runner > Evaluation",
           "start_line": 136,
@@ -1033,7 +1033,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.260183,
+          "score": 0.264263,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Common Failure Modes",
           "start_line": 61,
@@ -1042,7 +1042,7 @@
         },
         {
           "rank": 2,
-          "score": 0.254214,
+          "score": 0.252,
           "source_path": "03-projects/agentic-workflow-demo/README.md",
           "heading": "Agentic Workflow Demo",
           "start_line": 3,
@@ -1051,16 +1051,16 @@
         },
         {
           "rank": 3,
-          "score": 0.246479,
-          "source_path": "03-projects/agentic-workflow-demo.md",
-          "heading": "Project: Agentic Workflow Demo > Architecture",
-          "start_line": 17,
-          "end_line": 31,
-          "preview": "```mermaid flowchart LR Request[\"User request\"] --> Planner[\"Deterministic planner\"] Planner --> Registry[\"Typed tool registry\"] Registry --> ReadTools[\"Read-only backlog tools\"] Registry --> Mutation[\"Approval-gated pri..."
+          "score": 0.239321,
+          "source_path": "01-concepts/agents.md",
+          "heading": "Agents And Agentic Workflows > Explain It Back",
+          "start_line": 61,
+          "end_line": 61,
+          "preview": "Explain agents without overselling autonomy. Include one practical demo idea and one safety warning."
         },
         {
           "rank": 4,
-          "score": 0.240824,
+          "score": 0.236721,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Expected Output",
           "start_line": 52,
@@ -1069,12 +1069,12 @@
         },
         {
           "rank": 5,
-          "score": 0.230424,
-          "source_path": "01-concepts/agents.md",
-          "heading": "Agents And Agentic Workflows > Engineering Lens",
-          "start_line": 41,
-          "end_line": 49,
-          "preview": "Agent design is permission design. The model may choose actions, but the application owns which actions exist, what they can access, and when execution must stop. Design decisions to make explicit: - Which tools are read..."
+          "score": 0.232597,
+          "source_path": "03-projects/agentic-workflow-demo.md",
+          "heading": "Project: Agentic Workflow Demo > Architecture",
+          "start_line": 17,
+          "end_line": 31,
+          "preview": "```mermaid flowchart LR Request[\"User request\"] --> Planner[\"Deterministic planner\"] Planner --> Registry[\"Typed tool registry\"] Registry --> ReadTools[\"Read-only backlog tools\"] Registry --> Mutation[\"Approval-gated pri..."
         }
       ]
     },
@@ -1136,7 +1136,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.305466,
+          "score": 0.308205,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/data_dictionary.md",
           "heading": "StreamFlow Phase 2 Data Dictionary > Silver > `SILVER_REJECTED_EVENTS`",
           "start_line": 40,
@@ -1145,7 +1145,7 @@
         },
         {
           "rank": 2,
-          "score": 0.305322,
+          "score": 0.304395,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
           "heading": "StreamFlow Phase 2 > Warehouse Design",
           "start_line": 81,
@@ -1154,7 +1154,7 @@
         },
         {
           "rank": 3,
-          "score": 0.286574,
+          "score": 0.28401,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/data_dictionary.md",
           "heading": "StreamFlow Phase 2 Data Dictionary > Silver > `SILVER_EVENTS`",
           "start_line": 20,
@@ -1163,7 +1163,7 @@
         },
         {
           "rank": 4,
-          "score": 0.269119,
+          "score": 0.267028,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/docs/snowflake_setup.md",
           "heading": "Snowflake Setup > What Snowflake Does Here",
           "start_line": 7,
@@ -1172,7 +1172,7 @@
         },
         {
           "rank": 5,
-          "score": 0.255603,
+          "score": 0.253654,
           "source_path": "03-projects/streamflow-enterprise-analytics-pipeline/README.md",
           "heading": "StreamFlow Phase 2 > Problem",
           "start_line": 7,
@@ -1278,7 +1278,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.200995,
+          "score": 0.198396,
           "source_path": "01-concepts/agents.md",
           "heading": "Agents And Agentic Workflows > Building Blocks",
           "start_line": 13,
@@ -1287,7 +1287,7 @@
         },
         {
           "rank": 2,
-          "score": 0.162074,
+          "score": 0.160746,
           "source_path": "05-reference/ai-system-review-checklist.md",
           "heading": "AI System Review Checklist > 10. Enablement And Change Management",
           "start_line": 78,
@@ -1296,7 +1296,7 @@
         },
         {
           "rank": 3,
-          "score": 0.142663,
+          "score": 0.142031,
           "source_path": "05-reference/README.md",
           "heading": "Reference > How To Use This Folder",
           "start_line": 15,
@@ -1305,7 +1305,7 @@
         },
         {
           "rank": 4,
-          "score": 0.141996,
+          "score": 0.142002,
           "source_path": "04-explainers/debugging-playbook.md",
           "heading": "Debugging Playbook > Stop Conditions",
           "start_line": 101,
@@ -1314,7 +1314,7 @@
         },
         {
           "rank": 5,
-          "score": 0.138575,
+          "score": 0.137273,
           "source_path": "QUALITY.md",
           "heading": "Engineering Quality Automation > Coverage Policy",
           "start_line": 52,
@@ -1356,7 +1356,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.223059,
+          "score": 0.224233,
           "source_path": "03-projects/prompt-regression-runner/README.md",
           "heading": "Prompt Regression Runner",
           "start_line": 3,
@@ -1365,7 +1365,7 @@
         },
         {
           "rank": 2,
-          "score": 0.204889,
+          "score": 0.205849,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Build Notes",
           "start_line": 74,
@@ -1374,7 +1374,7 @@
         },
         {
           "rank": 3,
-          "score": 0.168127,
+          "score": 0.168979,
           "source_path": "01-concepts/llm-fundamentals.md",
           "heading": "LLM Fundamentals > Engineering Lens",
           "start_line": 38,
@@ -1383,7 +1383,7 @@
         },
         {
           "rank": 4,
-          "score": 0.167361,
+          "score": 0.167675,
           "source_path": "02-labs/agents-tool-use-lab.md",
           "heading": "Agents Tool-Use Lab > Build Notes",
           "start_line": 71,
@@ -1392,7 +1392,7 @@
         },
         {
           "rank": 5,
-          "score": 0.165506,
+          "score": 0.166005,
           "source_path": "04-explainers/ai-app-operating-economics.md",
           "heading": "AI Application Operating Economics > Request Economics",
           "start_line": 20,
@@ -1434,16 +1434,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.164589,
-          "source_path": "04-explainers/production-readiness-checklist.md",
-          "heading": "Production Readiness Checklist",
-          "start_line": 3,
-          "end_line": 3,
-          "preview": "Use this checklist when promoting a lab or prototype into a production-shaped AI application."
-        },
-        {
-          "rank": 2,
-          "score": 0.16449,
+          "score": 0.16453,
           "source_path": "01-concepts/ai-application-workflows.md",
           "heading": "AI Application Workflows > Workflow 3: Tool-Using Assistant",
           "start_line": 33,
@@ -1451,8 +1442,17 @@
           "preview": "Use when the application needs to take steps across systems. Flow: 1. Define allowed tools. 2. Give the model a goal and constraints. 3. Execute tool calls through application code. 4. Feed observations back to the model..."
         },
         {
+          "rank": 2,
+          "score": 0.162388,
+          "source_path": "04-explainers/production-readiness-checklist.md",
+          "heading": "Production Readiness Checklist",
+          "start_line": 3,
+          "end_line": 3,
+          "preview": "Use this checklist when promoting a lab or prototype into a production-shaped AI application."
+        },
+        {
           "rank": 3,
-          "score": 0.15509,
+          "score": 0.155237,
           "source_path": "05-reference/glossary.md",
           "heading": "Glossary > Retrieval",
           "start_line": 17,
@@ -1461,7 +1461,7 @@
         },
         {
           "rank": 4,
-          "score": 0.145136,
+          "score": 0.14302,
           "source_path": "04-explainers/production-readiness-checklist.md",
           "heading": "Production Readiness Checklist > Model And Prompting",
           "start_line": 22,
@@ -1470,7 +1470,7 @@
         },
         {
           "rank": 5,
-          "score": 0.144151,
+          "score": 0.142322,
           "source_path": "03-projects/prompt-regression-runner.md",
           "heading": "Project: Prompt Regression Runner > Production Hardening Path",
           "start_line": 96,
@@ -1514,7 +1514,7 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.17902,
+          "score": 0.182158,
           "source_path": "00-meta/notebook-conventions.md",
           "heading": "Notebook Conventions > File Style",
           "start_line": 16,
@@ -1523,7 +1523,7 @@
         },
         {
           "rank": 2,
-          "score": 0.176885,
+          "score": 0.167767,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Common Failure Modes",
           "start_line": 24,
@@ -1532,7 +1532,7 @@
         },
         {
           "rank": 3,
-          "score": 0.170356,
+          "score": 0.166304,
           "source_path": "02-labs/rag-lab.md",
           "heading": "RAG Lab > Common Failure Modes",
           "start_line": 64,
@@ -1541,16 +1541,16 @@
         },
         {
           "rank": 4,
-          "score": 0.133883,
+          "score": 0.135892,
           "source_path": "06-showcase/showcase-index.md",
           "heading": "Showcase Index > Polish Checklist",
-          "start_line": 62,
-          "end_line": 67,
+          "start_line": 65,
+          "end_line": 70,
           "preview": "- Clear problem statement. - Runnable or demoable path. - Screenshots, logs, or sample output where useful. - Failure modes documented. - Practical takeaway included. - No secrets or private context."
         },
         {
           "rank": 5,
-          "score": 0.131472,
+          "score": 0.133758,
           "source_path": "01-concepts/README.md",
           "heading": "Concepts > Standard For A Useful Concept Note",
           "start_line": 31,
@@ -1592,16 +1592,16 @@
       "retrieved": [
         {
           "rank": 1,
-          "score": 0.210696,
+          "score": 0.210922,
           "source_path": "00-meta/roadmap.md",
           "heading": "Roadmap > Later > Retrieval And Knowledge Systems",
-          "start_line": 56,
-          "end_line": 59,
+          "start_line": 57,
+          "end_line": 60,
           "preview": "- Chunking comparison experiment. - Retrieval failure gallery. - Hybrid retrieval and reranking experiment. - Corpus freshness and permissions design."
         },
         {
           "rank": 2,
-          "score": 0.209358,
+          "score": 0.20984,
           "source_path": "04-explainers/layered-explanations.md",
           "heading": "Layered Explanations > RAG",
           "start_line": 15,
@@ -1610,7 +1610,7 @@
         },
         {
           "rank": 3,
-          "score": 0.177574,
+          "score": 0.178158,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > How To Explain By Audience",
           "start_line": 53,
@@ -1619,7 +1619,7 @@
         },
         {
           "rank": 4,
-          "score": 0.174285,
+          "score": 0.175633,
           "source_path": "01-concepts/rag.md",
           "heading": "Retrieval-Augmented Generation > Why This Matters",
           "start_line": 5,
@@ -1628,7 +1628,7 @@
         },
         {
           "rank": 5,
-          "score": 0.159836,
+          "score": 0.160191,
           "source_path": "03-projects/prompt-regression-runner/README.md",
           "heading": "Prompt Regression Runner > Why \"Runner\" Instead Of \"Harness\"",
           "start_line": 7,

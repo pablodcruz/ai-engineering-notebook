@@ -15,15 +15,16 @@ This is not a course repo or a role-prep packet. It is a builder's notebook: con
 3. Use the [GitHub Pages Support Triage mirror](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-triage.html) when you want the explicitly labeled recorded experience with no live backend.
 4. Compare prompt candidates in the Prompt Regression report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/prompt-regression-report.html).
 5. Follow human corrections into candidate eval cases: [https://pablodcruz.github.io/ai-engineering-notebook/docs/feedback-candidate-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/feedback-candidate-report.html).
-6. Try the Enablement Assistant demo: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html).
-7. Review the Enablement Assistant eval report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html).
-8. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
-9. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
-10. Capture technical understanding in [01-concepts](01-concepts).
-11. Build small runnable exercises in [02-labs](02-labs).
-12. Promote the best ideas into [03-projects](03-projects).
-13. Turn useful explanations and diagrams into [04-explainers](04-explainers).
-14. Collect polished demos and writeups in [06-showcase](06-showcase).
+6. Inspect the mocked customer-system integration: [https://pablodcruz.github.io/ai-engineering-notebook/docs/support-adapter.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/support-adapter.html).
+7. Try the Enablement Assistant demo: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-assistant.html).
+8. Review the Enablement Assistant eval report: [https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/enablement-eval-report.html).
+9. Open the StreamFlow analytics dashboard: [https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html](https://pablodcruz.github.io/ai-engineering-notebook/docs/streamflow-dashboard.html).
+10. Use [00-meta/roadmap.md](00-meta/roadmap.md) to pick the next experiment.
+11. Capture technical understanding in [01-concepts](01-concepts).
+12. Build small runnable exercises in [02-labs](02-labs).
+13. Promote the best ideas into [03-projects](03-projects).
+14. Turn useful explanations and diagrams into [04-explainers](04-explainers).
+15. Collect polished demos and writeups in [06-showcase](06-showcase).
 
 For a systematic architecture review, use the [AI System Review Checklist](05-reference/ai-system-review-checklist.md). For the distinction between tests, evals, traces, and monitoring, read [Evaluation And Observability](01-concepts/evaluation-observability.md).
 
@@ -94,12 +95,13 @@ If you are reviewing this workspace quickly, start with:
 2. [Agentic Workflow Demo](03-projects/agentic-workflow-demo.md) and [trace viewer](docs/agentic-workflow.html) for tool contracts, approval boundaries, refusal behavior, and observable execution.
 3. [Prompt Regression Runner](03-projects/prompt-regression-runner.md), [comparison report](docs/prompt-regression-report.html), and [facilitator guide](04-explainers/prompt-evaluation-facilitator-guide.md) for prompt versioning, structured regression checks, and trainer delivery.
 4. [Support Triage Review Console](03-projects/live-support-triage-studio.md), [feedback candidate report](docs/feedback-candidate-report.html), [self-deployment guide](docs/deploy-support-triage.html), and [operating-economics explainer](04-explainers/ai-app-operating-economics.md) for a customer-facing workflow that connects generation, validation, human correction, reviewed evaluation candidates, cost controls, and operations.
-5. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md), [deployed RAG demo](docs/enablement-assistant.html), and [eval report](docs/enablement-eval-report.html) for grounded-answer architecture, evaluation, and citations.
-6. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
-7. [StreamFlow Phase 1](03-projects/streamflow-phase-1.md) for containerized stream processing, Spark, Airflow, and data quality.
-8. [StreamFlow Phase 2](03-projects/streamflow-phase-2.md) for Snowflake medallion layers, analytics modeling, Power BI semantics, and reconciliation checks.
-9. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
-10. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
+5. [Mocked Zendesk-Style Support Adapter](03-projects/zendesk-style-support-adapter.md) and [integration trace viewer](docs/support-adapter.html) for signed webhooks, strict mapping, replay protection, PII handling, and proposed-only customer-system updates.
+6. [Enablement Assistant RAG](03-projects/enablement-assistant-rag.md), [deployed RAG demo](docs/enablement-assistant.html), and [eval report](docs/enablement-eval-report.html) for grounded-answer architecture, evaluation, and citations.
+7. [Local AI Lab Runner](03-projects/local-ai-lab-runner.md) for developer experience, readiness checks, and CLI design.
+8. [StreamFlow Phase 1](03-projects/streamflow-phase-1.md) for containerized stream processing, Spark, Airflow, and data quality.
+9. [StreamFlow Phase 2](03-projects/streamflow-phase-2.md) for Snowflake medallion layers, analytics modeling, Power BI semantics, and reconciliation checks.
+10. [Showcase Index](06-showcase/showcase-index.md) for the strongest demo-ready artifacts.
+11. [Debugging Playbook](04-explainers/debugging-playbook.md) for operational thinking and troubleshooting judgment.
 
 ## Workspace Map
 

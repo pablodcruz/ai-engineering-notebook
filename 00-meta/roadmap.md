@@ -17,8 +17,9 @@ This roadmap tracks portfolio outcomes, not just ideas. Keep one milestone activ
 | Portfolio showcase | GitHub Pages deployment, project review path, documentation link checks, and one-command workspace validation. |
 | Repository documentation roundup | Folder guides, concept-to-evidence navigation, evaluation and observability guidance, expanded debugging workflow, shared terminology, and a reusable AI-system review checklist. |
 | Engineering quality automation | Pinned Ruff, mypy, and coverage tooling; shared root configuration; an 80% branch-aware floor; CI artifacts; and one optional local quality mode. |
-| Support Triage browser automation | Six isolated Chromium tests covering recorded recommendations, human accept/correct decisions, metrics, sanitized export, reset, access-request links, and the feedback candidate report without secrets or model calls. |
+| Support Triage browser automation | Seven isolated Chromium tests covering recorded recommendations, human accept/correct decisions, metrics, sanitized export, reset, access-request links, feedback candidates, and support-adapter traces without secrets or model calls. |
 | Review Feedback To Evaluation Pipeline | Strict synthetic export validation, accept/override summaries, correction deduplication, candidate regression cases, explicit approval artifacts, tests, and a deployed recorded report without automatic golden-set promotion. |
+| Mocked Zendesk-Style Support Adapter | Signed synthetic webhooks, exact contracts, replay protection, PII redaction, recorded triage injection, proposed-only updates, eight unit tests, and five deployed integration traces. |
 
 ## Active: Bounded StreamFlow Integration Smoke Test
 
@@ -40,8 +41,8 @@ Prove that the Phase 1 components can exchange a small synthetic event through t
 
 ## Next
 
-1. Add a mocked Zendesk-style support adapter.
-2. Add an operational evidence dashboard for support-triage cost, latency, failures, and reviewer agreement.
+1. Add an operational evidence dashboard for support-triage cost, latency, failures, and reviewer agreement.
+2. Add a short guided portfolio walkthrough for customer and recruiter audiences.
 
 ## Later
 

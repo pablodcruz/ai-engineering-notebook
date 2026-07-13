@@ -18,6 +18,7 @@ Support-operations leaders, AI engineers, solution architects, forward deployed 
 - `GET /api/health` for deployment configuration health
 - [Prompt regression evidence](../docs/prompt-regression-report.html) for the prompt behind the workflow
 - [Feedback candidate report](../docs/feedback-candidate-report.html) for the reviewed improvement loop
+- [Mocked Zendesk-style adapter](../docs/support-adapter.html) for the customer-system boundary
 
 The same page works in two explicit modes. Recorded examples remain publicly available without inference cost. A configured Vercel deployment can run only three allowlisted synthetic cases through an access-code-protected live API. Technical reviewers can deploy their own copy without sharing a provider key with this site.
 
@@ -138,6 +139,11 @@ truth. It validates the synthetic browser export, summarizes agreement and overr
 deduplicates repeated corrections, and prepares candidate regression cases. A named reviewer must
 explicitly approve selected candidates, and permanent golden-set promotion still requires a
 separate reviewed code change.
+
+The mocked support adapter shows how the same workflow could sit behind an existing ticketing
+platform. It verifies signed synthetic webhooks, rejects duplicate deliveries, removes PII, maps
+the ticket into the reviewed triage contract, and stops at a proposed update requiring human
+approval. The demo never contacts Zendesk or changes an external ticket.
 
 ## Known Limitations
 

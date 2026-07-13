@@ -24,6 +24,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
    - [Agentic Workflow trace viewer](../docs/agentic-workflow.html)
    - [Prompt Regression comparison report](../docs/prompt-regression-report.html)
    - [Review Feedback candidate report](../docs/feedback-candidate-report.html)
+   - [Mocked support adapter traces](../docs/support-adapter.html)
    - [Support Triage Review Console](../docs/support-triage.html)
    - [Enablement Assistant demo](../docs/enablement-assistant.html)
    - [Enablement Assistant eval report](../docs/enablement-eval-report.html)
@@ -49,6 +50,7 @@ Use this guide to review the notebook as an engineering portfolio, not as a cour
 | Prompt regression | Fixed inputs compare prompt candidates on schema, task correctness, grounding, and actionability | Prompt Regression Runner and comparison report |
 | Human oversight | Model suggestions remain separate from accepted or corrected decisions, and override reasons become versioned synthetic evaluation evidence | Support Triage Review Console |
 | Feedback governance | Corrections become deduplicated candidates, explicit approval is recorded, and permanent eval promotion remains a separate reviewed change | Review Feedback Pipeline |
+| Customer integration | Signed events, strict mapping, replay protection, PII redaction, and proposed-only writes make the external-system boundary visible | Mocked Zendesk-Style Support Adapter |
 | Cost control | Recorded/live separation, sample allowlisting, a global ceiling, a kill switch, and self-deployment make inference economics explicit | Support Triage Review Console and operating-economics explainer |
 | Enablement | Technical behavior is translated into layered explanations, a timed session, failure demos, and customer workshop prompts | Prompt evaluation facilitator guide |
 | Deployed product surface | Static demos expose core behavior without secrets or runtime services | Showcase app, RAG demo, StreamFlow dashboard |

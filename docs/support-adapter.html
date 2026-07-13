@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mocked Zendesk-Style Support Adapter</title>
+    <meta
+      name="description"
+      content="Interactive recorded traces for a signed, replay-safe, PII-aware support-ticket adapter that proposes updates without external mutations."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Engineering Notebook</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="support-triage.html">Review Console</a>
+        <a href="feedback-candidate-report.html">Feedback Pipeline</a>
+        <a href="https://github.com/pablodcruz/ai-engineering-notebook/tree/main/03-projects/zendesk-style-support-adapter">Source</a>
+      </nav>
+    </header>
+
+    <main class="assistant-main">
+      <section class="assistant-shell" aria-labelledby="adapter-title">
+        <div class="assistant-intro">
+          <p class="eyebrow">Customer-system integration</p>
+          <h1 id="adapter-title">Connect the workflow without surrendering control.</h1>
+          <p>
+            This credential-free mock receives Zendesk-shaped synthetic webhooks, verifies
+            authenticity, blocks replay, removes PII, uses reviewed triage evidence, and produces
+            a proposed ticket update. It never contacts Zendesk or mutates an external ticket.
+          </p>
+          <div class="assistant-flow" aria-label="Support adapter architecture">
+            <span>Signed synthetic webhook</span>
+            <span>Contract and replay checks</span>
+            <span>Normalize and redact</span>
+            <span>Triage and proposed update</span>
+          </div>
+        </div>
+
+        <section class="assistant-console" aria-label="Recorded adapter scenario selector">
+          <div class="query-card">
+            <p class="eyebrow">Recorded Scenarios</p>
+            <div class="preset-grid" id="scenario-buttons"></div>
+          </div>
+          <article class="answer-panel" aria-live="polite">
+            <div class="answer-heading">
+              <div>
+                <p class="eyebrow">Outcome</p>
+                <h2 id="scenario-label">Loading traces...</h2>
+              </div>
+              <span id="scenario-status" class="health-pill neutral">LOAD</span>
+            </div>
+            <p id="teaching-point"></p>
+            <div class="telemetry-grid" id="scenario-metrics"></div>
+          </article>
+        </section>
+      </section>
+
+      <section class="assistant-evidence-grid" aria-label="Adapter evidence">
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Execution boundary</p>
+              <h2>Structured Integration Trace</h2>
+            </div>
+            <span id="trace-count">0 steps</span>
+          </div>
+          <div id="trace-list" class="trace-list"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Normalized data</p>
+              <h2>What Reaches Triage</h2>
+            </div>
+          </div>
+          <div id="normalized-ticket" class="evidence-stack"></div>
+        </article>
+
+        <article class="visual-panel">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Mutation boundary</p>
+              <h2>Proposed, Never Applied</h2>
+            </div>
+          </div>
+          <div id="proposal" class="evidence-stack"></div>
+        </article>
+
+        <article class="visual-panel wide">
+          <div class="visual-heading">
+            <div>
+              <p class="eyebrow">Production replacement</p>
+              <h2>What A Customer Would Configure</h2>
+            </div>
+          </div>
+          <ul class="compact-list">
+            <li>Customer-owned webhook signing secret and shared replay store.</li>
+            <li>Approved field mapping, taxonomy, PII policy, and retention rules.</li>
+            <li>Authenticated reviewer identity and authorization for ticket updates.</li>
+            <li>Retry, dead-letter, audit, rate-limit, and monitoring policies.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const buttonsEl = document.querySelector("#scenario-buttons");
+      const labelEl = document.querySelector("#scenario-label");
+      const statusEl = document.querySelector("#scenario-status");
+      const teachingEl = document.querySelector("#teaching-point");
+      const metricsEl = document.querySelector("#scenario-metrics");
+      const traceEl = document.querySelector("#trace-list");
+      const traceCountEl = document.querySelector("#trace-count");
+      const normalizedEl = document.querySelector("#normalized-ticket");
+      const proposalEl = document.querySelector("#proposal");
+
+      function escapeHtml(value) {
+        return String(value ?? "Not applicable")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function pretty(value) {
+        return String(value).replaceAll("_", " ");
+      }
+
+      function renderScenario(scenario) {
+        const result = scenario.result;
+        labelEl.textContent = scenario.label;
+        teachingEl.textContent = scenario.teaching_point;
+        statusEl.textContent = pretty(result.status).toUpperCase();
+        statusEl.className = `health-pill ${result.status === "proposal_ready" ? "" : result.status === "ignored" ? "neutral" : "reject"}`;
+        metricsEl.innerHTML = `
+          <article><span>Authentication</span><strong>${result.trace.some((step) => step.step === "authenticate_webhook" && step.status === "passed") ? "Passed" : "Rejected"}</strong></article>
+          <article><span>External mutation</span><strong>${result.external_mutation_performed ? "Performed" : "None"}</strong></article>
+          <article><span>Ticket</span><strong>${escapeHtml(result.normalized_ticket?.external_ticket_id || result.external_ticket_id)}</strong></article>
+          <article><span>Mode</span><strong>${escapeHtml(result.proposed_update?.update_mode || "No proposal")}</strong></article>
+        `;
+        traceCountEl.textContent = `${result.trace.length} steps`;
+        traceEl.innerHTML = result.trace.map((step, index) => `
+          <article class="trace-step">
+            <div class="trace-step-heading">
+              <span>${index + 1}</span>
+              <div>
+                <strong>${escapeHtml(pretty(step.step))}</strong>
+                <em>${escapeHtml(pretty(step.status))}</em>
+              </div>
+            </div>
+            <div class="trace-payloads">
+              <div><b>Safe detail</b><pre>${escapeHtml(JSON.stringify(step.detail, null, 2))}</pre></div>
+              <div><b>Boundary</b><pre>${step.step === "propose_ticket_update" ? "Human approval required\nNo external API call" : "Continue only when this step passes"}</pre></div>
+            </div>
+          </article>
+        `).join("");
+
+        const normalized = result.normalized_ticket;
+        normalizedEl.innerHTML = normalized ? `
+          <code>source: ${escapeHtml(normalized.source)}</code>
+          <code>case: ${escapeHtml(normalized.case_id)}</code>
+          <code>requester: ${escapeHtml(normalized.requester_reference)}</code>
+          <code>redactions: ${escapeHtml(JSON.stringify(normalized.redactions))}</code>
+          <p>${escapeHtml(normalized.description)}</p>
+        ` : `<p>Ticket content did not cross the trust boundary.</p>`;
+
+        const proposal = result.proposed_update;
+        proposalEl.innerHTML = proposal ? `
+          <span class="health-pill neutral">AWAITING HUMAN APPROVAL</span>
+          <code>priority: ${escapeHtml(proposal.fields.priority)}</code>
+          <code>tags: ${escapeHtml(proposal.fields.tags.join(", "))}</code>
+          <p>${escapeHtml(proposal.fields.internal_note)}</p>
+        ` : `<p>No ticket update was proposed for this scenario.</p>`;
+      }
+
+      fetch("support-adapter-data.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Adapter evidence returned HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((payload) => {
+          buttonsEl.innerHTML = payload.scenarios.map((scenario, index) => `
+            <button type="button" data-scenario="${index}">${escapeHtml(scenario.label)}</button>
+          `).join("");
+          buttonsEl.querySelectorAll("button").forEach((button) => {
+            button.addEventListener("click", () => renderScenario(payload.scenarios[Number(button.dataset.scenario)]));
+          });
+          renderScenario(payload.scenarios[0]);
+        })
+        .catch((error) => {
+          statusEl.textContent = "ERROR";
+          statusEl.className = "health-pill reject";
+          labelEl.textContent = "Adapter evidence unavailable";
+          teachingEl.textContent = error.message;
+        });
+    </script>
+  </body>
+</html>
